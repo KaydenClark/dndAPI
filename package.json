@@ -1,0 +1,14 @@
+{
+  "name": "dndapi",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "start"
+  },
+  "author": "Kayden Clark",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
