@@ -8,9 +8,9 @@ let idCounter = 1;
 let contacts = [
     {
         id: 0,
-        name: "Wes",
+        name: "Kayen",
         phone: "867-5309",
-        email: "wes@wes.wes"
+        email: "kayen@kay.cla"
     }
 ]
 
