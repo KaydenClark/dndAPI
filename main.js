@@ -43,27 +43,27 @@ app.use(cors())
 
 app.get('/', (req, res) => {
     res.send(entities)
-})
+});
 
 app.get('/monstersList', (req, res) => {
     res.send(monstersList)
-})
+});
 
 app.get('/monstersList/:name', (req, res) => {
     const results = monstersList.filter((monster) => monster.name == req.params.name)
     res.send(results)
-})
+});
 
 // req.body Parsing
 // Validate the input
 // Push the input into the "Database"
 // Send a Response
 app.post('/', (req, res) => {
-    const monster = req.body
-    monster.id = idCounter
-    monsters.push(monster)
+    const entity = req.body
+    entity.id = idCounter
+    entities.push(entity)
     idCounter++
-    res.send(monster)
+    res.send(entity)
 })
 
 app.put('/monsters/:id', (req, res) => {
