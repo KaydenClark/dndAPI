@@ -13,7 +13,7 @@ const settings = {
 }
 
 
-const newUserCheck = (userName) => {
+const validateUser = (userName) => {
     // Use connect method to connect to the server
     let iou = new Promise ((resolve, reject) =>{
 
@@ -45,4 +45,4 @@ const newUserCheck = (userName) => {
     return iou
 }
 
-module.exports = {newUserCheck}
+module.exports = {validateUser}
