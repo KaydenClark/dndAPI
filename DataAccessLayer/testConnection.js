@@ -6,7 +6,7 @@ require('dotenv').config()
 // Connection URL
 const url = process.env.ATLAS_CONNECTION
 
-const dbName = 'ToDoProject';
+const dbName = 'DragonsData';
 const settings = {
     useUnifiedTopology: true
 }
@@ -17,12 +17,9 @@ const testConnection = () => {
         // Use connect method to connect to the server
         MongoClient.connect(url, settings, function (err, client) {
             if(err){
-                // assert.equal(null, err);
                 reject(err)
             } else {
                 const db = client.db(dbName);
-                // console.log("client", client)
-                // console.log("db", db)
                 client.close();
                 resolve("Connected successfully to server")
                 console.log("Connected to Server")
