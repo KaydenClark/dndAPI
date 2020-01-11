@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
-// const ObjectId = require("mongodb").ObjectId;
+const jwt = require('json-web-token')
+const bcrypt = require('bcrypt')
 require('dotenv').config()
 
 
@@ -13,7 +14,7 @@ const settings = {
 }
 
 
-const validateUser = (userName) => {
+const validateUser = (userName, hashedpswd) => {
     // Use connect method to connect to the server
     let iou = new Promise ((resolve, reject) =>{
 
@@ -27,12 +28,21 @@ const validateUser = (userName) => {
                 // Get the contacts collection
                 const collection = db.collection('users');
                 // Insert a document
-                collection.find({"userName": userName}).toArray(function (err, docs) {
+                collection.find({"userName": userName}).toArray(async function (err, docs) {
                     if(err){
                         reject(err)
                     }else{
                         if(docs.length > 0){
-                            resolve(true)
+                            const passValid = await bcrypt.compare(hashedpswd, docs[0].hashedpass)
+                                .then(function(res){return res})
+                            if(passValid){
+                                console.log('passmatch')
+                                resolve(true)
+                            } else {
+                                console.log('no match')
+                                resolve(false)
+                            }
+                            // console.log(docs[0].hashedpass)
                         } else{
                             resolve(false)
                         }
