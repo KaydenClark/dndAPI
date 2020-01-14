@@ -25,7 +25,7 @@ const createUser = (userName, pswd) => {
                         let hashedpass = hash
                         const db = client.db(dbName);
                         // Get the contacts collection
-                        const collection = db.collection('users');
+                        const collection = db.collection('Users');
                         // Insert a document
                         collection.insertOne({userName, hashedpass}, (err, result) => {
                             if(err){

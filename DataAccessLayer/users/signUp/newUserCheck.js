@@ -25,7 +25,7 @@ const newUserCheck = (userName) => {
                 console.log("Connected to server for Creation of Contact");
                 const db = client.db(dbName);
                 // Get the contacts collection
-                const collection = db.collection('users');
+                const collection = db.collection('Users');
                 // Insert a document
                 collection.find({"userName": userName}).toArray(function (err, docs) {
                     if(err){

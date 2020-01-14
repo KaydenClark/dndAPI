@@ -1,5 +1,4 @@
 const MongoClient = require('mongodb').MongoClient;
-const jwt = require('json-web-token')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
@@ -26,7 +25,7 @@ const validateUser = (userName, hashedpswd) => {
                 console.log("Connected to server for Creation of Contact");
                 const db = client.db(dbName);
                 // Get the contacts collection
-                const collection = db.collection('users');
+                const collection = db.collection('Users');
                 // Insert a document
                 collection.find({"userName": userName}).toArray(async function (err, docs) {
                     if(err){
