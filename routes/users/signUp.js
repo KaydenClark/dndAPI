@@ -4,6 +4,10 @@ const router = express.Router();
 const {createUser} = require('../../DataAccessLayer/users/signUp/createUser')
 const {newUserCheck} = require('../../DataAccessLayer/users/signUp/newUserCheck')
 
+router.get('/', async (req, res) => {
+    res.send("Wait a minute... Who ARE you?")
+})
+
 router.post('/', async (req, res) => {
     let userName = req.body.userName
     let hash = req.body.hash
