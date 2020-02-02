@@ -1,17 +1,24 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-const {createCharacter} = require('../../DataAccess/character/createCharacter')
-
-router.get('/', (req, res) => {
-
-    res.send('hello')
-})
+const {readCharacters} = require('../../DataAccessLayer/character/readCharacters')
+const {createCharacter} = require('../../DataAccessLayer/character/createCharacter')
 
 router.post('/', async (req, res) => {
-    playerData = req.body
-    player = await createCharacter(playerData)
-    res.send('hello')
+    const sheet = req.body
+    const player = createCharacter(sheet)
+    res.send(player)
+})
+
+router.get('/allPlayerData', async (req, res) => {
+    characterList = await readCharacters()
+    res.send(characterList)
+})
+
+router.get('/:playerId', async(req, res) => {
+    playerId = req.param.playerId
+    playerData = getPlayerById(playerId)
+    res.send(playerData)
 })
 
 module.exports = router
