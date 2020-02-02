@@ -7,6 +7,7 @@ router.use(express.json())
 
 router.use('/signIn', require('./users/signIn'))
 router.use('/signUp', require('./users/signUp'))
+router.use('/character', require('./character/character'))
 
 
 router.get('/test', (req, res) =>{

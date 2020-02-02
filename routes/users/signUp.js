@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const {createUser} = require('../../DataAccessLayer/users/signUp/createUser')
-const {newUserCheck} = require('../../DataAccessLayer/users/signUp/newUserCheck')
+const {createUser} = require('../../DataAccess/users/signUp/createUser')
+const {newUserCheck} = require('../../DataAccess/users/signUp/newUserCheck')
 
 router.get('/', async (req, res) => {
     res.send("Wait a minute... Who ARE you?")
