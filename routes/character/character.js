@@ -11,6 +11,7 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/allPlayerData', async (req, res) => {
+    console.log('allplayerdata...')
     characterList = await readCharacters()
     res.send(characterList)
 })
