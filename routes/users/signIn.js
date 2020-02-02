@@ -10,9 +10,9 @@ router.post('/', async(req, res) =>{
     // console.log(await validateUser(userName, hash))
     if(await validateUser(userName, hash)){
         // res.send(genToken())
-        res.send('Vaild user and password')
+        res.send(true)
     } else {
-        res.send('User Name or Password do not match')
+        res.send(false)
     }
 })
 
