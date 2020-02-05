@@ -11,11 +11,12 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/allPlayerData', async (req, res) => {
+    console.log('allplayerdata...')
     characterList = await readCharacters()
     res.send(characterList)
 })
 
-router.get('/:playerId', async(req, res) => {
+router.get('/:playerId', async (req, res) => {
     playerId = req.param.playerId
     playerData = getPlayerById(playerId)
     res.send(playerData)
