@@ -5,7 +5,7 @@ const router = express.Router();
 router.use(cors())
 router.use(express.json())
 
-const {testConnection} = require('../DataAccessLayer/testConnection')
+const {testConnection} = require('../DataAccess/testConnection')
 
 router.use('/signIn', require('./users/signIn'))
 router.use('/signUp', require('./users/signUp'))

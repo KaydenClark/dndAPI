@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const {readCharacters} = require('../../DataAccessLayer/character/readCharacters')
-const {createCharacter} = require('../../DataAccessLayer/character/createCharacter')
+const {readCharacters} = require('../../DataAccess/character/readCharacters')
+const {createCharacter} = require('../../DataAccess/character/createCharacter')
 
 router.post('/', async (req, res) => {
     const sheet = req.body
