@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const express = require('express')
 
-const authenticate = (req, res, nex) => {
-    const authHeader = req.headers['authorization']
+const authenticate = (req, res, next) => {
+    console.log('__________________NEW REQUEST_____________________________')
+    const authHeader = req.headers['Authorization']
     const token = authHeader && authHeader.split(' ')[1]
+    console.log(authHeader)
     if(token == null){
         return res.sendStatus(401)
     } else {
