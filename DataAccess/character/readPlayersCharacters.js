@@ -41,6 +41,6 @@ const readPlayersCharacters = (player) => {
         });
     })
     return iou;
-}
+} // mongo code
 
 module.exports = {readPlayersCharacters}
