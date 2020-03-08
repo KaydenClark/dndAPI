@@ -1,0 +1,88 @@
+{
+    "email": "Name@email.com",
+    "userName": "User Name",
+    "characterName": "Characters Name",
+    "class": "Class",
+    "level": 0,
+    "background": "Background",
+    "playerName": "Player's Name",
+    "alignment": "Alignment",
+    "race": "Half-Halfling",
+    "str": 8,
+    "dex": 8,
+    "con": 8,
+    "int": 8,
+    "wis": 8,
+    "cha": 8,
+    "inspiration": 2,
+    "proficiency": 2,
+    "savingThrows": {
+        "str": true,
+        "dex": false,
+        "con": false,
+        "int": true,
+        "wis": false,
+        "cha": false
+    },
+    "skills": {
+        "str": {
+            "athletics": false
+        },
+        "dex": {
+            "acrobatics": false,
+            "slightOfHand": false,
+            "stealth": false
+        },
+        "con": {},
+        "int": {
+            "arcana": true,
+            "history": false,
+            "investigation": true,
+            "nature": true,
+            "religion": false
+        },
+        "wis": {
+            "animalHandling": false,
+            "insight": true,
+            "medicine": false,
+            "perception": true,
+            "survival": true
+        },
+        "cha": {
+            "deception": true,
+            "intimidation": false,
+            "performance": true,
+            "persuasion": false
+        }
+    },
+    "perception": 10,
+    "otherProficiencies": {},
+    "languages": ["common", "dwarvish"],
+    "armorClass": 10,
+    "initative": 2,
+    "speed": 25,
+    "hpMax": 12,
+    "currentHP": 10,
+    "temporaryHP": 0,
+    "hitDice": "1d10",
+    "deathSaves": {
+        "success": [false, false, false],
+        "fail": [false, false, false]
+    },
+    "attacks"{
+        "slot1": {
+            "name": "",
+            "atkBonus": "",
+            "damage": "",
+            "damageType": "",
+            "description": ""
+        },
+        "slot2": {
+            "name": "",
+            "atkBonus": "",
+            "damage": "",
+            "damageType": "",
+            "description": ""
+        }
+    }
+}
