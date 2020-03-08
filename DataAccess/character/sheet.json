@@ -8,6 +8,12 @@
     "playerName": "Player's Name",
     "alignment": "Alignment",
     "race": "Half-Halfling",
+    "age": 21,
+    "height": "6ft",
+    "weight": "210lbs",
+    "eyes": "blue",
+    "skin": "light",
+    "hair": "brown",
     "str": 8,
     "dex": 8,
     "con": 8,
@@ -69,20 +75,89 @@
         "success": [false, false, false],
         "fail": [false, false, false]
     },
-    "attacks"{
-        "slot1": {
+    "attacks": [
+        {
             "name": "",
             "atkBonus": "",
             "damage": "",
             "damageType": "",
             "description": ""
+            },
+        {
+            "name": "",
+            "atkBonus": "",
+            "damage": "",
+            "damageType": "",
+            "description": ""
+            }
+    ],
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 0,
+    "pp": 0,
+    "equipment": [
+        {
+        }
+    ],
+    "personalityTraits": "",
+    "ideals": "",
+    "bonds": "",
+    "flaws": "",
+    "features": [],
+    "backstory": "",
+    "alliesAndOrganizations": [],
+    "treasure": [],
+    "spellCastingClass": "",
+    "spellCastingAbility": "",
+    "spellSaveDC": 13,
+    "spellATKBonus": 10,
+    "spellSlots": {
+        "cantrips": [],
+        "level_1": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
         },
-        "slot2": {
-            "name": "",
-            "atkBonus": "",
-            "damage": "",
-            "damageType": "",
-            "description": ""
+        "level_2": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_3": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_4": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_5": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_6": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_7": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_8": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
+        },
+        "level_9": {
+            "slotTotal": 0,
+            "slotsExpended": 0,
+            "knownSpells": []
         }
     }
 }
