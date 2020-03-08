@@ -10,12 +10,13 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     let userName = req.body.userName
+    let email = req.body.email
     let hash = req.body.hash
     const validate = await newUserCheck(userName)
     if(validate){
         res.send('user exsists')
     }else{
-       const newUser = await createUser(userName, hash)
+       const newUser = await createUser(userName, hash, email)
        res.send(newUser)
     }
 })

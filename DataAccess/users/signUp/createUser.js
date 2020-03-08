@@ -10,7 +10,7 @@ const settings = {
     useUnifiedTopology: true
 }
 
-const createUser = (userName, pswd) => {
+const createUser = (userName, pswd, email) => {
     // Use connect method to connect to the server
     let iou = new Promise ((resolve, reject) =>{
 
@@ -27,7 +27,7 @@ const createUser = (userName, pswd) => {
                         // Get the contacts collection
                         const collection = db.collection('Users');
                         // Insert a document
-                        collection.insertOne({userName, hashedpass}, (err, result) => {
+                        collection.insertOne({email, userName, hashedpass}, (err, result) => {
                             if(err){
                                 reject(err)
                             }

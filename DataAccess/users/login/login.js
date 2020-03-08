@@ -13,7 +13,7 @@ const settings = {
 }
 
 
-const validateUser = (userName, hashedpswd) => {
+const validateUser = (email, hashedpswd) => {
     // Use connect method to connect to the server
     let iou = new Promise ((resolve, reject) =>{
 
@@ -27,7 +27,7 @@ const validateUser = (userName, hashedpswd) => {
                 // Get the contacts collection
                 const collection = db.collection('Users');
                 // Insert a document
-                collection.find({"userName": userName}).toArray(async function (err, docs) {
+                collection.find({"email": email}).toArray(async function (err, docs) {
                     if(err){
                         reject(err)
                     }else{
