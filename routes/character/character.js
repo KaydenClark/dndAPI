@@ -16,9 +16,12 @@ const authenticate = (req, res, next) => {
         return res.sendStatus(401)
     } else {
         jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, user) => {
-            if(err) return res.sendStatus(403)
+            if(err) {
+                return res.sendStatus(403)
+            } else {
             req.user = user
             next()
+            }
         }) //JWT Verify the Token
     } // IF/ELSE
 } // Auth
@@ -30,9 +33,9 @@ router.post('/', authenticate, async (req, res) => {
 })
 
 router.get('/', authenticate, async (req, res) => {
-    console.log(`${req.user.userName} conection request`)
-    userName = req.user.userName
-    characterList = await readPlayersCharacters(userName)
+    console.log(`${req.user.email} conection request`)
+    email = req.user.email
+    characterList = await readPlayersCharacters(email)
     res.send(characterList)
 })
 

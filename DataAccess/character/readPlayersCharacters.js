@@ -11,7 +11,7 @@ const settings = {
     useUnifiedTopology: true
 }
 
-const readPlayersCharacters = (player) => {
+const readPlayersCharacters = (playerEmail) => {
     let iou = new Promise((resolve, reject) => {
     // Use connect method to connect to the server
         MongoClient.connect(url, settings, function (err, client) {
@@ -24,7 +24,7 @@ const readPlayersCharacters = (player) => {
                 // Get the contacts collection
                 const collection = db.collection('Character');
                 // Find some documents
-                collection.find({userName: player}).toArray(function (err, docs) {
+                collection.find({email: playerEmail}).toArray(function (err, docs) {
                     if(err){
                         reject(err)
                     }else{
