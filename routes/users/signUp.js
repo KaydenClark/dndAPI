@@ -12,9 +12,11 @@ router.post('/', async (req, res) => {
     let userName = req.body.userName
     let email = req.body.email
     let hash = req.body.hash
-    const validate = await newUserCheck(userName)
+    const validate = await newUserCheck(userName, email)
     if(validate){
-        res.send('user exsists')
+        console.log("sign up failed, user exsists")
+        // res.status(403)
+        res.send(false)
     }else{
        const newUser = await createUser(userName, hash, email)
        res.send(newUser)

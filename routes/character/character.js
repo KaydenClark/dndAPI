@@ -7,6 +7,7 @@ require('dotenv').config()
 // const {readCharacters} = require('../../DataAccess/character/readCharacters')
 const {readPlayersCharacters} = require('../../DataAccess/character/readPlayersCharacters')
 const {createCharacter} = require('../../DataAccess/character/createCharacter')
+const {getCharacterById} = require('../../DataAccess/character/getCharacterById')
 
 const authenticate = (req, res, next) => {
     console.log('__________________NEW REQUEST_____________________________')
@@ -39,9 +40,9 @@ router.get('/', authenticate, async (req, res) => {
     res.send(characterList)
 })
 
-router.get('/:playerId', async (req, res) => {
-    playerId = req.param.playerId
-    playerData = getPlayerById(playerId)
+router.get('/:characterId', async (req, res) => {
+    characterId = req.param.characterId
+    CharacterData = getCharacterById(characterId)
     res.send(playerData)
 })
 
