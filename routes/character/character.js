@@ -42,8 +42,9 @@ router.get('/', authenticate, async (req, res) => {
 
 router.get('/:characterId', async (req, res) => {
     characterId = req.param.characterId
-    CharacterData = getCharacterById(characterId)
-    res.send(playerData)
+    characterData = await getCharacterById(characterId)
+    console.log(characterData)
+    res.send(characterData)
 })
 
 

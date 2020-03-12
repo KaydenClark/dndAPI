@@ -43,6 +43,7 @@ const readPlayersCharacters = (playerEmail) => {
                             characterList.push(characterData)
                         }
                         console.log(characterList)
+                        console.log(results)
                         console.log(`found ${docs.length} documents`)
                         client.close();
                         resolve(characterList);

@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-// const ObjectId = require("mongodb").ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 require('dotenv').config()
 
 
@@ -24,7 +24,7 @@ const getCharacterById = (characterId) => {
                 // Get the contacts collection
                 const collection = db.collection('Character');
                 // Find some documents
-                collection.find({_id: characterId}).toArray(function (err, docs) {
+                collection.find({ObjectId: characterId}).toArray(function (err, docs) {
                     if(err){
                         reject(err)
                     }else{
@@ -34,6 +34,7 @@ const getCharacterById = (characterId) => {
                         }
                         console.log(`found ${docs.length} documents`)
                         client.close();
+                        // console.log(results)
                         resolve(results);
                     }
                 });
