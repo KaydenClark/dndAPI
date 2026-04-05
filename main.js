@@ -1,14 +1,16 @@
-const express = require('express');
-const app = express()
-const port = process.env.PORT || 5000
+require('dotenv').config();
 
-app.use(require('./routes'))
+const { createApp } = require('./app');
 
-app.use((req, res) => {
-    res.status(404)
-        .send('Unknown Request');
-});
+const port = process.env.PORT || 5000;
 
-app.listen(port, () =>{
-    console.log(`Express listening on port ${port}`)
-})
+createApp()
+    .then((app) => {
+        app.listen(port, () => {
+            console.log(`Express listening on port ${port}`);
+        });
+    })
+    .catch((error) => {
+        console.error('Failed to start API', error);
+        process.exit(1);
+    });

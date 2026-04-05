@@ -1,51 +1,84 @@
 const express = require('express');
+
+const {
+    createCharacter,
+    getCharacterByIdForEmail,
+    listCharacterSummariesByEmail
+} = require('../../DataAccess/characters');
+const { authenticate } = require('../../middleware/authenticate');
+const { asyncHandler } = require('../../middleware/asyncHandler');
+
 const router = express.Router();
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
 
-// const {authenticate} = require('../../DataAccess/users/login/authenticate')
-// const {readCharacters} = require('../../DataAccess/character/readCharacters')
-const {readPlayersCharacters} = require('../../DataAccess/character/readPlayersCharacters')
-const {createCharacter} = require('../../DataAccess/character/createCharacter')
-const {getCharacterById} = require('../../DataAccess/character/getCharacterById')
+router.use(authenticate);
 
-const authenticate = (req, res, next) => {
-    console.log('__________________NEW REQUEST_____________________________')
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if(token == null){
-        return res.sendStatus(401)
-    } else {
-        jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, user) => {
-            if(err) {
-                return res.sendStatus(403)
-            } else {
-            req.user = user
-            next()
-            }
-        }) //JWT Verify the Token
-    } // IF/ELSE
-} // Auth
+function isAbilityScoreObject(value) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+        return false;
+    }
 
-router.post('/', authenticate, async (req, res) => {
-    const sheet = req.body
-    const player = createCharacter(sheet)
-    res.send(player)
-})
+    return ['str', 'dex', 'con', 'int', 'wis', 'cha']
+        .every((key) => Number.isFinite(Number(value[key])));
+}
 
-router.get('/', authenticate, async (req, res) => {
-    console.log(`${req.user.email} conection request`)
-    email = req.user.email
-    characterList = await readPlayersCharacters(email)
-    res.send(characterList)
-})
+router.post('/', asyncHandler(async (req, res) => {
+    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
+        res.status(400).json({ error: 'Character payload must be an object' });
+        return;
+    }
 
-router.get('/:characterId', async (req, res) => {
-    characterId = req.param.characterId
-    characterData = await getCharacterById(characterId)
-    console.log(characterData)
-    res.send(characterData)
-})
+    const characterName = typeof req.body.characterName === 'string'
+        ? req.body.characterName.trim()
+        : '';
 
+    if (!characterName) {
+        res.status(400).json({ error: 'characterName is required' });
+        return;
+    }
 
-module.exports = router
+    const raceId = typeof req.body.raceId === 'string' ? req.body.raceId.trim() : '';
+    const classId = typeof req.body.classId === 'string' ? req.body.classId.trim() : '';
+    const level = Number(req.body.level);
+
+    if (!raceId) {
+        res.status(400).json({ error: 'raceId is required' });
+        return;
+    }
+
+    if (!classId) {
+        res.status(400).json({ error: 'classId is required' });
+        return;
+    }
+
+    if (!Number.isInteger(level) || level < 1 || level > 20) {
+        res.status(400).json({ error: 'level must be an integer between 1 and 20' });
+        return;
+    }
+
+    if (req.body.baseAbilityScores && !isAbilityScoreObject(req.body.baseAbilityScores)) {
+        res.status(400).json({ error: 'baseAbilityScores must include numeric str, dex, con, int, wis, and cha values' });
+        return;
+    }
+
+    const character = await createCharacter(req.user, req.body);
+
+    res.status(201).json({ character });
+}));
+
+router.get('/', asyncHandler(async (req, res) => {
+    const characters = await listCharacterSummariesByEmail(req.user.email);
+    res.json({ characters });
+}));
+
+router.get('/:characterId', asyncHandler(async (req, res) => {
+    const character = await getCharacterByIdForEmail(req.params.characterId, req.user.email);
+
+    if (!character) {
+        res.status(404).json({ error: 'Character not found' });
+        return;
+    }
+
+    res.json({ character });
+}));
+
+module.exports = router;

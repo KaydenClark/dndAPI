@@ -1,22 +1,42 @@
 const express = require('express');
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+const jwt = require('jsonwebtoken');
+
+const { validateUser } = require('../../DataAccess/users');
+const { asyncHandler } = require('../../middleware/asyncHandler');
+const { getJwtSecret } = require('../../middleware/authenticate');
+
 const router = express.Router();
 
-const {validateUser} = require('../../DataAccess/users/login/login')
+router.post('/', asyncHandler(async (req, res) => {
+    const email = typeof req.body.email === 'string' ? req.body.email.trim().toLowerCase() : '';
+    const password = typeof req.body.password === 'string'
+        ? req.body.password
+        : req.body.hash;
 
-router.post('/', async(req, res) =>{
-    let email = req.body.email
-    let user = {email: email}
-    let hash = req.body.hash
-    let accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN)
-    // console.log(await validateUser(userName, hash))
-    if(await validateUser(email, hash)){
-        // res.send(genToken())
-        res.send(accessToken)
-    } else {
-        res.send(false)
+    if (!email || !password) {
+        res.status(400).json({
+            error: 'Email and password are required'
+        });
+        return;
     }
-})
 
-module.exports = router
+    const user = await validateUser(email, password);
+
+    if (!user) {
+        res.status(401).json({ error: 'Invalid email or password' });
+        return;
+    }
+
+    const token = jwt.sign(
+        {
+            email: user.email,
+            userName: user.userName
+        },
+        getJwtSecret(),
+        { expiresIn: '1h' }
+    );
+
+    res.json({ token });
+}));
+
+module.exports = router;

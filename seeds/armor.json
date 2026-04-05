@@ -1,0 +1,7 @@
+[
+  { "id": "leather", "name": "Leather Armor", "category": "light", "baseAc": 11, "dexCap": null, "strengthRequirement": null, "stealthDisadvantage": false },
+  { "id": "studded-leather", "name": "Studded Leather", "category": "light", "baseAc": 12, "dexCap": null, "strengthRequirement": null, "stealthDisadvantage": false },
+  { "id": "scale-mail", "name": "Scale Mail", "category": "medium", "baseAc": 14, "dexCap": 2, "strengthRequirement": null, "stealthDisadvantage": true },
+  { "id": "chain-mail", "name": "Chain Mail", "category": "heavy", "baseAc": 16, "dexCap": 0, "strengthRequirement": 13, "stealthDisadvantage": true },
+  { "id": "shield", "name": "Shield", "category": "shield", "baseAc": 2, "dexCap": null, "strengthRequirement": null, "stealthDisadvantage": false }
+]

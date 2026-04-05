@@ -1,0 +1,26 @@
+[
+  {
+    "email": "aria@example.com",
+    "userName": "Aria",
+    "password": "Password123!",
+    "role": "player",
+    "playerIds": [],
+    "dmCampaignIds": []
+  },
+  {
+    "email": "bran@example.com",
+    "userName": "Bran",
+    "password": "Password123!",
+    "role": "player",
+    "playerIds": [],
+    "dmCampaignIds": []
+  },
+  {
+    "email": "dm@example.com",
+    "userName": "DungeonMaster",
+    "password": "Password123!",
+    "role": "dm",
+    "playerIds": [],
+    "dmCampaignIds": []
+  }
+]

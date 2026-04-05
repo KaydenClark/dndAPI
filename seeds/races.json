@@ -1,0 +1,72 @@
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "str": 1,
+      "dex": 1,
+      "con": 1,
+      "int": 1,
+      "wis": 1,
+      "cha": 1
+    },
+    "languages": ["Common", "Choice"],
+    "traits": ["Versatile"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["human-versatility"]
+  },
+  {
+    "id": "high-elf",
+    "name": "High Elf",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "dex": 2,
+      "int": 1
+    },
+    "languages": ["Common", "Elvish", "Choice"],
+    "traits": ["Darkvision", "Fey Ancestry", "Trance", "Keen Senses", "Elf Weapon Training"],
+    "weaponProficiencies": ["longsword", "shortsword", "shortbow", "longbow"],
+    "spellGrants": [
+      {
+        "type": "cantripChoice",
+        "classId": "wizard",
+        "count": 1
+      }
+    ],
+    "featureIds": ["darkvision", "fey-ancestry", "trance", "keen-senses", "elf-weapon-training", "high-elf-cantrip"]
+  },
+  {
+    "id": "hill-dwarf",
+    "name": "Hill Dwarf",
+    "size": "Medium",
+    "speed": 25,
+    "abilityBonuses": {
+      "con": 2,
+      "wis": 1
+    },
+    "languages": ["Common", "Dwarvish"],
+    "traits": ["Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Stonecunning", "Dwarven Toughness"],
+    "weaponProficiencies": ["battleaxe", "handaxe", "light-hammer", "warhammer"],
+    "spellGrants": [],
+    "featureIds": ["darkvision", "dwarven-resilience", "dwarven-combat-training", "stonecunning", "dwarven-toughness"]
+  },
+  {
+    "id": "lightfoot-halfling",
+    "name": "Lightfoot Halfling",
+    "size": "Small",
+    "speed": 25,
+    "abilityBonuses": {
+      "dex": 2,
+      "cha": 1
+    },
+    "languages": ["Common", "Halfling"],
+    "traits": ["Lucky", "Brave", "Halfling Nimbleness", "Naturally Stealthy"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["lucky", "brave", "halfling-nimbleness", "naturally-stealthy"]
+  }
+]

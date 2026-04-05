@@ -1,27 +1,38 @@
 const express = require('express');
+
+const { createUser, findExistingUser } = require('../../DataAccess/users');
+const { asyncHandler } = require('../../middleware/asyncHandler');
+
 const router = express.Router();
 
-const {createUser} = require('../../DataAccess/users/signUp/createUser')
-const {newUserCheck} = require('../../DataAccess/users/signUp/newUserCheck')
+router.post('/', asyncHandler(async (req, res) => {
+    const email = typeof req.body.email === 'string' ? req.body.email.trim().toLowerCase() : '';
+    const userName = typeof req.body.userName === 'string' ? req.body.userName.trim() : '';
+    const password = typeof req.body.password === 'string'
+        ? req.body.password
+        : req.body.hash;
 
-router.get('/', async (req, res) => {
-    res.send("Wait a minute... Who ARE you?")
-})
-
-router.post('/', async (req, res) => {
-    let userName = req.body.userName
-    let email = req.body.email
-    let hash = req.body.hash
-    const validate = await newUserCheck(userName, email)
-    if(validate){
-        console.log("sign up failed, user exsists")
-        // res.status(403)
-        res.send(false)
-    }else{
-       const newUser = await createUser(userName, hash, email)
-       res.send(newUser)
+    if (!email || !userName || !password) {
+        res.status(400).json({
+            error: 'Email, userName, and password are required'
+        });
+        return;
     }
-})
 
+    const existingUser = await findExistingUser({ email, userName });
 
-module.exports = router
+    if (existingUser) {
+        const duplicateField = existingUser.email === email ? 'email' : 'userName';
+
+        res.status(409).json({
+            error: `${duplicateField} already exists`
+        });
+        return;
+    }
+
+    const user = await createUser({ email, userName, password });
+
+    res.status(201).json({ user });
+}));
+
+module.exports = router;

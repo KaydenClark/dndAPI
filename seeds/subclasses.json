@@ -1,0 +1,34 @@
+[
+  {
+    "id": "champion",
+    "classId": "fighter",
+    "name": "Champion",
+    "levelFeatures": {
+      "3": ["improved-critical"]
+    }
+  },
+  {
+    "id": "evocation",
+    "classId": "wizard",
+    "name": "School of Evocation",
+    "levelFeatures": {
+      "2": ["sculpt-spells"]
+    }
+  },
+  {
+    "id": "life-domain",
+    "classId": "cleric",
+    "name": "Life Domain",
+    "levelFeatures": {
+      "1": ["disciple-of-life"]
+    }
+  },
+  {
+    "id": "thief",
+    "classId": "rogue",
+    "name": "Thief",
+    "levelFeatures": {
+      "3": ["fast-hands", "second-story-work"]
+    }
+  }
+]
