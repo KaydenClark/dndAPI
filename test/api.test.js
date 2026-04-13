@@ -298,6 +298,97 @@ test('GET /player/:characterId returns an owned character by id with spell data'
     assert.ok(response.body.character.featureIds.includes('sculpt-spells'));
 });
 
+test('PUT /player/:characterId updates an owned character and re-derives dependent stats', async () => {
+    await seedUser();
+    const token = await signIn();
+
+    const createResponse = await request(app)
+        .post('/player')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            characterName: 'Brim',
+            raceId: 'high-elf',
+            classId: 'wizard',
+            subclassId: 'evocation',
+            level: 3,
+            baseAbilityScores: {
+                str: 8,
+                dex: 14,
+                con: 13,
+                int: 18,
+                wis: 12,
+                cha: 10
+            },
+            cantripIds: ['fire-bolt', 'mage-hand'],
+            knownSpellIds: ['magic-missile', 'shield', 'scorching-ray'],
+            preparedSpellIds: ['magic-missile', 'shield', 'scorching-ray']
+        });
+
+    const response = await request(app)
+        .put(`/player/${createResponse.body.character._id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            level: 5,
+            characterName: 'Archmage Brim',
+            baseAbilityScores: {
+                str: 8,
+                dex: 14,
+                con: 13,
+                int: 20,
+                wis: 12,
+                cha: 10
+            },
+            knownSpellIds: ['magic-missile', 'shield', 'scorching-ray', 'fireball'],
+            preparedSpellIds: ['magic-missile', 'shield', 'fireball']
+        });
+
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.body.character.characterName, 'Archmage Brim');
+    assert.equal(response.body.character.level, 5);
+    assert.equal(response.body.character.proficiencyBonus, 3);
+    assert.equal(response.body.character.abilityScores.int, 21);
+    assert.equal(response.body.character.spellSaveDC, 16);
+    assert.equal(response.body.character.spellAttackBonus, 8);
+    assert.equal(response.body.character.maxHp, 27);
+    assert.equal(response.body.character.spellSlots.level_3.slotTotal, 2);
+    assert.ok(response.body.character.availableSpellIds.includes('fireball'));
+    assert.ok(response.body.character.featureIds.includes('third-level-spells'));
+});
+
+test('PUT /player/:characterId validates partial character updates', async () => {
+    await seedUser();
+    const token = await signIn();
+
+    const createResponse = await request(app)
+        .post('/player')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            characterName: 'Brim',
+            raceId: 'high-elf',
+            classId: 'wizard',
+            subclassId: 'evocation',
+            level: 5,
+            baseAbilityScores: {
+                str: 8,
+                dex: 14,
+                con: 13,
+                int: 18,
+                wis: 12,
+                cha: 10
+            }
+        });
+
+    const response = await request(app)
+        .put(`/player/${createResponse.body.character._id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            level: 21
+        });
+
+    assert.equal(response.statusCode, 400);
+    assert.equal(response.body.error, 'level must be an integer between 1 and 20');
+});
+
 test('POST /player validates required compendium fields', async () => {
     await seedUser();
     const token = await signIn();

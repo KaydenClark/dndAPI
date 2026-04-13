@@ -52,7 +52,7 @@ async function prepareCharacterDocument(owner, payload, existingDocument = {}) {
         baseDocument.baseAbilityScores = inferredBaseAbilityScores;
     }
 
-    if (payload.maxHp === undefined && existingDocument.maxHp === undefined) {
+    if (payload.maxHp === undefined) {
         delete baseDocument.maxHp;
     }
 
@@ -104,6 +104,52 @@ async function createCharacter(owner, payload) {
     });
 }
 
+async function updateCharacterForEmail(characterId, email, payload) {
+    if (!ObjectId.isValid(characterId)) {
+        return null;
+    }
+
+    const db = await getDb();
+    const storedCharacter = await db.collection('Character').findOne({
+        _id: new ObjectId(characterId),
+        email
+    });
+
+    if (!storedCharacter) {
+        return null;
+    }
+
+    const owner = {
+        email: storedCharacter.email,
+        userName: storedCharacter.userName
+    };
+    const character = await prepareCharacterDocument(owner, payload, storedCharacter);
+    const updatedCharacter = {
+        ...character,
+        createdAt: storedCharacter.createdAt || character.createdAt,
+        updatedAt: new Date().toISOString()
+    };
+
+    try {
+        await db.collection('Character').replaceOne(
+            { _id: storedCharacter._id, email },
+            updatedCharacter
+        );
+    } catch (error) {
+        if (isDuplicateKeyError(error)) {
+            error.statusCode = 409;
+            error.message = 'Character name already exists for this user';
+        }
+
+        throw error;
+    }
+
+    return serializeCharacter({
+        ...updatedCharacter,
+        _id: storedCharacter._id
+    });
+}
+
 async function getCharacterByIdForEmail(characterId, email) {
     if (!ObjectId.isValid(characterId)) {
         return null;
@@ -124,7 +170,7 @@ async function getCharacterByIdForEmail(characterId, email) {
         userName: storedCharacter.userName
     };
 
-    const character = await prepareCharacterDocument(owner, storedCharacter, storedCharacter);
+    const character = await prepareCharacterDocument(owner, {}, storedCharacter);
     return serializeCharacter({ ...character, _id: storedCharacter._id, createdAt: storedCharacter.createdAt });
 }
 
@@ -132,5 +178,6 @@ module.exports = {
     createCharacter,
     getCharacterByIdForEmail,
     listCharacterSummariesByEmail,
-    prepareCharacterDocument
+    prepareCharacterDocument,
+    updateCharacterForEmail
 };
