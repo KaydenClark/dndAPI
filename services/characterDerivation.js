@@ -178,9 +178,10 @@ function hasArmorProficiency(armor, proficiencySet) {
     return proficiencySet.includes(armor.id) || proficiencySet.includes(armor.category);
 }
 
-function resolveLanguages(race, character) {
+function resolveLanguages(race, background, character) {
     const racialLanguages = (race?.languages || []).filter((language) => language !== 'Choice');
-    return unique([...racialLanguages, ...(character.languages || [])]);
+    const backgroundLanguages = (background?.languages || []).filter((language) => language !== 'Choice');
+    return unique([...racialLanguages, ...backgroundLanguages, ...(character.languages || [])]);
 }
 
 function resolveHitPoints({ character, classDoc, race, abilityMods, level, featureIds }) {
@@ -407,6 +408,10 @@ function buildCharacterDocument(character, compendium) {
     const race = resolveByIdOrName(compendium.races, character.raceId, character.race || character.raceName);
     const classDoc = resolveByIdOrName(compendium.classes, character.classId, character.class || character.className);
     const subclass = resolveByIdOrName(compendium.subclasses, character.subclassId, character.subclass || character.subclassName);
+    // Backgrounds are optional and may not be seeded yet; default to an empty
+    // Map so id/name resolution never throws on older or partial compendium data.
+    const backgroundsMap = compendium.backgrounds || new Map();
+    const background = resolveByIdOrName(backgroundsMap, character.background, character.background);
 
     const baseAbilityScores = normalizeAbilityScores(character.baseAbilityScores || character.abilityScores || character);
     const abilityScores = character.baseAbilityScores
@@ -433,8 +438,13 @@ function buildCharacterDocument(character, compendium) {
         ...(character.savingThrowProficiencies || [])
     ]);
 
+    // skillProficiencies stays as the character's own (class) picks so the
+    // value round-trips cleanly through save/load. Background-granted skills
+    // are tracked separately and only folded in for the derived skill values.
     const skillProficiencies = unique(character.skillProficiencies || []);
-    const skillValues = resolveSkillValues(abilityMods, skillProficiencies, proficiencyBonus);
+    const backgroundSkillProficiencies = unique(background?.skillProficiencies || []);
+    const effectiveSkillProficiencies = unique([...skillProficiencies, ...backgroundSkillProficiencies]);
+    const skillValues = resolveSkillValues(abilityMods, effectiveSkillProficiencies, proficiencyBonus);
     const savingThrows = resolveSavingThrowValues(abilityMods, savingThrowProficiencies, proficiencyBonus);
 
     const spellSlots = resolveSpellSlotState(character, classDoc, level);
@@ -460,7 +470,7 @@ function buildCharacterDocument(character, compendium) {
         featureIds
     });
 
-    const passivePerception = 10 + abilityMods.wis + (skillProficiencies.includes('perception') ? proficiencyBonus : 0);
+    const passivePerception = 10 + abilityMods.wis + (effectiveSkillProficiencies.includes('perception') ? proficiencyBonus : 0);
     const availableWeaponIds = [...compendium.weapons.values()]
         .filter((weapon) => hasWeaponProficiency(weapon, weaponProficiencies))
         .map((weapon) => weapon.id);
@@ -484,6 +494,7 @@ function buildCharacterDocument(character, compendium) {
         subclassId: subclass?.id || character.subclassId || '',
         subclassName: subclass?.name || character.subclassName || character.subclass || '',
         background: character.background || '',
+        backgroundName: background?.name || character.background || '',
         alignment: character.alignment || '',
         level,
         xp: toNumber(character.xp, 0),
@@ -503,11 +514,12 @@ function buildCharacterDocument(character, compendium) {
         savingThrowProficiencies,
         savingThrows,
         skillProficiencies,
+        backgroundSkillProficiencies,
         skillValues,
         weaponProficiencies,
         armorProficiencies,
-        toolProficiencies: unique(character.toolProficiencies || []),
-        languages: resolveLanguages(race, character),
+        toolProficiencies: unique([...(character.toolProficiencies || []), ...(background?.toolProficiencies || [])]),
+        languages: resolveLanguages(race, background, character),
         armorId: character.armorId || null,
         shieldId: character.shieldId || null,
         equippedWeaponIds: unique(character.equippedWeaponIds || []),

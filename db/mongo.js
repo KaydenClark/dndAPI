@@ -88,7 +88,7 @@ async function ensureIndexes() {
         { unique: true, name: 'character_owner_name_unique' }
     );
 
-    for (const collectionName of ['Races', 'Classes', 'Subclasses', 'Spells', 'Weapons', 'Armor', 'Features']) {
+    for (const collectionName of ['Races', 'Classes', 'Subclasses', 'Spells', 'Weapons', 'Armor', 'Features', 'Backgrounds', 'Feats', 'Conditions']) {
         await db.collection(collectionName).createIndex(
             { id: 1 },
             { unique: true, name: `${collectionName.toLowerCase()}_id_unique` }

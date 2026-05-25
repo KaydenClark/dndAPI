@@ -133,6 +133,11 @@ function flattenEntries(entries) {
         if (entry.entries) {
             lines.push(...flattenEntries(entry.entries));
         }
+
+        // List-type entries use "items" instead of "entries" (e.g. feat bullet points)
+        if (entry.items) {
+            lines.push(...flattenEntries(entry.items));
+        }
     }
 
     return lines.filter(Boolean);
@@ -172,8 +177,19 @@ function extractLanguages(proficiencies) {
 
     for (const entry of toArray(proficiencies)) {
         for (const [key, value] of Object.entries(entry || {})) {
+            // "choose": {...} — race-style language choice
             if (key === 'choose' && value) {
                 languages.push('Choice');
+                continue;
+            }
+
+            // "anyStandard": N — background-style "pick N standard languages"
+            // Push one "Choice" token per slot so the UI knows how many picks are available
+            if ((key === 'anyStandard' || key === 'any') && typeof value === 'number') {
+                for (let i = 0; i < value; i += 1) {
+                    languages.push('Choice');
+                }
+
                 continue;
             }
 
@@ -906,11 +922,166 @@ function getImportedEquipment(dataDir) {
     return { weapons, armor };
 }
 
+// --- Backgrounds ---
+// Extracts skill proficiencies, language proficiencies, and tool proficiencies
+// from the 5etools backgrounds format into flat arrays the API understands.
+function extractSkillProficiencies(skillProficiencies) {
+    const skills = [];
+
+    for (const entry of toArray(skillProficiencies)) {
+        for (const [skill, value] of Object.entries(entry || {})) {
+            if (value === true) {
+                skills.push(slugify(skill));
+            }
+        }
+    }
+
+    return unique(skills);
+}
+
+function extractToolProficiencies(toolProficiencies) {
+    const tools = [];
+
+    for (const entry of toArray(toolProficiencies)) {
+        for (const [tool, value] of Object.entries(entry || {})) {
+            if (value === true && tool !== 'choose') {
+                tools.push(cleanText(tool));
+            }
+        }
+    }
+
+    return unique(tools);
+}
+
+function getImportedBackgrounds(dataDir) {
+    const bgData = readJson(path.join(dataDir, 'backgrounds.json'));
+    const backgrounds = [];
+
+    for (const bg of toArray(bgData.background).filter(isClassic)) {
+        backgrounds.push({
+            id: slugify(bg.name),
+            name: bg.name,
+            source: bg.source || 'PHB',
+            skillProficiencies: extractSkillProficiencies(bg.skillProficiencies),
+            languages: extractLanguages(bg.languageProficiencies),
+            toolProficiencies: extractToolProficiencies(bg.toolProficiencies),
+            description: flattenEntries(bg.entries).join(' ')
+        });
+    }
+
+    return backgrounds;
+}
+
+// --- Feats ---
+// Flattens prerequisite objects into a human-readable string so the UI
+// can display it without needing to decode the 5etools schema.
+function parsePrerequisiteText(prerequisite) {
+    if (!prerequisite || !Array.isArray(prerequisite) || prerequisite.length === 0) {
+        return null;
+    }
+
+    const parts = [];
+
+    for (const req of prerequisite) {
+        if (req.level) {
+            parts.push(`Level ${req.level}`);
+        }
+
+        if (Array.isArray(req.race)) {
+            const raceNames = req.race
+                .map((r) => cleanText(r.name || r.raceName || ''))
+                .filter(Boolean);
+
+            if (raceNames.length > 0) {
+                parts.push(raceNames.join(' or '));
+            }
+        }
+
+        if (Array.isArray(req.ability)) {
+            for (const ab of req.ability) {
+                for (const [key, val] of Object.entries(ab || {})) {
+                    parts.push(`${key.toUpperCase()} ${val}+`);
+                }
+            }
+        }
+
+        if (req.spellcasting) {
+            parts.push('Spellcasting ability');
+        }
+
+        if (req.proficiency) {
+            parts.push('Proficiency required');
+        }
+
+        if (req.feat) {
+            const featNames = toArray(req.feat)
+                .map((f) => cleanText(String(f).split('|')[0]))
+                .filter(Boolean);
+
+            if (featNames.length > 0) {
+                parts.push(featNames.join(' or '));
+            }
+        }
+
+        if (typeof req.other === 'string') {
+            parts.push(cleanText(req.other));
+        }
+    }
+
+    return parts.length > 0 ? parts.join(', ') : null;
+}
+
+function getImportedFeats(dataDir) {
+    const featData = readJson(path.join(dataDir, 'feats.json'));
+    const feats = [];
+
+    for (const feat of toArray(featData.feat).filter(isClassic)) {
+        feats.push({
+            id: slugify(feat.name),
+            name: feat.name,
+            source: feat.source || 'PHB',
+            prerequisite: parsePrerequisiteText(feat.prerequisite),
+            abilityBonus: parseAbilityBonuses(feat.ability),
+            description: flattenEntries(feat.entries).join(' ')
+        });
+    }
+
+    return feats;
+}
+
+// --- Conditions ---
+// The 5etools file has duplicates (one per source reprint). We dedupe by name
+// and keep the first occurrence, which is always the PHB/SRD version.
+function getImportedConditions(dataDir) {
+    const condData = readJson(path.join(dataDir, 'conditionsdiseases.json'));
+    const seen = new Set();
+    const conditions = [];
+
+    for (const cond of toArray(condData.condition)) {
+        if (seen.has(cond.name)) {
+            continue;
+        }
+
+        seen.add(cond.name);
+
+        conditions.push({
+            id: slugify(cond.name),
+            name: cond.name,
+            description: flattenEntries(cond.entries).join(' ')
+        });
+    }
+
+    return conditions;
+}
+
 function load5eToolsCompendium(dataDir) {
     const { races, raceFeatures } = getImportedRaces(dataDir);
     const { classes, subclasses, classFeatures } = getImportedClasses(dataDir);
     const spells = getImportedSpells(dataDir);
     const { weapons, armor } = getImportedEquipment(dataDir);
+    const backgrounds = getImportedBackgrounds(dataDir);
+    const feats = getImportedFeats(dataDir);
+    const conditions = getImportedConditions(dataDir);
 
     return [
         { collection: 'Races', key: 'id', documents: races },
@@ -919,7 +1090,10 @@ function load5eToolsCompendium(dataDir) {
         { collection: 'Spells', key: 'id', documents: spells },
         { collection: 'Weapons', key: 'id', documents: weapons },
         { collection: 'Armor', key: 'id', documents: armor },
-        { collection: 'Features', key: 'id', documents: uniqueById([...raceFeatures, ...classFeatures]) }
+        { collection: 'Features', key: 'id', documents: uniqueById([...raceFeatures, ...classFeatures]) },
+        { collection: 'Backgrounds', key: 'id', documents: backgrounds },
+        { collection: 'Feats', key: 'id', documents: feats },
+        { collection: 'Conditions', key: 'id', documents: conditions }
     ];
 }
 

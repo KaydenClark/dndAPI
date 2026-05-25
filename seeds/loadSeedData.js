@@ -5,6 +5,12 @@ const spells = require('./spells.json');
 const weapons = require('./weapons.json');
 const armor = require('./armor.json');
 const features = require('./features.json');
+// SRD seed data for collections the 5etools importer also populates.
+// When FIVETOOLS_DATA_DIR is set the importer takes precedence; these are the
+// fallbacks used in local development and CI.
+const backgrounds = require('./backgrounds.json');
+const feats = [];
+const conditions = [];
 const users = require('./users.json');
 const characters = require('./characters.json');
 const { load5eToolsCompendium } = require('./import5etools');
@@ -22,7 +28,10 @@ const COMPENDIUM_DATASETS = [
     { collection: 'Spells', key: 'id', documents: spells },
     { collection: 'Weapons', key: 'id', documents: weapons },
     { collection: 'Armor', key: 'id', documents: armor },
-    { collection: 'Features', key: 'id', documents: features }
+    { collection: 'Features', key: 'id', documents: features },
+    { collection: 'Backgrounds', key: 'id', documents: backgrounds },
+    { collection: 'Feats', key: 'id', documents: feats },
+    { collection: 'Conditions', key: 'id', documents: conditions }
 ];
 
 async function seedCompendium(db) {

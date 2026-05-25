@@ -13,11 +13,26 @@
     },
     "spellcasting": null,
     "levelProgression": {
-      "1": { "featureIds": ["fighting-style", "second-wind"] },
-      "2": { "featureIds": ["action-surge"] },
-      "3": { "featureIds": ["martial-archetype"] },
-      "4": { "featureIds": ["ability-score-improvement"] },
-      "5": { "featureIds": ["extra-attack"] }
+      "1":  { "featureIds": ["fighting-style", "second-wind"] },
+      "2":  { "featureIds": ["action-surge"] },
+      "3":  { "featureIds": ["martial-archetype"] },
+      "4":  { "featureIds": ["ability-score-improvement"] },
+      "5":  { "featureIds": ["extra-attack"] },
+      "6":  { "featureIds": ["ability-score-improvement"] },
+      "7":  { "featureIds": ["archetype-feature"] },
+      "8":  { "featureIds": ["ability-score-improvement"] },
+      "9":  { "featureIds": ["indomitable"] },
+      "10": { "featureIds": ["archetype-feature"] },
+      "11": { "featureIds": ["extra-attack-2"] },
+      "12": { "featureIds": ["ability-score-improvement"] },
+      "13": { "featureIds": ["indomitable-2"] },
+      "14": { "featureIds": ["ability-score-improvement"] },
+      "15": { "featureIds": ["archetype-feature"] },
+      "16": { "featureIds": ["ability-score-improvement"] },
+      "17": { "featureIds": ["action-surge-2", "indomitable-3"] },
+      "18": { "featureIds": ["archetype-feature"] },
+      "19": { "featureIds": ["ability-score-improvement"] },
+      "20": { "featureIds": ["extra-attack-3"] }
     }
   },
   {
@@ -37,11 +52,26 @@
       "kind": "prepared",
       "preparedFormula": "levelPlusAbilityMod",
       "spellSlotsByLevel": {
-        "1": { "level_1": 2 },
-        "2": { "level_1": 3 },
-        "3": { "level_1": 4, "level_2": 2 },
-        "4": { "level_1": 4, "level_2": 3 },
-        "5": { "level_1": 4, "level_2": 3, "level_3": 2 }
+        "1":  { "level_1": 2 },
+        "2":  { "level_1": 3 },
+        "3":  { "level_1": 4, "level_2": 2 },
+        "4":  { "level_1": 4, "level_2": 3 },
+        "5":  { "level_1": 4, "level_2": 3, "level_3": 2 },
+        "6":  { "level_1": 4, "level_2": 3, "level_3": 3 },
+        "7":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 1 },
+        "8":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 2 },
+        "9":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 1 },
+        "10": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2 },
+        "11": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
+        "12": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
+        "13": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
+        "14": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
+        "15": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
+        "16": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
+        "17": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
+        "18": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
+        "19": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 1, "level_8": 1, "level_9": 1 },
+        "20": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 2, "level_8": 1, "level_9": 1 }
       },
       "cantripsKnownByLevel": {
         "1": 3,
@@ -50,10 +80,20 @@
       }
     },
     "levelProgression": {
-      "1": { "featureIds": ["spellcasting", "arcane-recovery"] },
-      "2": { "featureIds": ["arcane-tradition"] },
-      "4": { "featureIds": ["ability-score-improvement"] },
-      "5": { "featureIds": ["third-level-spells"] }
+      "1":  { "featureIds": ["spellcasting", "arcane-recovery"] },
+      "2":  { "featureIds": ["arcane-tradition"] },
+      "4":  { "featureIds": ["ability-score-improvement"] },
+      "5":  { "featureIds": ["third-level-spells"] },
+      "6":  { "featureIds": ["arcane-tradition-feature"] },
+      "8":  { "featureIds": ["ability-score-improvement"] },
+      "9":  { "featureIds": ["fifth-level-spells"] },
+      "10": { "featureIds": ["arcane-tradition-feature"] },
+      "12": { "featureIds": ["ability-score-improvement"] },
+      "14": { "featureIds": ["arcane-tradition-feature"] },
+      "16": { "featureIds": ["ability-score-improvement"] },
+      "18": { "featureIds": ["spell-mastery"] },
+      "19": { "featureIds": ["ability-score-improvement"] },
+      "20": { "featureIds": ["signature-spells"] }
     }
   },
   {
@@ -73,11 +113,26 @@
       "kind": "prepared",
       "preparedFormula": "levelPlusAbilityMod",
       "spellSlotsByLevel": {
-        "1": { "level_1": 2 },
-        "2": { "level_1": 3 },
-        "3": { "level_1": 4, "level_2": 2 },
-        "4": { "level_1": 4, "level_2": 3 },
-        "5": { "level_1": 4, "level_2": 3, "level_3": 2 }
+        "1":  { "level_1": 2 },
+        "2":  { "level_1": 3 },
+        "3":  { "level_1": 4, "level_2": 2 },
+        "4":  { "level_1": 4, "level_2": 3 },
+        "5":  { "level_1": 4, "level_2": 3, "level_3": 2 },
+        "6":  { "level_1": 4, "level_2": 3, "level_3": 3 },
+        "7":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 1 },
+        "8":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 2 },
+        "9":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 1 },
+        "10": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2 },
+        "11": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
+        "12": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
+        "13": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
+        "14": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
+        "15": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
+        "16": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
+        "17": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
+        "18": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
+        "19": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 1, "level_8": 1, "level_9": 1 },
+        "20": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 2, "level_8": 1, "level_9": 1 }
       },
       "cantripsKnownByLevel": {
         "1": 3,
@@ -86,10 +141,22 @@
       }
     },
     "levelProgression": {
-      "1": { "featureIds": ["spellcasting", "divine-domain"] },
-      "2": { "featureIds": ["channel-divinity"] },
-      "4": { "featureIds": ["ability-score-improvement"] },
-      "5": { "featureIds": ["destroy-undead-cr-1-2"] }
+      "1":  { "featureIds": ["spellcasting", "divine-domain"] },
+      "2":  { "featureIds": ["channel-divinity", "divine-domain-feature"] },
+      "4":  { "featureIds": ["ability-score-improvement"] },
+      "5":  { "featureIds": ["destroy-undead-cr-1-2"] },
+      "6":  { "featureIds": ["channel-divinity-2", "divine-domain-feature"] },
+      "8":  { "featureIds": ["ability-score-improvement", "destroy-undead-cr-1"] },
+      "9":  { "featureIds": ["fifth-level-spells"] },
+      "10": { "featureIds": ["divine-intervention"] },
+      "11": { "featureIds": ["destroy-undead-cr-2"] },
+      "12": { "featureIds": ["ability-score-improvement"] },
+      "14": { "featureIds": ["destroy-undead-cr-3"] },
+      "16": { "featureIds": ["ability-score-improvement"] },
+      "17": { "featureIds": ["destroy-undead-cr-4", "divine-domain-feature"] },
+      "18": { "featureIds": ["channel-divinity-3"] },
+      "19": { "featureIds": ["ability-score-improvement"] },
+      "20": { "featureIds": ["divine-intervention-improved"] }
     }
   },
   {
@@ -106,11 +173,26 @@
     },
     "spellcasting": null,
     "levelProgression": {
-      "1": { "featureIds": ["expertise", "sneak-attack", "thieves-cant"] },
-      "2": { "featureIds": ["cunning-action"] },
-      "3": { "featureIds": ["roguish-archetype"] },
-      "4": { "featureIds": ["ability-score-improvement"] },
-      "5": { "featureIds": ["uncanny-dodge"] }
+      "1":  { "featureIds": ["expertise", "sneak-attack", "thieves-cant"] },
+      "2":  { "featureIds": ["cunning-action"] },
+      "3":  { "featureIds": ["roguish-archetype", "sneak-attack-2d6"] },
+      "4":  { "featureIds": ["ability-score-improvement"] },
+      "5":  { "featureIds": ["uncanny-dodge", "sneak-attack-3d6"] },
+      "6":  { "featureIds": ["expertise"] },
+      "7":  { "featureIds": ["evasion", "sneak-attack-4d6"] },
+      "8":  { "featureIds": ["ability-score-improvement"] },
+      "9":  { "featureIds": ["archetype-feature", "sneak-attack-5d6"] },
+      "10": { "featureIds": ["ability-score-improvement"] },
+      "11": { "featureIds": ["reliable-talent", "sneak-attack-6d6"] },
+      "12": { "featureIds": ["ability-score-improvement"] },
+      "13": { "featureIds": ["archetype-feature", "sneak-attack-7d6"] },
+      "14": { "featureIds": ["blindsense"] },
+      "15": { "featureIds": ["slippery-mind", "sneak-attack-8d6"] },
+      "16": { "featureIds": ["ability-score-improvement"] },
+      "17": { "featureIds": ["archetype-feature", "sneak-attack-9d6"] },
+      "18": { "featureIds": ["elusive"] },
+      "19": { "featureIds": ["ability-score-improvement", "sneak-attack-10d6"] },
+      "20": { "featureIds": ["stroke-of-luck"] }
     }
   }
 ]

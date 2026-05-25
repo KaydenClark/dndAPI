@@ -1,0 +1,112 @@
+[
+  {
+    "id": "acolyte",
+    "name": "Acolyte",
+    "source": "PHB",
+    "description": "You have spent your life in service to a temple, learning sacred rites and providing service to worshipers of the god or gods you serve.",
+    "skillProficiencies": ["insight", "religion"],
+    "toolProficiencies": [],
+    "languages": 2,
+    "startingEquipment": ["Holy symbol", "Prayer book or prayer wheel", "5 sticks of incense", "Vestments", "Common clothes", "15 gp"],
+    "feature": { "name": "Shelter of the Faithful", "description": "As an acolyte, you command the respect of those who share your faith. You and your companions can receive free healing and care at a temple of your faith." }
+  },
+  {
+    "id": "criminal",
+    "name": "Criminal",
+    "source": "PHB",
+    "description": "You are an experienced criminal with a history of breaking the law. You have spent a lot of time among other criminals and still have contacts within the criminal underworld.",
+    "skillProficiencies": ["deception", "stealth"],
+    "toolProficiencies": ["Thieves' Tools", "One type of gaming set"],
+    "languages": 0,
+    "startingEquipment": ["Crowbar", "Dark common clothes with a hood", "15 gp"],
+    "feature": { "name": "Criminal Contact", "description": "You have a reliable and trustworthy contact who acts as your liaison to a network of criminals." }
+  },
+  {
+    "id": "folk-hero",
+    "name": "Folk Hero",
+    "source": "PHB",
+    "description": "You come from a humble social rank, but you are destined for so much more. The common folk love you for your kindness and bravery.",
+    "skillProficiencies": ["animalHandling", "survival"],
+    "toolProficiencies": ["One type of artisan's tools", "Vehicles (Land)"],
+    "languages": 0,
+    "startingEquipment": ["Artisan's tools (one of your choice)", "Shovel", "Iron pot", "Common clothes", "10 gp"],
+    "feature": { "name": "Rustic Hospitality", "description": "Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners." }
+  },
+  {
+    "id": "noble",
+    "name": "Noble",
+    "source": "PHB",
+    "description": "You understand wealth, power, and privilege. You carry a noble title, and your family owns land, collects taxes, and wields significant political influence.",
+    "skillProficiencies": ["history", "persuasion"],
+    "toolProficiencies": ["One type of gaming set"],
+    "languages": 1,
+    "startingEquipment": ["Fine clothes", "Signet ring", "Scroll of pedigree", "25 gp"],
+    "feature": { "name": "Position of Privilege", "description": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are." }
+  },
+  {
+    "id": "sage",
+    "name": "Sage",
+    "source": "PHB",
+    "description": "You spent years learning the lore of the multiverse. You scoured manuscripts, studied under sages, and pored over ancient texts in search of hidden knowledge.",
+    "skillProficiencies": ["arcana", "history"],
+    "toolProficiencies": [],
+    "languages": 2,
+    "startingEquipment": ["Bottle of black ink", "Quill", "Small knife", "Letter from a dead colleague", "Common clothes", "10 gp"],
+    "feature": { "name": "Researcher", "description": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it." }
+  },
+  {
+    "id": "soldier",
+    "name": "Soldier",
+    "source": "PHB",
+    "description": "War has been your life for as long as you care to remember. You trained as a youth, studied the use of weapons and armor, learned basic survival techniques.",
+    "skillProficiencies": ["athletics", "intimidation"],
+    "toolProficiencies": ["One type of gaming set", "Vehicles (Land)"],
+    "languages": 0,
+    "startingEquipment": ["Insignia of rank", "Trophy from a fallen enemy", "Deck of cards or set of bone dice", "Common clothes", "10 gp"],
+    "feature": { "name": "Military Rank", "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence." }
+  },
+  {
+    "id": "entertainer",
+    "name": "Entertainer",
+    "source": "PHB",
+    "description": "You thrive in front of an audience. You know how to entrance them, entertain them, and even inspire them. Your poignant performances have elicited some great reactions.",
+    "skillProficiencies": ["acrobatics", "performance"],
+    "toolProficiencies": ["Disguise Kit", "One type of musical instrument"],
+    "languages": 0,
+    "startingEquipment": ["Musical instrument (one of your choice)", "Favor of an admirer", "Costume", "15 gp"],
+    "feature": { "name": "By Popular Demand", "description": "You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court." }
+  },
+  {
+    "id": "guild-artisan",
+    "name": "Guild Artisan",
+    "source": "PHB",
+    "description": "You are a member of an artisan's guild, skilled in a particular field and closely associated with other artisans. You are a well-established part of the mercantile world.",
+    "skillProficiencies": ["insight", "persuasion"],
+    "toolProficiencies": ["One type of artisan's tools"],
+    "languages": 1,
+    "startingEquipment": ["Artisan's tools (one of your choice)", "Letter of introduction from your guild", "Traveler's clothes", "15 gp"],
+    "feature": { "name": "Guild Membership", "description": "As a guild member, you can rely on certain benefits. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed." }
+  },
+  {
+    "id": "hermit",
+    "name": "Hermit",
+    "source": "PHB",
+    "description": "You lived in seclusion — either in a sheltered community or entirely alone — for a formative part of your life. In your time apart from the clamor of society, you found quiet, solitude, and perhaps some of the answers you were looking for.",
+    "skillProficiencies": ["medicine", "religion"],
+    "toolProficiencies": ["Herbalism Kit"],
+    "languages": 1,
+    "startingEquipment": ["Scroll case stuffed with notes", "Winter blanket", "Common clothes", "Herbalism kit", "5 gp"],
+    "feature": { "name": "Discovery", "description": "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery — a secret truth, a place no one else has seen, or a powerful item." }
+  },
+  {
+    "id": "outlander",
+    "name": "Outlander",
+    "source": "PHB",
+    "description": "You grew up in the wilds, far from civilization and the comforts of town and technology. You've witnessed the migration of herds larger than forests, survived weather more extreme than any city-dweller could comprehend.",
+    "skillProficiencies": ["athletics", "survival"],
+    "toolProficiencies": ["One type of musical instrument"],
+    "languages": 1,
+    "startingEquipment": ["Staff", "Hunting trap", "Trophy from an animal you killed", "Traveler's clothes", "10 gp"],
+    "feature": { "name": "Wanderer", "description": "You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you." }
+  }
+]
