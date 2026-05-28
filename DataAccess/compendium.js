@@ -53,7 +53,8 @@ async function getCompendiumIndex() {
 
 async function getBootstrapCompendium() {
     const [races, classes, subclasses, weapons, armor, spells, backgrounds, feats, conditions] = await Promise.all([
-        listCollection('races', { _id: 0, id: 1, name: 1, speed: 1, size: 1 }),
+        // raceGroup drives the base-race -> subrace two-step picker in the wizard
+        listCollection('races', { _id: 0, id: 1, name: 1, speed: 1, size: 1, raceGroup: 1 }),
         // skillChoiceRules drives the Phase 1 skill proficiency selection UI
         listCollection('classes', { _id: 0, id: 1, name: 1, primaryAbilities: 1, skillChoiceRules: 1 }),
         listCollection('subclasses', { _id: 0, id: 1, classId: 1, name: 1 }),
@@ -81,4 +82,7 @@ async function getBootstrapCompendium() {
     };
 }
 
-module.expo
+module.exports = {
+    getBootstrapCompendium,
+    getCompendiumIndex
+};
