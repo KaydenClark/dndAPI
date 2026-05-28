@@ -5,12 +5,36 @@ const cors = require('cors');
 
 const { ensureIndexes } = require('./db/mongo');
 
+function buildCorsOptions() {
+    const allowedOrigins = (process.env.CORS_ORIGIN || '')
+        .split(',')
+        .map((origin) => origin.trim())
+        .filter(Boolean);
+
+    if (allowedOrigins.length === 0) {
+        return {};
+    }
+
+    const allowedOriginSet = new Set(allowedOrigins);
+
+    return {
+        origin(origin, callback) {
+            if (!origin || allowedOriginSet.has(origin)) {
+                callback(null, true);
+                return;
+            }
+
+            callback(null, false);
+        }
+    };
+}
+
 async function createApp() {
     await ensureIndexes();
 
     const app = express();
 
-    app.use(cors());
+    app.use(cors(buildCorsOptions()));
     app.use(express.json());
 
     app.use(require('./routes'));
@@ -40,4 +64,4 @@ async function createApp() {
     return app;
 }
 
-module.exports = { createApp };
+module.exports = { buildCorsOptions, createApp };

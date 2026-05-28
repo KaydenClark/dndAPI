@@ -18,6 +18,7 @@ test.before(async () => {
     process.env.ACCESS_SECRET_TOKEN = 'test-secret';
     process.env.DB_NAME = 'DragonsData';
     process.env.FIVETOOLS_DATA_DIR = '';
+    process.env.CORS_ORIGIN = 'http://localhost:5173';
 
     app = await createApp();
 });
@@ -259,14 +260,23 @@ test('GET /compendium/bootstrap includes raceGroup on race documents', async () 
     assert.equal(human?.raceGroup, 'Human');
 });
 
-test.skip('GET /compendium/bootstrap includes seeded feats and conditions for planned sheet tools', async () => {
+test('GET /compendium/bootstrap includes seeded conditions for planned sheet tools', async () => {
     const response = await request(app).get('/compendium/bootstrap');
 
     assert.equal(response.statusCode, 200);
-    assert.ok(response.body.feats.length > 0, 'expected fallback feat seed data to be available');
     assert.ok(response.body.conditions.length > 0, 'expected fallback condition seed data to be available');
-    assert.ok(response.body.feats.every((feat) => feat.id && feat.name));
     assert.ok(response.body.conditions.every((condition) => condition.id && condition.name && condition.description));
+    assert.ok(response.body.conditions.some((condition) => condition.id === 'poisoned'));
+    assert.ok(Array.isArray(response.body.feats), 'feats stay present but may be empty until ASI feat selection is implemented');
+});
+
+test('CORS allows the configured frontend origin', async () => {
+    const response = await request(app)
+        .get('/')
+        .set('Origin', 'http://localhost:5173');
+
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.headers['access-control-allow-origin'], 'http://localhost:5173');
 });
 
 test('GET /player returns character summaries for the signed in user', async () => {
