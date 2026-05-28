@@ -179,8 +179,12 @@ function hasArmorProficiency(armor, proficiencySet) {
 }
 
 function resolveLanguages(race, background, character) {
-    const racialLanguages = (race?.languages || []).filter((language) => language !== 'Choice');
-    const backgroundLanguages = (background?.languages || []).filter((language) => language !== 'Choice');
+    const racialLanguages = Array.isArray(race?.languages)
+        ? race.languages.filter((language) => language !== 'Choice')
+        : [];
+    const backgroundLanguages = Array.isArray(background?.languages)
+        ? background.languages.filter((language) => language !== 'Choice')
+        : [];
     return unique([...racialLanguages, ...backgroundLanguages, ...(character.languages || [])]);
 }
 
