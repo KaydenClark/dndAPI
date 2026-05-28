@@ -3,6 +3,7 @@
     "id": "fighter",
     "name": "Fighter",
     "hitDie": 10,
+    "subclassLevel": 3,
     "primaryAbilities": ["str", "dex"],
     "savingThrowProficiencies": ["str", "con"],
     "armorProficiencies": ["light", "medium", "heavy", "shield"],
@@ -39,6 +40,7 @@
     "id": "wizard",
     "name": "Wizard",
     "hitDie": 6,
+    "subclassLevel": 2,
     "primaryAbilities": ["int"],
     "savingThrowProficiencies": ["int", "wis"],
     "armorProficiencies": [],
@@ -100,6 +102,7 @@
     "id": "cleric",
     "name": "Cleric",
     "hitDie": 8,
+    "subclassLevel": 1,
     "primaryAbilities": ["wis"],
     "savingThrowProficiencies": ["wis", "cha"],
     "armorProficiencies": ["light", "medium", "shield"],
@@ -163,6 +166,7 @@
     "id": "rogue",
     "name": "Rogue",
     "hitDie": 8,
+    "subclassLevel": 3,
     "primaryAbilities": ["dex"],
     "savingThrowProficiencies": ["dex", "int"],
     "armorProficiencies": ["light"],
@@ -191,8 +195,4 @@
       "16": { "featureIds": ["ability-score-improvement"] },
       "17": { "featureIds": ["archetype-feature", "sneak-attack-9d6"] },
       "18": { "featureIds": ["elusive"] },
-      "19": { "featureIds": ["ability-score-improvement", "sneak-attack-10d6"] },
-      "20": { "featureIds": ["stroke-of-luck"] }
-    }
-  }
-]
+      "19": { "featureIds": ["ability-score-impr
