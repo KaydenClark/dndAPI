@@ -195,4 +195,8 @@
       "16": { "featureIds": ["ability-score-improvement"] },
       "17": { "featureIds": ["archetype-feature", "sneak-attack-9d6"] },
       "18": { "featureIds": ["elusive"] },
-      "19": { "featureIds": ["ability-score-impr
+      "19": { "featureIds": ["ability-score-improvement", "sneak-attack-10d6"] },
+      "20": { "featureIds": ["stroke-of-luck"] }
+    }
+  }
+]
