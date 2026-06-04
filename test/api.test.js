@@ -362,6 +362,7 @@ test('POST /player creates a character owned by the authenticated user and deriv
                 cha: 8
             },
             skillProficiencies: ['athletics', 'intimidation'],
+            expertiseProficiencies: ['athletics'],
             armorId: 'chain-mail',
             shieldId: 'shield',
             equippedWeaponIds: ['longsword', 'light-crossbow']
@@ -376,6 +377,8 @@ test('POST /player creates a character owned by the authenticated user and deriv
     assert.equal(response.body.character.proficiencyBonus, 2);
     assert.equal(response.body.character.maxHp, 37);
     assert.equal(response.body.character.armorClass, 18);
+    assert.deepEqual(response.body.character.expertiseProficiencies, ['athletics']);
+    assert.equal(response.body.character.skillValues.athletics, 7);
     assert.equal(response.body.character.attacks[0].attackBonus, 5);
     assert.equal(response.body.character.attacks[0].damageSummary, '1d8 + 3 slashing');
     assert.ok(response.body.character.featureIds.includes('improved-critical'));
@@ -695,4 +698,162 @@ test('POST /player validates required compendium fields', async () => {
 
     assert.equal(response.statusCode, 400);
     assert.equal(response.body.error, 'raceId is required');
+});
+
+// ─── Phase 6B: Full class and race coverage tests ────────────────────────────
+
+test('GET /compendium/bootstrap returns all 12 SRD classes', async () => {
+    const response = await request(app).get('/compendium/bootstrap');
+
+    assert.equal(response.statusCode, 200);
+    const { classes } = response.body;
+    assert.ok(Array.isArray(classes), 'classes is an array');
+    assert.equal(classes.length, 12, `expected 12 classes, got ${classes.length}`);
+
+    const expectedIds = [
+        'barbarian', 'bard', 'cleric', 'druid', 'fighter',
+        'monk', 'paladin', 'ranger', 'rogue', 'sorcerer',
+        'warlock', 'wizard'
+    ];
+    const returnedIds = classes.map(c => c.id).sort();
+    assert.deepEqual(returnedIds, expectedIds.sort());
+});
+
+test('GET /compendium/bootstrap returns all 15 SRD races', async () => {
+    const response = await request(app).get('/compendium/bootstrap');
+
+    assert.equal(response.statusCode, 200);
+    const { races } = response.body;
+    assert.ok(Array.isArray(races), 'races is an array');
+    assert.equal(races.length, 15, `expected 15 races, got ${races.length}`);
+
+    // All races must carry raceGroup for the wizard subrace picker
+    const missingGroup = races.filter(r => !r.raceGroup);
+    assert.equal(missingGroup.length, 0, `races missing raceGroup: ${missingGroup.map(r => r.id).join(', ')}`);
+});
+
+test('GET /compendium/bootstrap returns spells spanning all levels 0-9', async () => {
+    const response = await request(app).get('/compendium/bootstrap');
+
+    assert.equal(response.statusCode, 200);
+    const { spells } = response.body;
+    assert.ok(Array.isArray(spells), 'spells is an array');
+    assert.ok(spells.length >= 50, `expected at least 50 spells, got ${spells.length}`);
+
+    const levels = [...new Set(spells.map(s => s.level))].sort((a, b) => a - b);
+    assert.deepEqual(levels, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], `expected levels 0-9, got ${levels}`);
+});
+
+test('GET /compendium/bootstrap returns spells for newly added caster classes', async () => {
+    const response = await request(app).get('/compendium/bootstrap');
+
+    assert.equal(response.statusCode, 200);
+    const { spells } = response.body;
+    const newCasters = ['bard', 'druid', 'warlock', 'ranger', 'paladin', 'sorcerer'];
+
+    for (const casterClass of newCasters) {
+        const classSpells = spells.filter(s => Array.isArray(s.classes) && s.classes.includes(casterClass));
+        assert.ok(
+            classSpells.length > 0,
+            `expected spells for ${casterClass}, found none`
+        );
+    }
+});
+
+// ─── Phase 6C: Warlock pact slot rest recovery ───────────────────────────────
+
+test('Warlock character derives pact spell slots with short-rest recovery', async () => {
+    await seedUser();
+    const token = await signIn();
+
+    const response = await request(app)
+        .post('/player')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            characterName: 'Gribbly the Fiend',
+            raceId: 'tiefling-asmodeus',
+            classId: 'warlock',
+            subclassId: 'the-fiend',
+            level: 5,
+            baseAbilityScores: { str: 8, dex: 14, con: 13, int: 10, wis: 12, cha: 17 }
+        });
+
+    assert.equal(response.statusCode, 201, response.body.error);
+    const { character } = response.body;
+
+    // Warlock at level 5 has 2 pact slots at spell level 3
+    assert.equal(character.spellcasting.kind, 'pact', 'spellcasting kind should be pact');
+    assert.equal(
+        character.spellcasting.restRecovery,
+        'short',
+        'Warlock pact slots should recover on short rest'
+    );
+    assert.equal(character.spellSlots.level_3.slotTotal, 2, 'Warlock L5 should have 2 pact slots at level 3');
+    assert.equal(character.spellSlots.level_1.slotTotal, 0, 'Warlock L5 should have 0 level-1 slots');
+});
+
+test('Non-warlock caster derives spell slots with long-rest recovery', async () => {
+    await seedUser();
+    const token = await signIn();
+
+    const response = await request(app)
+        .post('/player')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            characterName: 'Gribble the Wise',
+            raceId: 'high-elf',
+            classId: 'wizard',
+            subclassId: 'evocation',
+            level: 5,
+            baseAbilityScores: { str: 8, dex: 14, con: 13, int: 16, wis: 12, cha: 10 }
+        });
+
+    assert.equal(response.statusCode, 201, response.body.error);
+    const { character } = response.body;
+
+    assert.equal(character.spellcasting.kind, 'prepared', 'spellcasting kind should be prepared');
+    assert.equal(
+        character.spellcasting.restRecovery,
+        'long',
+        'Wizard spell slots should recover on long rest'
+    );
+    assert.equal(character.spellSlots.level_3.slotTotal, 2, 'Wizard L5 should have 2 third-level slots');
+});
+
+test('Paladin derives half-caster spell slots starting at level 2', async () => {
+    await seedUser();
+    const token = await signIn();
+
+    // Paladin at level 1 should have no spell slots (half-caster, starts at 2)
+    const lvl1 = await request(app)
+        .post('/player')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            characterName: 'Holy Adolf',
+            raceId: 'human',
+            classId: 'paladin',
+            subclassId: 'oath-of-devotion',
+            level: 1,
+            baseAbilityScores: { str: 16, dex: 10, con: 14, int: 8, wis: 12, cha: 14 }
+        });
+
+    assert.equal(lvl1.statusCode, 201, lvl1.body.error);
+    assert.equal(
+        lvl1.body.character.spellSlots.level_1.slotTotal,
+        0,
+        'Paladin at level 1 should have 0 spell slots'
+    );
+
+    // Level 2 paladin gets first spell slots
+    const lvl2 = await request(app)
+        .put(`/player/${lvl1.body.character._id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ level: 2 });
+
+    assert.equal(lvl2.statusCode, 200, lvl2.body.error);
+    assert.equal(
+        lvl2.body.character.spellSlots.level_1.slotTotal,
+        2,
+        'Paladin at level 2 should have 2 first-level spell slots'
+    );
 });

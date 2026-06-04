@@ -116,6 +116,31 @@ test('background grants skills without baking them into raw skillProficiencies',
     assert.ok(result.toolProficiencies.includes('gaming-set'));
 });
 
+test('expertise doubles proficiency for a proficient skill', () => {
+    const character = baseCharacter({
+        background: 'soldier',
+        skillProficiencies: ['perception'],
+        expertiseProficiencies: ['perception']
+    });
+    const result = buildCharacterDocument(character, makeCompendium());
+
+    assert.deepEqual(result.expertiseProficiencies, ['perception']);
+    // perception: wis 13 + 1 racial = 14 -> mod +2; double prof 2 + 2 = +6.
+    assert.equal(result.skillValues.perception, 6);
+    assert.equal(result.passivePerception, 16);
+});
+
+test('expertise ignores skills that are not already proficient', () => {
+    const character = baseCharacter({
+        skillProficiencies: ['perception'],
+        expertiseProficiencies: ['arcana']
+    });
+    const result = buildCharacterDocument(character, makeCompendium());
+
+    assert.deepEqual(result.expertiseProficiencies, []);
+    assert.equal(result.skillValues.arcana, 0);
+});
+
 test('a free-text background contributes no grants and does not throw', () => {
     const character = baseCharacter({ background: 'A Homebrew Past' });
     const result = buildCharacterDocument(character, makeCompendium());

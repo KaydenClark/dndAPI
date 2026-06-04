@@ -4,15 +4,28 @@
     "name": "Fire Bolt",
     "level": 0,
     "school": "Evocation",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
     "castingTime": "1 action",
     "range": "120 feet",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "1d10", "type": "fire" },
+    "damage": {
+      "base": "1d10",
+      "type": "fire"
+    },
     "saveType": null,
     "attackType": "rangedSpellAttack",
-    "scaling": { "5": "2d10", "11": "3d10", "17": "4d10" },
+    "scaling": {
+      "5": "2d10",
+      "11": "3d10",
+      "17": "4d10"
+    },
     "description": "You hurl a mote of fire at a creature or object within range."
   },
   {
@@ -20,15 +33,28 @@
     "name": "Ray of Frost",
     "level": 0,
     "school": "Evocation",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
     "castingTime": "1 action",
     "range": "60 feet",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "1d8", "type": "cold" },
+    "damage": {
+      "base": "1d8",
+      "type": "cold"
+    },
     "saveType": null,
     "attackType": "rangedSpellAttack",
-    "scaling": { "5": "2d8", "11": "3d8", "17": "4d8" },
+    "scaling": {
+      "5": "2d8",
+      "11": "3d8",
+      "17": "4d8"
+    },
     "description": "A frigid beam of blue-white light streaks toward a creature within range."
   },
   {
@@ -36,10 +62,18 @@
     "name": "Mage Hand",
     "level": 0,
     "school": "Conjuration",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
     "castingTime": "1 action",
     "range": "30 feet",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "1 minute",
     "damage": null,
     "saveType": null,
@@ -48,19 +82,79 @@
     "description": "A spectral, floating hand appears at a point you choose within range."
   },
   {
+    "id": "prestidigitation",
+    "name": "Prestidigitation",
+    "level": 0,
+    "school": "Transmutation",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Up to 1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "This spell is a minor magical trick that novice spellcasters use for practice."
+  },
+  {
+    "id": "minor-illusion",
+    "name": "Minor Illusion",
+    "level": 0,
+    "school": "Illusion",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "S",
+      "M"
+    ],
+    "duration": "1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You create a sound or an image of an object within range that lasts for the duration."
+  },
+  {
     "id": "sacred-flame",
     "name": "Sacred Flame",
     "level": 0,
     "school": "Evocation",
-    "classes": ["cleric"],
+    "classes": [
+      "cleric"
+    ],
     "castingTime": "1 action",
     "range": "60 feet",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "1d8", "type": "radiant" },
+    "damage": {
+      "base": "1d8",
+      "type": "radiant"
+    },
     "saveType": "dex",
     "attackType": null,
-    "scaling": { "5": "2d8", "11": "3d8", "17": "4d8" },
+    "scaling": {
+      "5": "2d8",
+      "11": "3d8",
+      "17": "4d8"
+    },
     "description": "Flame-like radiance descends on a creature that you can see within range."
   },
   {
@@ -68,10 +162,14 @@
     "name": "Thaumaturgy",
     "level": 0,
     "school": "Transmutation",
-    "classes": ["cleric"],
+    "classes": [
+      "cleric"
+    ],
     "castingTime": "1 action",
     "range": "30 feet",
-    "components": ["V"],
+    "components": [
+      "V"
+    ],
     "duration": "Up to 1 minute",
     "damage": null,
     "saveType": null,
@@ -80,30 +178,311 @@
     "description": "You manifest a minor wonder, a sign of supernatural power."
   },
   {
+    "id": "guidance",
+    "name": "Guidance",
+    "level": 0,
+    "school": "Divination",
+    "classes": [
+      "cleric",
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You touch one willing creature. Once before the spell ends, the target can add 1d4 to one ability check."
+  },
+  {
+    "id": "thorn-whip",
+    "name": "Thorn Whip",
+    "level": 0,
+    "school": "Transmutation",
+    "classes": [
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "1d6",
+      "type": "piercing"
+    },
+    "saveType": null,
+    "attackType": "meleeSpellAttack",
+    "scaling": {
+      "5": "2d6",
+      "11": "3d6",
+      "17": "4d6"
+    },
+    "description": "You create a long, vine-like whip covered in thorns that lashes out at your command."
+  },
+  {
+    "id": "produce-flame",
+    "name": "Produce Flame",
+    "level": 0,
+    "school": "Conjuration",
+    "classes": [
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "10 minutes",
+    "damage": {
+      "base": "1d8",
+      "type": "fire"
+    },
+    "saveType": null,
+    "attackType": "rangedSpellAttack",
+    "scaling": {
+      "5": "2d8",
+      "11": "3d8",
+      "17": "4d8"
+    },
+    "description": "A flickering flame appears in your hand."
+  },
+  {
+    "id": "shillelagh",
+    "name": "Shillelagh",
+    "level": 0,
+    "school": "Transmutation",
+    "classes": [
+      "druid"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "1 minute",
+    "damage": {
+      "base": "1d8",
+      "type": "bludgeoning"
+    },
+    "saveType": null,
+    "attackType": "meleeSpellAttack",
+    "scaling": {},
+    "description": "The wood of a club or quarterstaff you are holding is imbued with nature's power."
+  },
+  {
+    "id": "eldritch-blast",
+    "name": "Eldritch Blast",
+    "level": 0,
+    "school": "Evocation",
+    "classes": [
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "1d10",
+      "type": "force"
+    },
+    "saveType": null,
+    "attackType": "rangedSpellAttack",
+    "scaling": {
+      "5": "2 beams",
+      "11": "3 beams",
+      "17": "4 beams"
+    },
+    "description": "A beam of crackling energy streaks toward a creature within range."
+  },
+  {
+    "id": "chill-touch",
+    "name": "Chill Touch",
+    "level": 0,
+    "school": "Necromancy",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "1 round",
+    "damage": {
+      "base": "1d8",
+      "type": "necrotic"
+    },
+    "saveType": null,
+    "attackType": "rangedSpellAttack",
+    "scaling": {
+      "5": "2d8",
+      "11": "3d8",
+      "17": "4d8"
+    },
+    "description": "You create a ghostly, skeletal hand in the space of a creature within range."
+  },
+  {
+    "id": "toll-the-dead",
+    "name": "Toll the Dead",
+    "level": 0,
+    "school": "Necromancy",
+    "classes": [
+      "cleric",
+      "warlock",
+      "wizard"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "1d8",
+      "type": "necrotic"
+    },
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {
+      "5": "2d8",
+      "11": "3d8",
+      "17": "4d8"
+    },
+    "description": "You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it."
+  },
+  {
+    "id": "vicious-mockery",
+    "name": "Vicious Mockery",
+    "level": 0,
+    "school": "Enchantment",
+    "classes": [
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "1d4",
+      "type": "psychic"
+    },
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {
+      "5": "2d4",
+      "11": "3d4",
+      "17": "4d4"
+    },
+    "description": "You unleash a string of insults laced with subtle enchantments at a creature within range."
+  },
+  {
+    "id": "blade-ward",
+    "name": "Blade Ward",
+    "level": 0,
+    "school": "Abjuration",
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "1 round",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You extend your hand and trace a sigil of warding in the air."
+  },
+  {
+    "id": "true-strike",
+    "name": "True Strike",
+    "level": 0,
+    "school": "Divination",
+    "classes": [
+      "bard",
+      "sorcerer",
+      "warlock",
+      "wizard"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "S"
+    ],
+    "duration": "Concentration, up to 1 round",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You extend your hand and point a finger at a target in range."
+  },
+  {
     "id": "magic-missile",
     "name": "Magic Missile",
     "level": 1,
     "school": "Evocation",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
     "castingTime": "1 action",
     "range": "120 feet",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "3 x (1d4 + 1)", "type": "force" },
+    "damage": {
+      "base": "1d4+1 per dart (3 darts)",
+      "type": "force"
+    },
     "saveType": null,
-    "attackType": "autoHit",
-    "scaling": { "2": "+1 dart", "3": "+2 darts", "4": "+3 darts" },
-    "description": "Three glowing darts of magical force strike targets of your choice."
+    "attackType": null,
+    "scaling": {},
+    "description": "You create three glowing darts of magical force."
   },
   {
     "id": "shield",
     "name": "Shield",
     "level": 1,
     "school": "Abjuration",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
     "castingTime": "1 reaction",
     "range": "Self",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "1 round",
     "damage": null,
     "saveType": null,
@@ -112,83 +491,1763 @@
     "description": "An invisible barrier of magical force appears and protects you."
   },
   {
+    "id": "burning-hands",
+    "name": "Burning Hands",
+    "level": 1,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "Self (15-foot cone)",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "3d6",
+      "type": "fire"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "As you hold your hands with thumbs touching and fingers spread, a thin sheet of flames shoots forth."
+  },
+  {
+    "id": "mage-armor",
+    "name": "Mage Armor",
+    "level": 1,
+    "school": "Abjuration",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "8 hours",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You touch a willing creature who isn't wearing armor, and a protective magical force surrounds it."
+  },
+  {
+    "id": "sleep",
+    "name": "Sleep",
+    "level": 1,
+    "school": "Enchantment",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "This spell sends creatures into a magical slumber."
+  },
+  {
+    "id": "charm-person",
+    "name": "Charm Person",
+    "level": 1,
+    "school": "Enchantment",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "druid",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "1 hour",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "You attempt to charm a humanoid you can see within range."
+  },
+  {
+    "id": "detect-magic",
+    "name": "Detect Magic",
+    "level": 1,
+    "school": "Divination",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "cleric",
+      "druid",
+      "bard",
+      "paladin",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 10 minutes",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "For the duration, you sense the presence of magic within 30 feet of you."
+  },
+  {
     "id": "cure-wounds",
     "name": "Cure Wounds",
     "level": 1,
     "school": "Evocation",
-    "classes": ["cleric"],
+    "classes": [
+      "cleric",
+      "druid",
+      "bard",
+      "paladin",
+      "ranger"
+    ],
     "castingTime": "1 action",
     "range": "Touch",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "1d8 + spellcasting modifier", "type": "healing" },
+    "damage": {
+      "base": "1d8",
+      "type": "healing"
+    },
     "saveType": null,
     "attackType": null,
-    "scaling": { "2": "+1d8", "3": "+2d8", "4": "+3d8" },
-    "description": "A creature you touch regains a number of hit points."
+    "scaling": {},
+    "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier."
   },
   {
-    "id": "guiding-bolt",
-    "name": "Guiding Bolt",
+    "id": "healing-word",
+    "name": "Healing Word",
     "level": 1,
     "school": "Evocation",
-    "classes": ["cleric"],
-    "castingTime": "1 action",
-    "range": "120 feet",
-    "components": ["V", "S"],
-    "duration": "1 round",
-    "damage": { "base": "4d6", "type": "radiant" },
+    "classes": [
+      "cleric",
+      "druid",
+      "bard"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "1d4",
+      "type": "healing"
+    },
     "saveType": null,
-    "attackType": "rangedSpellAttack",
-    "scaling": { "2": "+1d6", "3": "+2d6", "4": "+3d6" },
-    "description": "A flash of light streaks toward a creature of your choice within range."
+    "attackType": null,
+    "scaling": {},
+    "description": "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier."
   },
   {
     "id": "bless",
     "name": "Bless",
     "level": 1,
     "school": "Enchantment",
-    "classes": ["cleric"],
+    "classes": [
+      "cleric",
+      "paladin"
+    ],
     "castingTime": "1 action",
     "range": "30 feet",
-    "components": ["V", "S", "M"],
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
     "duration": "Concentration, up to 1 minute",
     "damage": null,
     "saveType": null,
     "attackType": null,
-    "scaling": { "2": "+1 target", "3": "+2 targets", "4": "+3 targets" },
+    "scaling": {},
     "description": "You bless up to three creatures of your choice within range."
+  },
+  {
+    "id": "guiding-bolt",
+    "name": "Guiding Bolt",
+    "level": 1,
+    "school": "Evocation",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "1 round",
+    "damage": {
+      "base": "4d6",
+      "type": "radiant"
+    },
+    "saveType": null,
+    "attackType": "rangedSpellAttack",
+    "scaling": {},
+    "description": "A flash of light streaks toward a creature of your choice within range."
+  },
+  {
+    "id": "inflict-wounds",
+    "name": "Inflict Wounds",
+    "level": 1,
+    "school": "Necromancy",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "3d10",
+      "type": "necrotic"
+    },
+    "saveType": null,
+    "attackType": "meleeSpellAttack",
+    "scaling": {},
+    "description": "Make a melee spell attack against a creature you can reach."
+  },
+  {
+    "id": "entangle",
+    "name": "Entangle",
+    "level": 1,
+    "school": "Conjuration",
+    "classes": [
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": "str",
+    "attackType": null,
+    "scaling": {},
+    "description": "Grasping weeds and vines sprout from the ground in a 20-foot square starting from a point within range."
+  },
+  {
+    "id": "thunderwave",
+    "name": "Thunderwave",
+    "level": 1,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "druid",
+      "bard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "Self (15-foot cube)",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "2d8",
+      "type": "thunder"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "A wave of thunderous force sweeps out from you."
+  },
+  {
+    "id": "faerie-fire",
+    "name": "Faerie Fire",
+    "level": 1,
+    "school": "Evocation",
+    "classes": [
+      "druid",
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "Each object in a 20-foot cube within range is outlined in blue, green, or violet light."
+  },
+  {
+    "id": "hex",
+    "name": "Hex",
+    "level": 1,
+    "school": "Enchantment",
+    "classes": [
+      "warlock"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "90 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": {
+      "base": "1d6",
+      "type": "necrotic"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You place a curse on a creature that you can see within range."
+  },
+  {
+    "id": "armor-of-agathys",
+    "name": "Armor of Agathys",
+    "level": 1,
+    "school": "Abjuration",
+    "classes": [
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "1 hour",
+    "damage": {
+      "base": "5",
+      "type": "cold"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "A protective magical force surrounds you, manifesting as a spectral frost."
+  },
+  {
+    "id": "dissonant-whispers",
+    "name": "Dissonant Whispers",
+    "level": 1,
+    "school": "Enchantment",
+    "classes": [
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "3d6",
+      "type": "psychic"
+    },
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "You whisper a discordant melody that only one creature of your choice within range can hear."
+  },
+  {
+    "id": "hunters-mark",
+    "name": "Hunter's Mark",
+    "level": 1,
+    "school": "Divination",
+    "classes": [
+      "ranger"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "90 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": {
+      "base": "1d6",
+      "type": "piercing"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You choose a creature you can see within range and mystically mark it as your quarry."
+  },
+  {
+    "id": "divine-favor",
+    "name": "Divine Favor",
+    "level": 1,
+    "school": "Evocation",
+    "classes": [
+      "paladin"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": {
+      "base": "1d4",
+      "type": "radiant"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Your prayer empowers you with divine radiance."
+  },
+  {
+    "id": "wrathful-smite",
+    "name": "Wrathful Smite",
+    "level": 1,
+    "school": "Evocation",
+    "classes": [
+      "paladin"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": [
+      "V"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": {
+      "base": "1d6",
+      "type": "psychic"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "The next time you hit with a melee weapon attack during this spell's duration, your attack deals an extra 1d6 psychic damage."
+  },
+  {
+    "id": "longstrider",
+    "name": "Longstrider",
+    "level": 1,
+    "school": "Transmutation",
+    "classes": [
+      "wizard",
+      "druid",
+      "bard",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You touch a creature. The target's speed increases by 10 feet until the spell ends."
   },
   {
     "id": "scorching-ray",
     "name": "Scorching Ray",
     "level": 2,
     "school": "Evocation",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
     "castingTime": "1 action",
     "range": "120 feet",
-    "components": ["V", "S"],
+    "components": [
+      "V",
+      "S"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "3 x 2d6", "type": "fire" },
+    "damage": {
+      "base": "2d6 per ray",
+      "type": "fire"
+    },
     "saveType": null,
     "attackType": "rangedSpellAttack",
-    "scaling": { "3": "+1 ray", "4": "+2 rays", "5": "+3 rays" },
+    "scaling": {},
     "description": "You create three rays of fire and hurl them at targets within range."
+  },
+  {
+    "id": "misty-step",
+    "name": "Misty Step",
+    "level": 2,
+    "school": "Conjuration",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "warlock",
+      "paladin"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see."
+  },
+  {
+    "id": "invisibility",
+    "name": "Invisibility",
+    "level": 2,
+    "school": "Illusion",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "A creature you touch becomes invisible until the spell ends."
+  },
+  {
+    "id": "mirror-image",
+    "name": "Mirror Image",
+    "level": 2,
+    "school": "Illusion",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Three illusory duplicates of yourself appear in your space."
+  },
+  {
+    "id": "hold-person",
+    "name": "Hold Person",
+    "level": 2,
+    "school": "Enchantment",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "cleric",
+      "druid",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration."
+  },
+  {
+    "id": "spiritual-weapon",
+    "name": "Spiritual Weapon",
+    "level": 2,
+    "school": "Evocation",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "1 minute",
+    "damage": {
+      "base": "1d8",
+      "type": "force"
+    },
+    "saveType": null,
+    "attackType": "meleeSpellAttack",
+    "scaling": {},
+    "description": "You create a floating, spectral weapon within range that lasts for the duration."
+  },
+  {
+    "id": "lesser-restoration",
+    "name": "Lesser Restoration",
+    "level": 2,
+    "school": "Abjuration",
+    "classes": [
+      "cleric",
+      "druid",
+      "bard",
+      "paladin",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You touch a creature and can end either one disease or one condition afflicting it."
+  },
+  {
+    "id": "silence",
+    "name": "Silence",
+    "level": 2,
+    "school": "Illusion",
+    "classes": [
+      "cleric",
+      "bard",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 10 minutes",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "For the duration, no sound can be created within or pass through a 20-foot-radius sphere centered on a point you choose within range."
+  },
+  {
+    "id": "moonbeam",
+    "name": "Moonbeam",
+    "level": 2,
+    "school": "Evocation",
+    "classes": [
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": {
+      "base": "2d10",
+      "type": "radiant"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "A silvery beam of pale light shines down in a 5-foot-radius, 40-foot-high cylinder centered on a point within range."
+  },
+  {
+    "id": "pass-without-trace",
+    "name": "Pass Without Trace",
+    "level": 2,
+    "school": "Abjuration",
+    "classes": [
+      "druid",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "A veil of shadows and silence radiates from you, masking you and your companions from detection."
+  },
+  {
+    "id": "suggestion",
+    "name": "Suggestion",
+    "level": 2,
+    "school": "Enchantment",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "V",
+      "M"
+    ],
+    "duration": "Concentration, up to 8 hours",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "You suggest a course of activity (limited to a sentence or two) and magically influence a creature you can see within range."
+  },
+  {
+    "id": "aid",
+    "name": "Aid",
+    "level": 2,
+    "school": "Abjuration",
+    "classes": [
+      "cleric",
+      "paladin"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "8 hours",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range."
+  },
+  {
+    "id": "shatter",
+    "name": "Shatter",
+    "level": 2,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "3d8",
+      "type": "thunder"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "A sudden loud ringing noise, painfully intense, erupts from a point of your choice within range."
   },
   {
     "id": "fireball",
     "name": "Fireball",
     "level": 3,
     "school": "Evocation",
-    "classes": ["wizard"],
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
     "castingTime": "1 action",
     "range": "150 feet",
-    "components": ["V", "S", "M"],
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
     "duration": "Instantaneous",
-    "damage": { "base": "8d6", "type": "fire" },
+    "damage": {
+      "base": "8d6",
+      "type": "fire"
+    },
     "saveType": "dex",
     "attackType": null,
-    "scaling": { "4": "+1d6", "5": "+2d6", "6": "+3d6" },
-    "description": "A bright streak flashes from your pointing finger to a point you choose within range and blossoms into an explosion of flame."
+    "scaling": {},
+    "description": "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame."
+  },
+  {
+    "id": "lightning-bolt",
+    "name": "Lightning Bolt",
+    "level": 3,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "Self (100-foot line)",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "8d6",
+      "type": "lightning"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "A stroke of lightning forming a line 100 feet long and 5 feet wide blasts out from you in a direction you choose."
+  },
+  {
+    "id": "counterspell",
+    "name": "Counterspell",
+    "level": 3,
+    "school": "Abjuration",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "warlock"
+    ],
+    "castingTime": "1 reaction",
+    "range": "60 feet",
+    "components": [
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You attempt to interrupt a creature in the process of casting a spell."
+  },
+  {
+    "id": "hypnotic-pattern",
+    "name": "Hypnotic Pattern",
+    "level": 3,
+    "school": "Illusion",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "You create a twisting pattern of colors that weaves through the air inside a 30-foot cube within range."
+  },
+  {
+    "id": "spirit-guardians",
+    "name": "Spirit Guardians",
+    "level": 3,
+    "school": "Conjuration",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "Self (15-foot radius)",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 10 minutes",
+    "damage": {
+      "base": "3d8",
+      "type": "radiant"
+    },
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "You call forth spirits to protect you. They flit around you to a distance of 15 feet for the duration."
+  },
+  {
+    "id": "mass-healing-word",
+    "name": "Mass Healing Word",
+    "level": 3,
+    "school": "Evocation",
+    "classes": [
+      "cleric",
+      "bard"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "1d4",
+      "type": "healing"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "As you call out words of restoration, up to six creatures of your choice that you can see within range regain hit points."
+  },
+  {
+    "id": "call-lightning",
+    "name": "Call Lightning",
+    "level": 3,
+    "school": "Conjuration",
+    "classes": [
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 10 minutes",
+    "damage": {
+      "base": "3d10",
+      "type": "lightning"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "A storm cloud appears in the shape of a cylinder that is 10 feet tall with a 60-foot radius."
+  },
+  {
+    "id": "plant-growth",
+    "name": "Plant Growth",
+    "level": 3,
+    "school": "Transmutation",
+    "classes": [
+      "druid",
+      "bard",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "This spell channels vitality into plants within a specific area."
+  },
+  {
+    "id": "hunger-of-hadar",
+    "name": "Hunger of Hadar",
+    "level": 3,
+    "school": "Conjuration",
+    "classes": [
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": {
+      "base": "2d6",
+      "type": "cold"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "You open a gateway to the dark between the stars, a region infested with unknown horrors."
+  },
+  {
+    "id": "lightning-arrow",
+    "name": "Lightning Arrow",
+    "level": 3,
+    "school": "Transmutation",
+    "classes": [
+      "ranger"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": {
+      "base": "4d8",
+      "type": "lightning"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "The next time you make a ranged weapon attack during this spell's duration, the weapon's ammunition transforms into a bolt of lightning."
+  },
+  {
+    "id": "dispel-magic",
+    "name": "Dispel Magic",
+    "level": 3,
+    "school": "Abjuration",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "cleric",
+      "druid",
+      "bard",
+      "paladin",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Choose any creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends."
+  },
+  {
+    "id": "polymorph",
+    "name": "Polymorph",
+    "level": 4,
+    "school": "Transmutation",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "druid",
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "This spell transforms a creature that you can see within range into a new form."
+  },
+  {
+    "id": "banishment",
+    "name": "Banishment",
+    "level": 4,
+    "school": "Abjuration",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "cleric",
+      "paladin",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": "cha",
+    "attackType": null,
+    "scaling": {},
+    "description": "You attempt to send one creature that you can see within range to another plane of existence."
+  },
+  {
+    "id": "dimension-door",
+    "name": "Dimension Door",
+    "level": 4,
+    "school": "Conjuration",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "500 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You teleport yourself from your current location to any other spot within range."
+  },
+  {
+    "id": "guardian-of-faith",
+    "name": "Guardian of Faith",
+    "level": 4,
+    "school": "Conjuration",
+    "classes": [
+      "cleric",
+      "paladin"
+    ],
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": [
+      "V"
+    ],
+    "duration": "8 hours",
+    "damage": {
+      "base": "20",
+      "type": "radiant"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "A Large spectral guardian appears and hovers for the duration in an unoccupied space of your choice."
+  },
+  {
+    "id": "conjure-woodland-beings",
+    "name": "Conjure Woodland Beings",
+    "level": 4,
+    "school": "Conjuration",
+    "classes": [
+      "druid",
+      "ranger"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You summon fey creatures that appear in unoccupied spaces that you can see within range."
+  },
+  {
+    "id": "greater-invisibility",
+    "name": "Greater Invisibility",
+    "level": 4,
+    "school": "Illusion",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You or a creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person."
+  },
+  {
+    "id": "hold-monster",
+    "name": "Hold Monster",
+    "level": 5,
+    "school": "Enchantment",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "Choose a creature that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration."
+  },
+  {
+    "id": "cone-of-cold",
+    "name": "Cone of Cold",
+    "level": 5,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "Self (60-foot cone)",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "8d8",
+      "type": "cold"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "A blast of cold air erupts from your hands."
+  },
+  {
+    "id": "flame-strike",
+    "name": "Flame Strike",
+    "level": 5,
+    "school": "Evocation",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "4d6 fire + 4d6 radiant",
+      "type": "fire"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "A vertical column of divine fire roars down from the heavens in a location you specify."
+  },
+  {
+    "id": "mass-cure-wounds",
+    "name": "Mass Cure Wounds",
+    "level": 5,
+    "school": "Evocation",
+    "classes": [
+      "cleric",
+      "druid",
+      "bard"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "3d8",
+      "type": "healing"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "A wave of healing energy washes out from a point of your choice within range."
+  },
+  {
+    "id": "conjure-elemental",
+    "name": "Conjure Elemental",
+    "level": 5,
+    "school": "Conjuration",
+    "classes": [
+      "wizard",
+      "druid"
+    ],
+    "castingTime": "1 minute",
+    "range": "90 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You call forth an elemental servant."
+  },
+  {
+    "id": "swift-quiver",
+    "name": "Swift Quiver",
+    "level": 5,
+    "school": "Transmutation",
+    "classes": [
+      "ranger"
+    ],
+    "castingTime": "1 bonus action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You transmute your quiver so it produces an endless supply of nonmagical ammunition."
+  },
+  {
+    "id": "chain-lightning",
+    "name": "Chain Lightning",
+    "level": 6,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "10d8",
+      "type": "lightning"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "You create a bolt of lightning that arcs toward a target of your choice that you can see within range."
+  },
+  {
+    "id": "heal",
+    "name": "Heal",
+    "level": 6,
+    "school": "Evocation",
+    "classes": [
+      "cleric",
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "70",
+      "type": "healing"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Choose a creature that you can see within range. A surge of positive energy washes through the creature, causing it to regain 70 hit points."
+  },
+  {
+    "id": "sunbeam",
+    "name": "Sunbeam",
+    "level": 6,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "druid",
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "Self (60-foot line)",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": {
+      "base": "6d8",
+      "type": "radiant"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "A beam of brilliant light flashes out from your hand in a 5-foot-wide, 60-foot-long line."
+  },
+  {
+    "id": "true-seeing",
+    "name": "True Seeing",
+    "level": 6,
+    "school": "Divination",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "cleric",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You give the willing creature you touch the ability to see things as they actually are."
+  },
+  {
+    "id": "fire-storm",
+    "name": "Fire Storm",
+    "level": 7,
+    "school": "Evocation",
+    "classes": [
+      "cleric",
+      "druid",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "7d10",
+      "type": "fire"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "A storm made up of sheets of roaring flame appears in a location you choose within range."
+  },
+  {
+    "id": "finger-of-death",
+    "name": "Finger of Death",
+    "level": 7,
+    "school": "Necromancy",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "7d8+30",
+      "type": "necrotic"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "You send negative energy coursing through a creature that you can see within range."
+  },
+  {
+    "id": "forcecage",
+    "name": "Forcecage",
+    "level": 7,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "100 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "1 hour",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "An immobile, invisible, cube-shaped prison composed of magical force springs into existence around an area you choose within range."
+  },
+  {
+    "id": "plane-shift",
+    "name": "Plane Shift",
+    "level": 7,
+    "school": "Conjuration",
+    "classes": [
+      "wizard",
+      "cleric",
+      "druid"
+    ],
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": "cha",
+    "attackType": null,
+    "scaling": {},
+    "description": "You and up to eight willing creatures who link hands in a circle are transported to a different plane of existence."
+  },
+  {
+    "id": "sunburst",
+    "name": "Sunburst",
+    "level": 8,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "druid",
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "12d6",
+      "type": "radiant"
+    },
+    "saveType": "con",
+    "attackType": null,
+    "scaling": {},
+    "description": "Brilliant sunlight flashes in a 60-foot radius centered on a point you choose within range."
+  },
+  {
+    "id": "dominate-monster",
+    "name": "Dominate Monster",
+    "level": 8,
+    "school": "Enchantment",
+    "classes": [
+      "wizard",
+      "sorcerer",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Concentration, up to 1 hour",
+    "damage": null,
+    "saveType": "wis",
+    "attackType": null,
+    "scaling": {},
+    "description": "You attempt to beguile a creature that you can see within range. It must succeed on a Wisdom saving throw or be charmed by you for the duration."
+  },
+  {
+    "id": "holy-aura",
+    "name": "Holy Aura",
+    "level": 8,
+    "school": "Abjuration",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Concentration, up to 1 minute",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Divine light washes out from you and coalesces in a soft radiance in a 30-foot radius around you."
+  },
+  {
+    "id": "wish",
+    "name": "Wish",
+    "level": 9,
+    "school": "Conjuration",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": [
+      "V"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "Wish is the mightiest spell a mortal creature can cast."
+  },
+  {
+    "id": "meteor-swarm",
+    "name": "Meteor Swarm",
+    "level": 9,
+    "school": "Evocation",
+    "classes": [
+      "wizard",
+      "sorcerer"
+    ],
+    "castingTime": "1 action",
+    "range": "1 mile",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "20d6 bludgeoning + 20d6 fire",
+      "type": "fire"
+    },
+    "saveType": "dex",
+    "attackType": null,
+    "scaling": {},
+    "description": "Blazing orbs of fire plummet to the ground at four different points you can see within range."
+  },
+  {
+    "id": "mass-heal",
+    "name": "Mass Heal",
+    "level": 9,
+    "school": "Evocation",
+    "classes": [
+      "cleric"
+    ],
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": [
+      "V",
+      "S"
+    ],
+    "duration": "Instantaneous",
+    "damage": {
+      "base": "700",
+      "type": "healing"
+    },
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "A flood of healing energy flows from you into injured creatures around you. You restore up to 700 hit points, divided as you choose among any number of creatures that you can see within range."
+  },
+  {
+    "id": "true-resurrection",
+    "name": "True Resurrection",
+    "level": 9,
+    "school": "Necromancy",
+    "classes": [
+      "cleric",
+      "druid"
+    ],
+    "castingTime": "1 hour",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "Instantaneous",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You touch a creature that has been dead for no longer than 200 years and that died for any reason except old age."
+  },
+  {
+    "id": "foresight",
+    "name": "Foresight",
+    "level": 9,
+    "school": "Divination",
+    "classes": [
+      "wizard",
+      "druid",
+      "bard",
+      "warlock"
+    ],
+    "castingTime": "1 minute",
+    "range": "Touch",
+    "components": [
+      "V",
+      "S",
+      "M"
+    ],
+    "duration": "8 hours",
+    "damage": null,
+    "saveType": null,
+    "attackType": null,
+    "scaling": {},
+    "description": "You touch a willing creature and bestow a limited ability to see into the immediate future."
   }
 ]

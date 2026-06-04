@@ -226,12 +226,15 @@ function resolveArmorClass({ armor, shield, abilityMods }) {
     return armorClass;
 }
 
-function resolveSkillValues(abilityMods, skillProficiencies, proficiencyBonus) {
+function resolveSkillValues(abilityMods, skillProficiencies, expertiseProficiencies, proficiencyBonus) {
     const proficiencySet = new Set(skillProficiencies || []);
+    const expertiseSet = new Set(expertiseProficiencies || []);
     const values = {};
 
     for (const [skill, ability] of Object.entries(SKILL_ABILITIES)) {
-        values[skill] = abilityMods[ability] + (proficiencySet.has(skill) ? proficiencyBonus : 0);
+        const proficiency = proficiencySet.has(skill) ? proficiencyBonus : 0;
+        const expertise = expertiseSet.has(skill) ? proficiencyBonus : 0;
+        values[skill] = abilityMods[ability] + proficiency + expertise;
     }
 
     return values;
@@ -448,7 +451,9 @@ function buildCharacterDocument(character, compendium) {
     const skillProficiencies = unique(character.skillProficiencies || []);
     const backgroundSkillProficiencies = unique(background?.skillProficiencies || []);
     const effectiveSkillProficiencies = unique([...skillProficiencies, ...backgroundSkillProficiencies]);
-    const skillValues = resolveSkillValues(abilityMods, effectiveSkillProficiencies, proficiencyBonus);
+    const expertiseProficiencies = unique(character.expertiseProficiencies || [])
+        .filter((skill) => effectiveSkillProficiencies.includes(skill));
+    const skillValues = resolveSkillValues(abilityMods, effectiveSkillProficiencies, expertiseProficiencies, proficiencyBonus);
     const savingThrows = resolveSavingThrowValues(abilityMods, savingThrowProficiencies, proficiencyBonus);
 
     const spellSlots = resolveSpellSlotState(character, classDoc, level);
@@ -474,7 +479,10 @@ function buildCharacterDocument(character, compendium) {
         featureIds
     });
 
-    const passivePerception = 10 + abilityMods.wis + (effectiveSkillProficiencies.includes('perception') ? proficiencyBonus : 0);
+    const passivePerception = 10
+        + abilityMods.wis
+        + (effectiveSkillProficiencies.includes('perception') ? proficiencyBonus : 0)
+        + (expertiseProficiencies.includes('perception') ? proficiencyBonus : 0);
     const availableWeaponIds = [...compendium.weapons.values()]
         .filter((weapon) => hasWeaponProficiency(weapon, weaponProficiencies))
         .map((weapon) => weapon.id);
@@ -519,6 +527,7 @@ function buildCharacterDocument(character, compendium) {
         savingThrows,
         skillProficiencies,
         backgroundSkillProficiencies,
+        expertiseProficiencies,
         skillValues,
         weaponProficiencies,
         armorProficiencies,
@@ -532,7 +541,11 @@ function buildCharacterDocument(character, compendium) {
         spellcasting: {
             classId: classDoc?.id || '',
             ability: spellcastingAbility,
-            kind: classDoc?.spellcasting?.kind || null
+            kind: classDoc?.spellcasting?.kind || null,
+            // 'short' for Warlock pact slots; 'long' for all other casters.
+            // Used by the client to display the correct rest type and to gate
+            // slot refresh on short rest vs long rest.
+            restRecovery: classDoc?.spellcasting?.restRecovery || 'long'
         },
         spellSlots,
         spellSaveDC,
