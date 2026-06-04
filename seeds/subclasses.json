@@ -30,5 +30,92 @@
     "levelFeatures": {
       "3": ["fast-hands", "second-story-work"]
     }
+  },
+  {
+    "id": "berserker",
+    "classId": "barbarian",
+    "name": "Path of the Berserker",
+    "levelFeatures": {
+      "3": ["frenzy"],
+      "6": ["mindless-rage"],
+      "10": ["intimidating-presence"],
+      "14": ["retaliation"]
+    }
+  },
+  {
+    "id": "college-of-lore",
+    "classId": "bard",
+    "name": "College of Lore",
+    "levelFeatures": {
+      "3": ["lore-bonus-proficiencies", "cutting-words"],
+      "6": ["additional-magical-secrets"],
+      "14": ["peerless-skill"]
+    }
+  },
+  {
+    "id": "circle-of-the-moon",
+    "classId": "druid",
+    "name": "Circle of the Moon",
+    "levelFeatures": {
+      "2": ["combat-wild-shape", "circle-forms"],
+      "6": ["primal-strike"],
+      "10": ["elemental-wild-shape"],
+      "14": ["thousand-forms"]
+    }
+  },
+  {
+    "id": "way-of-the-open-hand",
+    "classId": "monk",
+    "name": "Way of the Open Hand",
+    "levelFeatures": {
+      "3": ["open-hand-technique"],
+      "6": ["wholeness-of-body"],
+      "11": ["tranquility"],
+      "17": ["quivering-palm"]
+    }
+  },
+  {
+    "id": "oath-of-devotion",
+    "classId": "paladin",
+    "name": "Oath of Devotion",
+    "levelFeatures": {
+      "3": ["devoted-strike", "aura-of-devotion-minor"],
+      "7": ["aura-of-devotion"],
+      "15": ["purity-of-spirit"],
+      "20": ["holy-nimbus"]
+    }
+  },
+  {
+    "id": "hunter",
+    "classId": "ranger",
+    "name": "Hunter",
+    "levelFeatures": {
+      "3": ["hunters-prey"],
+      "7": ["defensive-tactics"],
+      "11": ["multiattack"],
+      "15": ["superior-hunters-defense"]
+    }
+  },
+  {
+    "id": "draconic-bloodline",
+    "classId": "sorcerer",
+    "name": "Draconic Bloodline",
+    "levelFeatures": {
+      "1": ["dragon-ancestor", "draconic-resilience"],
+      "6": ["elemental-affinity"],
+      "14": ["dragon-wings"],
+      "18": ["draconic-presence"]
+    }
+  },
+  {
+    "id": "the-fiend",
+    "classId": "warlock",
+    "name": "The Fiend",
+    "levelFeatures": {
+      "1": ["dark-ones-blessing", "fiend-expanded-spells"],
+      "6": ["dark-ones-own-luck"],
+      "10": ["fiendish-resilience"],
+      "14": ["hurl-through-hell"]
+    }
   }
 ]

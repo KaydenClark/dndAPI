@@ -42,6 +42,44 @@
     "featureIds": ["darkvision", "fey-ancestry", "trance", "keen-senses", "elf-weapon-training", "high-elf-cantrip"]
   },
   {
+    "id": "wood-elf",
+    "name": "Wood Elf",
+    "raceGroup": "Elf",
+    "size": "Medium",
+    "speed": 35,
+    "abilityBonuses": {
+      "dex": 2,
+      "wis": 1
+    },
+    "languages": ["Common", "Elvish"],
+    "traits": ["Darkvision", "Fey Ancestry", "Trance", "Keen Senses", "Elf Weapon Training", "Fleet of Foot", "Mask of the Wild"],
+    "weaponProficiencies": ["longsword", "shortsword", "shortbow", "longbow"],
+    "spellGrants": [],
+    "featureIds": ["darkvision", "fey-ancestry", "trance", "keen-senses", "elf-weapon-training", "fleet-of-foot", "mask-of-the-wild"]
+  },
+  {
+    "id": "drow",
+    "name": "Drow",
+    "raceGroup": "Elf",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "dex": 2,
+      "cha": 1
+    },
+    "languages": ["Common", "Elvish", "Undercommon"],
+    "traits": ["Superior Darkvision", "Fey Ancestry", "Trance", "Keen Senses", "Sunlight Sensitivity", "Drow Magic", "Drow Weapon Training"],
+    "weaponProficiencies": ["rapier", "shortsword", "hand-crossbow"],
+    "spellGrants": [
+      {
+        "type": "spell",
+        "spellName": "Dancing Lights",
+        "level": 1
+      }
+    ],
+    "featureIds": ["superior-darkvision", "fey-ancestry", "trance", "keen-senses", "sunlight-sensitivity", "drow-magic", "drow-weapon-training"]
+  },
+  {
     "id": "hill-dwarf",
     "name": "Hill Dwarf",
     "raceGroup": "Dwarf",
@@ -58,6 +96,22 @@
     "featureIds": ["darkvision", "dwarven-resilience", "dwarven-combat-training", "stonecunning", "dwarven-toughness"]
   },
   {
+    "id": "mountain-dwarf",
+    "name": "Mountain Dwarf",
+    "raceGroup": "Dwarf",
+    "size": "Medium",
+    "speed": 25,
+    "abilityBonuses": {
+      "str": 2,
+      "con": 2
+    },
+    "languages": ["Common", "Dwarvish"],
+    "traits": ["Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Stonecunning", "Dwarven Armor Training"],
+    "weaponProficiencies": ["battleaxe", "handaxe", "light-hammer", "warhammer"],
+    "spellGrants": [],
+    "featureIds": ["darkvision", "dwarven-resilience", "dwarven-combat-training", "stonecunning", "dwarven-armor-training"]
+  },
+  {
     "id": "lightfoot-halfling",
     "name": "Lightfoot Halfling",
     "raceGroup": "Halfling",
@@ -72,5 +126,145 @@
     "weaponProficiencies": [],
     "spellGrants": [],
     "featureIds": ["lucky", "brave", "halfling-nimbleness", "naturally-stealthy"]
+  },
+  {
+    "id": "stout-halfling",
+    "name": "Stout Halfling",
+    "raceGroup": "Halfling",
+    "size": "Small",
+    "speed": 25,
+    "abilityBonuses": {
+      "dex": 2,
+      "con": 1
+    },
+    "languages": ["Common", "Halfling"],
+    "traits": ["Lucky", "Brave", "Halfling Nimbleness", "Stout Resilience"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["lucky", "brave", "halfling-nimbleness", "stout-resilience"]
+  },
+  {
+    "id": "dragonborn",
+    "name": "Dragonborn",
+    "raceGroup": "Dragonborn",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "str": 2,
+      "cha": 1
+    },
+    "languages": ["Common", "Draconic"],
+    "traits": ["Draconic Ancestry", "Breath Weapon", "Damage Resistance", "Darkvision"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["draconic-ancestry", "breath-weapon", "draconic-resistance", "draconic-darkvision"]
+  },
+  {
+    "id": "forest-gnome",
+    "name": "Forest Gnome",
+    "raceGroup": "Gnome",
+    "size": "Small",
+    "speed": 25,
+    "abilityBonuses": {
+      "int": 2,
+      "dex": 1
+    },
+    "languages": ["Common", "Gnomish"],
+    "traits": ["Darkvision", "Gnome Cunning", "Natural Illusionist", "Speak with Small Beasts"],
+    "weaponProficiencies": [],
+    "spellGrants": [
+      {
+        "type": "spell",
+        "spellName": "Minor Illusion",
+        "level": 1
+      }
+    ],
+    "featureIds": ["gnome-darkvision", "gnome-cunning", "natural-illusionist", "speak-with-small-beasts"]
+  },
+  {
+    "id": "rock-gnome",
+    "name": "Rock Gnome",
+    "raceGroup": "Gnome",
+    "size": "Small",
+    "speed": 25,
+    "abilityBonuses": {
+      "int": 2,
+      "con": 1
+    },
+    "languages": ["Common", "Gnomish"],
+    "traits": ["Darkvision", "Gnome Cunning", "Artificer's Lore", "Tinker"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["gnome-darkvision", "gnome-cunning", "artificers-lore", "tinker"]
+  },
+  {
+    "id": "goliath",
+    "name": "Goliath",
+    "raceGroup": "Goliath",
+    "size": "Medium",
+    "speed": 35,
+    "abilityBonuses": {
+      "str": 2,
+      "con": 1
+    },
+    "languages": ["Common", "Giant"],
+    "traits": ["Giant Ancestry", "Large Form", "Powerful Build", "Natural Athlete"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["giant-ancestry", "large-form", "goliath-powerful-build", "natural-athlete-goliath"]
+  },
+  {
+    "id": "orc",
+    "name": "Orc",
+    "raceGroup": "Orc",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "str": 2,
+      "con": 1
+    },
+    "languages": ["Common", "Orc"],
+    "traits": ["Adrenaline Rush", "Darkvision", "Powerful Build", "Relentless Endurance"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["adrenaline-rush", "orc-darkvision", "orc-powerful-build", "relentless-endurance"]
+  },
+  {
+    "id": "asmodeus-tiefling",
+    "name": "Asmodeus Tiefling",
+    "raceGroup": "Tiefling",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "int": 1,
+      "cha": 2
+    },
+    "languages": ["Common", "Infernal"],
+    "traits": ["Darkvision", "Hellish Resistance", "Infernal Legacy"],
+    "weaponProficiencies": [],
+    "spellGrants": [
+      {
+        "type": "spell",
+        "spellName": "Thaumaturgy",
+        "level": 1
+      }
+    ],
+    "featureIds": ["tiefling-darkvision", "hellish-resistance", "infernal-legacy"]
+  },
+  {
+    "id": "zariel-tiefling",
+    "name": "Zariel Tiefling",
+    "raceGroup": "Tiefling",
+    "size": "Medium",
+    "speed": 30,
+    "abilityBonuses": {
+      "str": 1,
+      "cha": 2
+    },
+    "languages": ["Common", "Infernal"],
+    "traits": ["Darkvision", "Hellish Resistance", "Legacy of Avernus"],
+    "weaponProficiencies": [],
+    "spellGrants": [],
+    "featureIds": ["tiefling-darkvision", "hellish-resistance", "legacy-of-avernus"]
   }
 ]
