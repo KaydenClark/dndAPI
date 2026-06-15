@@ -120,3 +120,5 @@ router.get('/:characterId', asyncHandler(async (req, res) => {
 }));
 
 module.exports = router;
+module.exports.validateCharacterPayload = validateCharacterPayload;
+module.exports.isAbilityScoreObject = isAbilityScoreObject;

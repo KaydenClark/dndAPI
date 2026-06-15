@@ -110,3 +110,46 @@ test('authenticate accepts valid bearer token and assigns req.user', async () =>
 
     process.env.ACCESS_SECRET_TOKEN = originalSecret;
 });
+
+test('authenticate rejects an expired bearer token with 403', () => {
+    const originalSecret = process.env.ACCESS_SECRET_TOKEN;
+    process.env.ACCESS_SECRET_TOKEN = 'unit-secret';
+    // Set exp to 100 seconds in the past so the token is already expired
+    const payload = { email: 'x@x.com', exp: Math.floor(Date.now() / 1000) - 100 };
+    const expiredToken = jwt.sign(payload, 'unit-secret');
+    const response = createMockResponse();
+    let nextWasCalled = false;
+
+    authenticate({ headers: { authorization: `Bearer ${expiredToken}` } }, response, () => {
+        nextWasCalled = true;
+    });
+
+    assert.equal(response.statusCode, 403);
+    assert.deepEqual(response.body, { error: 'Authorization token is invalid' });
+    assert.equal(nextWasCalled, false);
+
+    process.env.ACCESS_SECRET_TOKEN = originalSecret;
+});
+
+test('authenticate rejects an authorization header without the Bearer prefix with 401', () => {
+    const response = createMockResponse();
+    let nextWasCalled = false;
+
+    authenticate({ headers: { authorization: 'token-without-bearer-prefix' } }, response, () => {
+        nextWasCalled = true;
+    });
+
+    assert.equal(response.statusCode, 401);
+    assert.deepEqual(response.body, { error: 'Authorization token is required' });
+    assert.equal(nextWasCalled, false);
+});
+
+test('authenticate rejects a Bearer header with an empty token with 401', () => {
+    // 'Bearer '.split(' ')[1] is '' which is falsy → treated as missing token
+    const response = createMockResponse();
+
+    authenticate({ headers: { authorization: 'Bearer ' } }, response, () => {});
+
+    assert.equal(response.statusCode, 401);
+    assert.deepEqual(response.body, { error: 'Authorization token is required' });
+});
