@@ -4,22 +4,30 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+const { acquireTestDb, releaseTestDb } = require('./helpers/testDb');
 const { closeMongoConnection, ensureIndexes, getDb, pingDb } = require('../db/mongo');
 
-let mongoServer;
+let dbResult = { available: false };
 
 test.before(async () => {
-    mongoServer = await MongoMemoryServer.create();
-    process.env.ATLAS_CONNECTION = mongoServer.getUri();
+    dbResult = await acquireTestDb();
+    if (!dbResult.available) return;
+
+    process.env.ATLAS_CONNECTION = dbResult.uri;
     process.env.DB_NAME = 'MongoTestDb';
     await ensureIndexes();
 });
 
 test.after(async () => {
-    await closeMongoConnection();
-    if (mongoServer) {
-        await mongoServer.stop();
+    if (dbResult.available) {
+        await closeMongoConnection();
+    }
+    await releaseTestDb();
+});
+
+test.beforeEach((t) => {
+    if (!dbResult.available) {
+        t.skip('MongoDB unavailable — binary download blocked in this environment');
     }
 });
 

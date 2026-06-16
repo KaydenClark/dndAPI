@@ -3,18 +3,20 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+const { acquireTestDb, releaseTestDb } = require('./helpers/testDb');
 const { closeMongoConnection, ensureIndexes, getDb } = require('../db/mongo');
 const { createUser, createSeedUser, validateUser } = require('../DataAccess/users');
 const { listCharacterSummariesByEmail } = require('../DataAccess/characters');
 const { getCollectionMap, getCompendiumIndex } = require('../DataAccess/compendium');
 const { seedCompendium } = require('../seeds/loadSeedData');
 
-let mongoServer;
+let dbResult = { available: false };
 
 test.before(async () => {
-    mongoServer = await MongoMemoryServer.create();
-    process.env.ATLAS_CONNECTION = mongoServer.getUri();
+    dbResult = await acquireTestDb();
+    if (!dbResult.available) return;
+
+    process.env.ATLAS_CONNECTION = dbResult.uri;
     process.env.DB_NAME = 'DataAccessTestDb';
     process.env.FIVETOOLS_DATA_DIR = '';
     await ensureIndexes();
@@ -26,13 +28,17 @@ test.before(async () => {
 });
 
 test.after(async () => {
-    await closeMongoConnection();
-    if (mongoServer) {
-        await mongoServer.stop();
+    if (dbResult.available) {
+        await closeMongoConnection();
     }
+    await releaseTestDb();
 });
 
-test.beforeEach(async () => {
+test.beforeEach(async (t) => {
+    if (!dbResult.available) {
+        t.skip('MongoDB unavailable — binary download blocked in this environment');
+        return;
+    }
     const db = await getDb();
     await db.collection('Users').deleteMany({});
     await db.collection('Character').deleteMany({});
