@@ -2,6 +2,14 @@
 
 Revived Express + MongoDB backend for the D&D WebApp.
 
+## API Reference
+
+- **[`docs/API.md`](./docs/API.md)** — full REST reference: endpoints, auth,
+  request/response schemas, error codes, and `curl` examples.
+- **[`docs/openapi.yaml`](./docs/openapi.yaml)** — OpenAPI 3.0 spec (importable
+  into Swagger UI, Postman, etc.).
+- **[`CLAUDE.md`](./CLAUDE.md)** — architecture and development guide.
+
 ## What Changed
 
 - Replaced the old per-function Mongo connection pattern with a shared client in `db/`.
@@ -53,8 +61,8 @@ Password for the demo accounts: `Password123!`
 - `npm test`
 - `npm run seed`
 
-Current verified baseline as of 2026-06-04:
+Current verified baseline as of 2026-06-15:
 
-- `npm test`: 55 tests passing
+- `npm test`: 132 tests passing
 - Atlas seed counts from the 2026-06-03 importer run: 165 races, 16 classes, 130 subclasses, 558 spells, 2967 features, 126 backgrounds, 178 feats, 15 conditions
 

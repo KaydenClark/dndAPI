@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Express.js + MongoDB REST API backend for a D&D character management web app ("Players Digital Binder"). Handles authentication, character CRUD, and a compendium of D&D 5e game data (races, classes, spells, weapons, etc.).
 
+For the full HTTP contract (endpoints, request/response schemas, status codes), see [`docs/API.md`](./docs/API.md) and the OpenAPI spec at [`docs/openapi.yaml`](./docs/openapi.yaml).
+
 ## Commands
 
 ```bash
@@ -80,8 +82,11 @@ Tests use Node.js's built-in `node:test` runner with `supertest` for HTTP assert
 - `test/api.test.js` – Integration tests covering all routes end-to-end
 - `test/derivation.test.js` – Unit tests for `characterDerivation.js`
 - `test/support.test.js` – Tests for utility/validation helpers
+- `test/dataAccess.test.js` – Tests for the `DataAccess/` layer against in-memory Mongo
+- `test/mongo.test.js` – Tests for the `db/mongo.js` connection/index helpers
+- `test/validation.test.js` – Tests for character payload validation
 
-All 13 tests should pass. Run individual files with `node --test test/<file>`.
+All 132 tests should pass (as of 2026-06-15). Run individual files with `node --test test/<file>`.
 
 ## Seeding
 

@@ -1,0 +1,556 @@
+openapi: 3.0.3
+info:
+  title: dndAPI
+  version: "1.0.0"
+  description: >
+    Express + MongoDB backend for the D&D WebApp ("Players Digital Binder").
+    Handles user authentication, character CRUD, and a read-only D&D 5e
+    compendium. Characters are derived server-side: clients send a small set of
+    player choices and receive a fully computed character sheet.
+    See docs/API.md for the prose reference.
+  license:
+    name: ISC
+servers:
+  - url: http://localhost:5000
+    description: Local development
+
+tags:
+  - name: Health
+  - name: Auth
+  - name: Compendium
+  - name: Characters
+
+paths:
+  /:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Pings MongoDB and confirms the API is up.
+      security: []
+      responses:
+        "200":
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /signUp:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      description: >
+        Creates an account. Email is trimmed and lowercased; userName is trimmed.
+        Returns the user but NO token — call /signIn next.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, userName, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: aria@example.com
+                userName:
+                  type: string
+                  example: aria
+                password:
+                  type: string
+                  format: password
+                  description: bcrypt-hashed server-side. Legacy field `hash` is also accepted.
+                  example: Password123!
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "409":
+          description: Email or userName already exists
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /signIn:
+    post:
+      tags: [Auth]
+      summary: Authenticate and receive a JWT
+      description: Returns a JWT valid for 1 hour.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: aria@example.com
+                password:
+                  type: string
+                  format: password
+                  description: Legacy field `hash` is also accepted.
+                  example: Password123!
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT, expires in 1h. Payload = { email, userName }.
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          description: Invalid email or password
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /compendium/bootstrap:
+    get:
+      tags: [Compendium]
+      summary: Slim compendium for client init
+      description: >
+        Returns each compendium collection as an array of slim records sized for
+        the character-creation wizard and trackers. Public.
+      security: []
+      responses:
+        "200":
+          description: Bootstrap compendium
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BootstrapCompendium" }
+
+  /player:
+    get:
+      tags: [Characters]
+      summary: List the caller's character summaries
+      responses:
+        "200":
+          description: Character summaries, sorted by name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  characters:
+                    type: array
+                    items: { $ref: "#/components/schemas/CharacterSummary" }
+        "401": { $ref: "#/components/responses/AuthRequired" }
+        "403": { $ref: "#/components/responses/AuthInvalid" }
+    post:
+      tags: [Characters]
+      summary: Create a character
+      description: >
+        Owner is taken from the token; any email in the body is ignored. The
+        response is the fully derived character sheet.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CharacterInput" }
+      responses:
+        "201":
+          description: Character created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  character: { $ref: "#/components/schemas/Character" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+        "401": { $ref: "#/components/responses/AuthRequired" }
+        "403": { $ref: "#/components/responses/AuthInvalid" }
+        "409":
+          description: Character name already exists for this user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /player/{characterId}:
+    parameters:
+      - name: characterId
+        in: path
+        required: true
+        schema: { type: string }
+        description: MongoDB ObjectId of the character.
+    get:
+      tags: [Characters]
+      summary: Get one character (full derived sheet)
+      responses:
+        "200":
+          description: Character
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  character: { $ref: "#/components/schemas/Character" }
+        "401": { $ref: "#/components/responses/AuthRequired" }
+        "403": { $ref: "#/components/responses/AuthInvalid" }
+        "404": { $ref: "#/components/responses/CharacterNotFound" }
+    put:
+      tags: [Characters]
+      summary: Update a character (partial allowed)
+      description: >
+        Only fields present in the body are validated; an empty body re-derives
+        the sheet. Omitted HP / hitDiceRemaining are recomputed, not cleared.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CharacterInput"
+                - description: All fields optional on update.
+      responses:
+        "200":
+          description: Updated character
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  character: { $ref: "#/components/schemas/Character" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+        "401": { $ref: "#/components/responses/AuthRequired" }
+        "403": { $ref: "#/components/responses/AuthInvalid" }
+        "404": { $ref: "#/components/responses/CharacterNotFound" }
+        "409":
+          description: Rename collides with another of the user's characters
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    AuthRequired:
+      description: Authorization token is required
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { error: "Authorization token is required" }
+    AuthInvalid:
+      description: Authorization token is invalid or expired
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { error: "Authorization token is invalid" }
+    CharacterNotFound:
+      description: Not found, not owned by the caller, or invalid id
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { error: "Character not found" }
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error: { type: string }
+        details:
+          type: object
+          additionalProperties: true
+      required: [error]
+
+    AbilityScores:
+      type: object
+      description: The six D&D ability scores.
+      properties:
+        str: { type: integer }
+        dex: { type: integer }
+        con: { type: integer }
+        int: { type: integer }
+        wis: { type: integer }
+        cha: { type: integer }
+      required: [str, dex, con, int, wis, cha]
+
+    User:
+      type: object
+      properties:
+        _id: { type: string }
+        email: { type: string, format: email }
+        userName: { type: string }
+        role:
+          type: string
+          enum: [player, dm]
+          default: player
+        playerIds:
+          type: array
+          items: { type: string }
+        dmCampaignIds:
+          type: array
+          items: { type: string }
+
+    CharacterSummary:
+      type: object
+      properties:
+        _id: { type: string }
+        email: { type: string }
+        userName: { type: string }
+        characterName: { type: string }
+        raceName: { type: string }
+        className: { type: string }
+        level: { type: integer }
+
+    CharacterInput:
+      type: object
+      required: [characterName, raceId, classId, level]
+      properties:
+        characterName:
+          type: string
+          description: Non-empty after trim; unique per user.
+        raceId:
+          type: string
+          description: Compendium race id.
+        classId:
+          type: string
+          description: Compendium class id.
+        level:
+          type: integer
+          minimum: 1
+          maximum: 20
+        baseAbilityScores:
+          $ref: "#/components/schemas/AbilityScores"
+        subclassId: { type: string }
+        background: { type: string }
+        alignment: { type: string }
+        armorId: { type: string, nullable: true }
+        shieldId: { type: string, nullable: true }
+        equippedWeaponIds:
+          type: array
+          items: { type: string }
+        knownSpellIds:
+          type: array
+          items: { type: string }
+        preparedSpellIds:
+          type: array
+          items: { type: string }
+        cantripIds:
+          type: array
+          items: { type: string }
+        skillProficiencies:
+          type: array
+          items: { type: string }
+        expertiseProficiencies:
+          type: array
+          items: { type: string }
+        currency:
+          type: object
+          properties:
+            cp: { type: integer }
+            sp: { type: integer }
+            ep: { type: integer }
+            gp: { type: integer }
+            pp: { type: integer }
+        conditions:
+          type: array
+          items: { type: string }
+        maxHp: { type: integer }
+        currentHp: { type: integer }
+        tempHp: { type: integer }
+        hitDiceRemaining: { type: integer }
+        traits: { type: string }
+        ideals: { type: string }
+        bonds: { type: string }
+        flaws: { type: string }
+        backstory: { type: string }
+        inventory:
+          type: array
+          items: { type: object, additionalProperties: true }
+      additionalProperties: true
+
+    Character:
+      type: object
+      description: >
+        Full derived character sheet. Player inputs are a subset; all other
+        fields are computed on every read/write and should be treated as
+        read-only by clients. additionalProperties is true to allow the full
+        derived field set documented in docs/API.md.
+      additionalProperties: true
+      properties:
+        _id: { type: string }
+        email: { type: string }
+        userName: { type: string }
+        characterName: { type: string }
+        raceId: { type: string }
+        raceName: { type: string }
+        classId: { type: string }
+        className: { type: string }
+        subclassId: { type: string }
+        subclassName: { type: string }
+        level: { type: integer }
+        xp: { type: integer }
+        baseAbilityScores: { $ref: "#/components/schemas/AbilityScores" }
+        abilityScores: { $ref: "#/components/schemas/AbilityScores" }
+        abilityMods: { $ref: "#/components/schemas/AbilityScores" }
+        proficiencyBonus: { type: integer }
+        speed: { type: integer }
+        passivePerception: { type: integer }
+        initiative: { type: integer }
+        maxHp: { type: integer }
+        currentHp: { type: integer }
+        tempHp: { type: integer }
+        hitDie: { type: string }
+        hitDiceRemaining: { type: integer }
+        armorClass: { type: integer }
+        savingThrows: { $ref: "#/components/schemas/AbilityScores" }
+        skillValues:
+          type: object
+          additionalProperties: { type: integer }
+        languages:
+          type: array
+          items: { type: string }
+        attacks:
+          type: array
+          items: { type: object, additionalProperties: true }
+        spellcasting:
+          type: object
+          properties:
+            classId: { type: string }
+            ability: { type: string, nullable: true }
+            kind: { type: string, nullable: true }
+        spellSaveDC: { type: integer, nullable: true }
+        spellAttackBonus: { type: integer, nullable: true }
+        resolvedSpells:
+          type: object
+          properties:
+            cantrips: { type: array, items: { type: object, additionalProperties: true } }
+            known: { type: array, items: { type: object, additionalProperties: true } }
+            prepared: { type: array, items: { type: object, additionalProperties: true } }
+        conditions:
+          type: array
+          items: { type: string }
+        currency:
+          type: object
+          additionalProperties: { type: integer }
+        createdAt: { type: string }
+        updatedAt: { type: string }
+
+    BootstrapCompendium:
+      type: object
+      properties:
+        races:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              speed: { type: integer }
+              size: { type: string }
+              raceGroup: { type: string }
+        classes:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              primaryAbilities: { type: array, items: { type: string } }
+              skillChoiceRules: { type: object, additionalProperties: true }
+              subclassLevel: { type: integer }
+        subclasses:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              classId: { type: string }
+              name: { type: string }
+        weapons:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              category: { type: string }
+              weaponType: { type: string }
+        armor:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              category: { type: string }
+              baseAc: { type: integer }
+        spells:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              level: { type: integer }
+              classes: { type: array, items: { type: string } }
+        backgrounds:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              source: { type: string }
+              skillProficiencies: { type: array, items: { type: string } }
+              languages:
+                description: Either a list of fixed languages or a count of free choices.
+                oneOf:
+                  - type: array
+                    items: { type: string }
+                  - type: integer
+              toolProficiencies: { type: array, items: { type: string } }
+        feats:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              source: { type: string }
+              prerequisite: { type: string, nullable: true }
+              abilityBonus: { type: object, additionalProperties: true, nullable: true }
+        conditions:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              name: { type: string }
+              description: { type: string }
+
+security:
+  - bearerAuth: []
