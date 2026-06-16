@@ -7,6 +7,7 @@ Revived Express + MongoDB backend for the D&D WebApp.
 - Replaced the old per-function Mongo connection pattern with a shared client in `db/`.
 - Standardized auth and API responses around JSON and JWT middleware.
 - Added compendium-backed character derivation for race, class, subclass, level, attacks, spell slots, spell save DC, and proficiencies.
+- Added derivation support for background-granted skills, tools, languages, expertise, half-caster slots, and Warlock short-rest pact recovery.
 - Added a seed pipeline that can load either:
   - the small built-in starter dataset under `seeds/*.json`
   - a larger local 5etools-compatible source folder via `FIVETOOLS_DATA_DIR`
@@ -51,4 +52,9 @@ Password for the demo accounts: `Password123!`
 
 - `npm test`
 - `npm run seed`
+
+Current verified baseline as of 2026-06-04:
+
+- `npm test`: 55 tests passing
+- Atlas seed counts from the 2026-06-03 importer run: 165 races, 16 classes, 130 subclasses, 558 spells, 2967 features, 126 backgrounds, 178 feats, 15 conditions
 

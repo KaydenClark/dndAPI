@@ -3,196 +3,2669 @@
     "id": "fighter",
     "name": "Fighter",
     "hitDie": 10,
-    "primaryAbilities": ["str", "dex"],
-    "savingThrowProficiencies": ["str", "con"],
-    "armorProficiencies": ["light", "medium", "heavy", "shield"],
-    "weaponProficiencies": ["simple", "martial"],
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "str",
+      "dex"
+    ],
+    "savingThrowProficiencies": [
+      "str",
+      "con"
+    ],
+    "armorProficiencies": [
+      "light",
+      "medium",
+      "heavy",
+      "shield"
+    ],
+    "weaponProficiencies": [
+      "simple",
+      "martial"
+    ],
     "skillChoiceRules": {
       "choose": 2,
-      "options": ["acrobatics", "animalHandling", "athletics", "history", "insight", "intimidation", "perception", "survival"]
+      "options": [
+        "acrobatics",
+        "animalHandling",
+        "athletics",
+        "history",
+        "insight",
+        "intimidation",
+        "perception",
+        "survival"
+      ]
     },
     "spellcasting": null,
     "levelProgression": {
-      "1":  { "featureIds": ["fighting-style", "second-wind"] },
-      "2":  { "featureIds": ["action-surge"] },
-      "3":  { "featureIds": ["martial-archetype"] },
-      "4":  { "featureIds": ["ability-score-improvement"] },
-      "5":  { "featureIds": ["extra-attack"] },
-      "6":  { "featureIds": ["ability-score-improvement"] },
-      "7":  { "featureIds": ["archetype-feature"] },
-      "8":  { "featureIds": ["ability-score-improvement"] },
-      "9":  { "featureIds": ["indomitable"] },
-      "10": { "featureIds": ["archetype-feature"] },
-      "11": { "featureIds": ["extra-attack-2"] },
-      "12": { "featureIds": ["ability-score-improvement"] },
-      "13": { "featureIds": ["indomitable-2"] },
-      "14": { "featureIds": ["ability-score-improvement"] },
-      "15": { "featureIds": ["archetype-feature"] },
-      "16": { "featureIds": ["ability-score-improvement"] },
-      "17": { "featureIds": ["action-surge-2", "indomitable-3"] },
-      "18": { "featureIds": ["archetype-feature"] },
-      "19": { "featureIds": ["ability-score-improvement"] },
-      "20": { "featureIds": ["extra-attack-3"] }
+      "1": {
+        "featureIds": [
+          "fighting-style",
+          "second-wind"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "action-surge"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "martial-archetype"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "extra-attack"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "indomitable"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "extra-attack-2"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "indomitable-2"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "action-surge-2",
+          "indomitable-3"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "extra-attack-3"
+        ]
+      }
     }
   },
   {
     "id": "wizard",
     "name": "Wizard",
     "hitDie": 6,
-    "primaryAbilities": ["int"],
-    "savingThrowProficiencies": ["int", "wis"],
+    "subclassLevel": 2,
+    "primaryAbilities": [
+      "int"
+    ],
+    "savingThrowProficiencies": [
+      "int",
+      "wis"
+    ],
     "armorProficiencies": [],
-    "weaponProficiencies": ["dagger", "dart", "sling", "quarterstaff", "light-crossbow"],
+    "weaponProficiencies": [
+      "dagger",
+      "dart",
+      "sling",
+      "quarterstaff",
+      "light-crossbow"
+    ],
     "skillChoiceRules": {
       "choose": 2,
-      "options": ["arcana", "history", "insight", "investigation", "medicine", "religion"]
+      "options": [
+        "arcana",
+        "history",
+        "insight",
+        "investigation",
+        "medicine",
+        "religion"
+      ]
     },
     "spellcasting": {
       "ability": "int",
       "kind": "prepared",
       "preparedFormula": "levelPlusAbilityMod",
       "spellSlotsByLevel": {
-        "1":  { "level_1": 2 },
-        "2":  { "level_1": 3 },
-        "3":  { "level_1": 4, "level_2": 2 },
-        "4":  { "level_1": 4, "level_2": 3 },
-        "5":  { "level_1": 4, "level_2": 3, "level_3": 2 },
-        "6":  { "level_1": 4, "level_2": 3, "level_3": 3 },
-        "7":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 1 },
-        "8":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 2 },
-        "9":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 1 },
-        "10": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2 },
-        "11": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
-        "12": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
-        "13": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
-        "14": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
-        "15": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
-        "16": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
-        "17": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
-        "18": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
-        "19": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 1, "level_8": 1, "level_9": 1 },
-        "20": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 2, "level_8": 1, "level_9": 1 }
+        "1": {
+          "level_1": 2
+        },
+        "2": {
+          "level_1": 3
+        },
+        "3": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "4": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 2,
+          "level_8": 1,
+          "level_9": 1
+        }
       },
       "cantripsKnownByLevel": {
         "1": 3,
         "4": 4,
         "10": 5
-      }
+      },
+      "restRecovery": "long"
     },
     "levelProgression": {
-      "1":  { "featureIds": ["spellcasting", "arcane-recovery"] },
-      "2":  { "featureIds": ["arcane-tradition"] },
-      "4":  { "featureIds": ["ability-score-improvement"] },
-      "5":  { "featureIds": ["third-level-spells"] },
-      "6":  { "featureIds": ["arcane-tradition-feature"] },
-      "8":  { "featureIds": ["ability-score-improvement"] },
-      "9":  { "featureIds": ["fifth-level-spells"] },
-      "10": { "featureIds": ["arcane-tradition-feature"] },
-      "12": { "featureIds": ["ability-score-improvement"] },
-      "14": { "featureIds": ["arcane-tradition-feature"] },
-      "16": { "featureIds": ["ability-score-improvement"] },
-      "18": { "featureIds": ["spell-mastery"] },
-      "19": { "featureIds": ["ability-score-improvement"] },
-      "20": { "featureIds": ["signature-spells"] }
+      "1": {
+        "featureIds": [
+          "spellcasting",
+          "arcane-recovery"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "arcane-tradition"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "third-level-spells"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "arcane-tradition-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "fifth-level-spells"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "arcane-tradition-feature"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "arcane-tradition-feature"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "spell-mastery"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "signature-spells"
+        ]
+      }
     }
   },
   {
     "id": "cleric",
     "name": "Cleric",
     "hitDie": 8,
-    "primaryAbilities": ["wis"],
-    "savingThrowProficiencies": ["wis", "cha"],
-    "armorProficiencies": ["light", "medium", "shield"],
-    "weaponProficiencies": ["simple"],
+    "subclassLevel": 1,
+    "primaryAbilities": [
+      "wis"
+    ],
+    "savingThrowProficiencies": [
+      "wis",
+      "cha"
+    ],
+    "armorProficiencies": [
+      "light",
+      "medium",
+      "shield"
+    ],
+    "weaponProficiencies": [
+      "simple"
+    ],
     "skillChoiceRules": {
       "choose": 2,
-      "options": ["history", "insight", "medicine", "persuasion", "religion"]
+      "options": [
+        "history",
+        "insight",
+        "medicine",
+        "persuasion",
+        "religion"
+      ]
     },
     "spellcasting": {
       "ability": "wis",
       "kind": "prepared",
       "preparedFormula": "levelPlusAbilityMod",
       "spellSlotsByLevel": {
-        "1":  { "level_1": 2 },
-        "2":  { "level_1": 3 },
-        "3":  { "level_1": 4, "level_2": 2 },
-        "4":  { "level_1": 4, "level_2": 3 },
-        "5":  { "level_1": 4, "level_2": 3, "level_3": 2 },
-        "6":  { "level_1": 4, "level_2": 3, "level_3": 3 },
-        "7":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 1 },
-        "8":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 2 },
-        "9":  { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 1 },
-        "10": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2 },
-        "11": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
-        "12": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1 },
-        "13": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
-        "14": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1 },
-        "15": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
-        "16": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1 },
-        "17": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 2, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
-        "18": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 1, "level_7": 1, "level_8": 1, "level_9": 1 },
-        "19": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 1, "level_8": 1, "level_9": 1 },
-        "20": { "level_1": 4, "level_2": 3, "level_3": 3, "level_4": 3, "level_5": 3, "level_6": 2, "level_7": 2, "level_8": 1, "level_9": 1 }
+        "1": {
+          "level_1": 2
+        },
+        "2": {
+          "level_1": 3
+        },
+        "3": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "4": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 2,
+          "level_8": 1,
+          "level_9": 1
+        }
       },
       "cantripsKnownByLevel": {
         "1": 3,
         "4": 4,
         "10": 5
-      }
+      },
+      "restRecovery": "long"
     },
     "levelProgression": {
-      "1":  { "featureIds": ["spellcasting", "divine-domain"] },
-      "2":  { "featureIds": ["channel-divinity", "divine-domain-feature"] },
-      "4":  { "featureIds": ["ability-score-improvement"] },
-      "5":  { "featureIds": ["destroy-undead-cr-1-2"] },
-      "6":  { "featureIds": ["channel-divinity-2", "divine-domain-feature"] },
-      "8":  { "featureIds": ["ability-score-improvement", "destroy-undead-cr-1"] },
-      "9":  { "featureIds": ["fifth-level-spells"] },
-      "10": { "featureIds": ["divine-intervention"] },
-      "11": { "featureIds": ["destroy-undead-cr-2"] },
-      "12": { "featureIds": ["ability-score-improvement"] },
-      "14": { "featureIds": ["destroy-undead-cr-3"] },
-      "16": { "featureIds": ["ability-score-improvement"] },
-      "17": { "featureIds": ["destroy-undead-cr-4", "divine-domain-feature"] },
-      "18": { "featureIds": ["channel-divinity-3"] },
-      "19": { "featureIds": ["ability-score-improvement"] },
-      "20": { "featureIds": ["divine-intervention-improved"] }
+      "1": {
+        "featureIds": [
+          "spellcasting",
+          "divine-domain"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "channel-divinity",
+          "divine-domain-feature"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "destroy-undead-cr-1-2"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "channel-divinity-2",
+          "divine-domain-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement",
+          "destroy-undead-cr-1"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "fifth-level-spells"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "divine-intervention"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "destroy-undead-cr-2"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "destroy-undead-cr-3"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "destroy-undead-cr-4",
+          "divine-domain-feature"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "channel-divinity-3"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "divine-intervention-improved"
+        ]
+      }
     }
   },
   {
     "id": "rogue",
     "name": "Rogue",
     "hitDie": 8,
-    "primaryAbilities": ["dex"],
-    "savingThrowProficiencies": ["dex", "int"],
-    "armorProficiencies": ["light"],
-    "weaponProficiencies": ["simple", "hand-crossbow", "longsword", "rapier", "shortsword"],
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "dex"
+    ],
+    "savingThrowProficiencies": [
+      "dex",
+      "int"
+    ],
+    "armorProficiencies": [
+      "light"
+    ],
+    "weaponProficiencies": [
+      "simple",
+      "hand-crossbow",
+      "longsword",
+      "rapier",
+      "shortsword"
+    ],
     "skillChoiceRules": {
       "choose": 4,
-      "options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "performance", "persuasion", "sleightOfHand", "stealth"]
+      "options": [
+        "acrobatics",
+        "athletics",
+        "deception",
+        "insight",
+        "intimidation",
+        "investigation",
+        "perception",
+        "performance",
+        "persuasion",
+        "sleightOfHand",
+        "stealth"
+      ]
     },
     "spellcasting": null,
     "levelProgression": {
-      "1":  { "featureIds": ["expertise", "sneak-attack", "thieves-cant"] },
-      "2":  { "featureIds": ["cunning-action"] },
-      "3":  { "featureIds": ["roguish-archetype", "sneak-attack-2d6"] },
-      "4":  { "featureIds": ["ability-score-improvement"] },
-      "5":  { "featureIds": ["uncanny-dodge", "sneak-attack-3d6"] },
-      "6":  { "featureIds": ["expertise"] },
-      "7":  { "featureIds": ["evasion", "sneak-attack-4d6"] },
-      "8":  { "featureIds": ["ability-score-improvement"] },
-      "9":  { "featureIds": ["archetype-feature", "sneak-attack-5d6"] },
-      "10": { "featureIds": ["ability-score-improvement"] },
-      "11": { "featureIds": ["reliable-talent", "sneak-attack-6d6"] },
-      "12": { "featureIds": ["ability-score-improvement"] },
-      "13": { "featureIds": ["archetype-feature", "sneak-attack-7d6"] },
-      "14": { "featureIds": ["blindsense"] },
-      "15": { "featureIds": ["slippery-mind", "sneak-attack-8d6"] },
-      "16": { "featureIds": ["ability-score-improvement"] },
-      "17": { "featureIds": ["archetype-feature", "sneak-attack-9d6"] },
-      "18": { "featureIds": ["elusive"] },
-      "19": { "featureIds": ["ability-score-improvement", "sneak-attack-10d6"] },
-      "20": { "featureIds": ["stroke-of-luck"] }
+      "1": {
+        "featureIds": [
+          "expertise",
+          "sneak-attack",
+          "thieves-cant"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "cunning-action"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "roguish-archetype",
+          "sneak-attack-2d6"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "uncanny-dodge",
+          "sneak-attack-3d6"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "expertise"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "evasion",
+          "sneak-attack-4d6"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "archetype-feature",
+          "sneak-attack-5d6"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "reliable-talent",
+          "sneak-attack-6d6"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "archetype-feature",
+          "sneak-attack-7d6"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "blindsense"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "slippery-mind",
+          "sneak-attack-8d6"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "archetype-feature",
+          "sneak-attack-9d6"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "elusive"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement",
+          "sneak-attack-10d6"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "stroke-of-luck"
+        ]
+      }
+    }
+  },
+  {
+    "id": "barbarian",
+    "name": "Barbarian",
+    "hitDie": 12,
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "str"
+    ],
+    "savingThrowProficiencies": [
+      "str",
+      "con"
+    ],
+    "armorProficiencies": [
+      "light",
+      "medium",
+      "shield"
+    ],
+    "weaponProficiencies": [
+      "simple",
+      "martial"
+    ],
+    "skillChoiceRules": {
+      "choose": 2,
+      "options": [
+        "animalHandling",
+        "athletics",
+        "intimidation",
+        "nature",
+        "perception",
+        "survival"
+      ]
+    },
+    "spellcasting": null,
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "rage",
+          "barb-unarmored-defense",
+          "weapon-mastery"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "danger-sense",
+          "reckless-attack"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "primal-knowledge",
+          "barbarian-subclass"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "barb-extra-attack",
+          "fast-movement"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "feral-instinct",
+          "instinctive-pounce"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "brutal-strike"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "relentless-rage"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "improved-brutal-strike"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "persistent-rage"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "improved-brutal-strike-2"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "indomitable-might"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "primal-champion"
+        ]
+      }
+    }
+  },
+  {
+    "id": "bard",
+    "name": "Bard",
+    "hitDie": 8,
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "cha"
+    ],
+    "savingThrowProficiencies": [
+      "dex",
+      "cha"
+    ],
+    "armorProficiencies": [
+      "light"
+    ],
+    "weaponProficiencies": [
+      "simple",
+      "hand-crossbow",
+      "longsword",
+      "rapier",
+      "shortsword"
+    ],
+    "skillChoiceRules": {
+      "choose": 3,
+      "options": [
+        "acrobatics",
+        "animalHandling",
+        "arcana",
+        "athletics",
+        "deception",
+        "history",
+        "insight",
+        "intimidation",
+        "investigation",
+        "medicine",
+        "nature",
+        "perception",
+        "performance",
+        "persuasion",
+        "religion",
+        "sleightOfHand",
+        "stealth",
+        "survival"
+      ]
+    },
+    "spellcasting": {
+      "ability": "cha",
+      "kind": "known",
+      "spellSlotsByLevel": {
+        "1": {
+          "level_1": 2
+        },
+        "2": {
+          "level_1": 3
+        },
+        "3": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "4": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 2,
+          "level_8": 1,
+          "level_9": 1
+        }
+      },
+      "cantripsKnownByLevel": {
+        "1": 2,
+        "4": 3,
+        "10": 4
+      },
+      "restRecovery": "long"
+    },
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "spellcasting",
+          "bardic-inspiration"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "bard-expertise",
+          "jack-of-all-trades"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "bard-college"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "font-of-inspiration"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "archetype-feature",
+          "countercharm"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "bard-expertise-2"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "bardic-inspiration-d10",
+          "magical-secrets"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "magical-secrets"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "magical-secrets"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "bardic-inspiration-d12"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "magical-secrets"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "superior-inspiration"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "words-of-creation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "druid",
+    "name": "Druid",
+    "hitDie": 8,
+    "subclassLevel": 2,
+    "primaryAbilities": [
+      "wis"
+    ],
+    "savingThrowProficiencies": [
+      "int",
+      "wis"
+    ],
+    "armorProficiencies": [
+      "light",
+      "medium",
+      "shield"
+    ],
+    "weaponProficiencies": [
+      "club",
+      "dagger",
+      "dart",
+      "javelin",
+      "mace",
+      "quarterstaff",
+      "scimitar",
+      "sickle",
+      "sling",
+      "spear"
+    ],
+    "skillChoiceRules": {
+      "choose": 2,
+      "options": [
+        "arcana",
+        "animalHandling",
+        "insight",
+        "medicine",
+        "nature",
+        "perception",
+        "religion",
+        "survival"
+      ]
+    },
+    "spellcasting": {
+      "ability": "wis",
+      "kind": "prepared",
+      "preparedFormula": "levelPlusAbilityMod",
+      "spellSlotsByLevel": {
+        "1": {
+          "level_1": 2
+        },
+        "2": {
+          "level_1": 3
+        },
+        "3": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "4": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 2,
+          "level_8": 1,
+          "level_9": 1
+        }
+      },
+      "cantripsKnownByLevel": {
+        "1": 2,
+        "4": 3,
+        "10": 4
+      },
+      "restRecovery": "long"
+    },
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "spellcasting",
+          "druidic",
+          "wild-shape"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "druid-circle",
+          "wild-shape-improvement"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement",
+          "wild-shape-improvement"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "beast-spells",
+          "timeless-body"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "archdruid"
+        ]
+      }
+    }
+  },
+  {
+    "id": "monk",
+    "name": "Monk",
+    "hitDie": 8,
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "str",
+      "dex"
+    ],
+    "savingThrowProficiencies": [
+      "str",
+      "dex"
+    ],
+    "armorProficiencies": [],
+    "weaponProficiencies": [
+      "simple",
+      "shortsword"
+    ],
+    "skillChoiceRules": {
+      "choose": 2,
+      "options": [
+        "acrobatics",
+        "athletics",
+        "history",
+        "insight",
+        "religion",
+        "stealth"
+      ]
+    },
+    "spellcasting": null,
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "martial-arts",
+          "monk-unarmored-defense"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "monks-focus",
+          "unarmored-movement",
+          "uncanny-metabolism"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "monk-subclass",
+          "deflect-attacks"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement",
+          "slow-fall"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "monk-extra-attack",
+          "stunning-strike"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "archetype-feature",
+          "empowered-strikes"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "evasion",
+          "stillness-of-mind"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "acrobatic-movement"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "heightened-focus",
+          "self-restoration"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "deflect-energy"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "disciplined-survivor"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "perfect-focus"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "superior-defense"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "body-and-mind"
+        ]
+      }
+    }
+  },
+  {
+    "id": "paladin",
+    "name": "Paladin",
+    "hitDie": 10,
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "str",
+      "cha"
+    ],
+    "savingThrowProficiencies": [
+      "wis",
+      "cha"
+    ],
+    "armorProficiencies": [
+      "light",
+      "medium",
+      "heavy",
+      "shield"
+    ],
+    "weaponProficiencies": [
+      "simple",
+      "martial"
+    ],
+    "skillChoiceRules": {
+      "choose": 2,
+      "options": [
+        "athletics",
+        "insight",
+        "intimidation",
+        "medicine",
+        "persuasion",
+        "religion"
+      ]
+    },
+    "spellcasting": {
+      "ability": "cha",
+      "kind": "prepared",
+      "preparedFormula": "halfLevelPlusAbilityMod",
+      "spellSlotsByLevel": {
+        "2": {
+          "level_1": 2
+        },
+        "3": {
+          "level_1": 3
+        },
+        "4": {
+          "level_1": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        }
+      },
+      "cantripsKnownByLevel": {},
+      "restRecovery": "long"
+    },
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "lay-on-hands",
+          "divine-sense",
+          "paladin-weapon-mastery"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "paladin-fighting-style",
+          "spellcasting",
+          "divine-smite"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "paladin-channel-divinity",
+          "sacred-oath"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "paladin-extra-attack",
+          "faithful-steed"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "aura-of-protection"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "abjure-enemies"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "aura-of-courage"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "radiant-strikes"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "restoring-touch"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "aura-expansion"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "sacred-weapon"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ranger",
+    "name": "Ranger",
+    "hitDie": 10,
+    "subclassLevel": 3,
+    "primaryAbilities": [
+      "dex",
+      "wis"
+    ],
+    "savingThrowProficiencies": [
+      "str",
+      "dex"
+    ],
+    "armorProficiencies": [
+      "light",
+      "medium",
+      "shield"
+    ],
+    "weaponProficiencies": [
+      "simple",
+      "martial"
+    ],
+    "skillChoiceRules": {
+      "choose": 3,
+      "options": [
+        "animalHandling",
+        "athletics",
+        "insight",
+        "investigation",
+        "nature",
+        "perception",
+        "stealth",
+        "survival"
+      ]
+    },
+    "spellcasting": {
+      "ability": "wis",
+      "kind": "known",
+      "spellSlotsByLevel": {
+        "2": {
+          "level_1": 2
+        },
+        "3": {
+          "level_1": 3
+        },
+        "4": {
+          "level_1": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        }
+      },
+      "cantripsKnownByLevel": {},
+      "restRecovery": "long"
+    },
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "ranger-expertise",
+          "favored-enemy",
+          "spellcasting",
+          "ranger-weapon-mastery"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "ranger-fighting-style",
+          "deft-explorer"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "ranger-subclass",
+          "roving"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "ranger-extra-attack",
+          "tireless"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "fleet-of-foot",
+          "foe-slayer"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "relentless-hunter"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "archetype-feature"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "feral-senses"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "foe-slayer-improved"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sorcerer",
+    "name": "Sorcerer",
+    "hitDie": 6,
+    "subclassLevel": 1,
+    "primaryAbilities": [
+      "cha"
+    ],
+    "savingThrowProficiencies": [
+      "con",
+      "cha"
+    ],
+    "armorProficiencies": [],
+    "weaponProficiencies": [
+      "dagger",
+      "dart",
+      "sling",
+      "quarterstaff",
+      "light-crossbow"
+    ],
+    "skillChoiceRules": {
+      "choose": 2,
+      "options": [
+        "arcana",
+        "deception",
+        "insight",
+        "intimidation",
+        "persuasion",
+        "religion"
+      ]
+    },
+    "spellcasting": {
+      "ability": "cha",
+      "kind": "known",
+      "spellSlotsByLevel": {
+        "1": {
+          "level_1": 2
+        },
+        "2": {
+          "level_1": 3
+        },
+        "3": {
+          "level_1": 4,
+          "level_2": 2
+        },
+        "4": {
+          "level_1": 4,
+          "level_2": 3
+        },
+        "5": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 2
+        },
+        "6": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3
+        },
+        "7": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 1
+        },
+        "8": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 2
+        },
+        "9": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 1
+        },
+        "10": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2
+        },
+        "11": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "12": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1
+        },
+        "13": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "14": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1
+        },
+        "15": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "16": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1
+        },
+        "17": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 2,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "18": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 1,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "19": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 1,
+          "level_8": 1,
+          "level_9": 1
+        },
+        "20": {
+          "level_1": 4,
+          "level_2": 3,
+          "level_3": 3,
+          "level_4": 3,
+          "level_5": 3,
+          "level_6": 2,
+          "level_7": 2,
+          "level_8": 1,
+          "level_9": 1
+        }
+      },
+      "cantripsKnownByLevel": {
+        "1": 4,
+        "4": 5,
+        "10": 6
+      },
+      "restRecovery": "long"
+    },
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "spellcasting",
+          "sorcerous-origin",
+          "innate-sorcery"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "font-of-magic",
+          "sorcery-points"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "metamagic"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "sorc-subclass-feature"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "sorc-subclass-feature"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "sorc-subclass-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "metamagic"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "sorc-subclass-feature"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "magical-guidance"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "sorc-subclass-feature"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "metamagic"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "sorcerous-restoration"
+        ]
+      }
+    }
+  },
+  {
+    "id": "warlock",
+    "name": "Warlock",
+    "hitDie": 8,
+    "subclassLevel": 1,
+    "primaryAbilities": [
+      "cha"
+    ],
+    "savingThrowProficiencies": [
+      "wis",
+      "cha"
+    ],
+    "armorProficiencies": [
+      "light"
+    ],
+    "weaponProficiencies": [
+      "simple"
+    ],
+    "skillChoiceRules": {
+      "choose": 2,
+      "options": [
+        "arcana",
+        "deception",
+        "history",
+        "intimidation",
+        "investigation",
+        "nature",
+        "religion"
+      ]
+    },
+    "spellcasting": {
+      "ability": "cha",
+      "kind": "pact",
+      "spellSlotsByLevel": {
+        "1": {
+          "level_1": 1
+        },
+        "2": {
+          "level_1": 2
+        },
+        "3": {
+          "level_2": 2
+        },
+        "4": {
+          "level_2": 2
+        },
+        "5": {
+          "level_3": 2
+        },
+        "6": {
+          "level_3": 2
+        },
+        "7": {
+          "level_4": 2
+        },
+        "8": {
+          "level_4": 2
+        },
+        "9": {
+          "level_5": 2
+        },
+        "10": {
+          "level_5": 2
+        },
+        "11": {
+          "level_5": 3
+        },
+        "12": {
+          "level_5": 3
+        },
+        "13": {
+          "level_5": 3
+        },
+        "14": {
+          "level_5": 3
+        },
+        "15": {
+          "level_5": 3
+        },
+        "16": {
+          "level_5": 3
+        },
+        "17": {
+          "level_5": 4
+        },
+        "18": {
+          "level_5": 4
+        },
+        "19": {
+          "level_5": 4
+        },
+        "20": {
+          "level_5": 4
+        }
+      },
+      "cantripsKnownByLevel": {
+        "1": 2,
+        "4": 3,
+        "10": 4
+      },
+      "restRecovery": "short"
+    },
+    "levelProgression": {
+      "1": {
+        "featureIds": [
+          "otherworldly-patron",
+          "pact-magic"
+        ]
+      },
+      "2": {
+        "featureIds": [
+          "eldritch-invocations"
+        ]
+      },
+      "3": {
+        "featureIds": [
+          "pact-boon"
+        ]
+      },
+      "4": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "5": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "6": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "7": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "8": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "9": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "10": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "11": {
+        "featureIds": [
+          "mystic-arcanum-6"
+        ]
+      },
+      "12": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "13": {
+        "featureIds": [
+          "mystic-arcanum-7"
+        ]
+      },
+      "14": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "15": {
+        "featureIds": [
+          "mystic-arcanum-8"
+        ]
+      },
+      "16": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "17": {
+        "featureIds": [
+          "mystic-arcanum-9"
+        ]
+      },
+      "18": {
+        "featureIds": [
+          "warlock-subclass-feature"
+        ]
+      },
+      "19": {
+        "featureIds": [
+          "ability-score-improvement"
+        ]
+      },
+      "20": {
+        "featureIds": [
+          "eldritch-master"
+        ]
+      }
     }
   }
 ]

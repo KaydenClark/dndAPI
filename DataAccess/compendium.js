@@ -56,7 +56,8 @@ async function getBootstrapCompendium() {
         // raceGroup drives the base-race -> subrace two-step picker in the wizard
         listCollection('races', { _id: 0, id: 1, name: 1, speed: 1, size: 1, raceGroup: 1 }),
         // skillChoiceRules drives the Phase 1 skill proficiency selection UI
-        listCollection('classes', { _id: 0, id: 1, name: 1, primaryAbilities: 1, skillChoiceRules: 1 }),
+        // subclassLevel drives the wizard early-gate and LevelUpStudio notice
+        listCollection('classes', { _id: 0, id: 1, name: 1, primaryAbilities: 1, skillChoiceRules: 1, subclassLevel: 1 }),
         listCollection('subclasses', { _id: 0, id: 1, classId: 1, name: 1 }),
         listCollection('weapons', { _id: 0, id: 1, name: 1, category: 1, weaponType: 1 }),
         listCollection('armor', { _id: 0, id: 1, name: 1, category: 1, baseAc: 1 }),
@@ -83,6 +84,7 @@ async function getBootstrapCompendium() {
 }
 
 module.exports = {
+    getCollectionMap,
     getBootstrapCompendium,
     getCompendiumIndex
 };

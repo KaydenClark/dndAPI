@@ -10,7 +10,7 @@ const features = require('./features.json');
 // fallbacks used in local development and CI.
 const backgrounds = require('./backgrounds.json');
 const feats = [];
-const conditions = [];
+const conditions = require('./conditions.json');
 const users = require('./users.json');
 const characters = require('./characters.json');
 const { load5eToolsCompendium } = require('./import5etools');

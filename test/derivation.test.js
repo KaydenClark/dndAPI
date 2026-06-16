@@ -116,144 +116,29 @@ test('background grants skills without baking them into raw skillProficiencies',
     assert.ok(result.toolProficiencies.includes('gaming-set'));
 });
 
-test('a free-text background contributes no grants and does not throw', () => {
-    const character = baseCharacter({ background: 'A Homebrew Past' });
+test('expertise doubles proficiency for a proficient skill', () => {
+    const character = baseCharacter({
+        background: 'soldier',
+        skillProficiencies: ['perception'],
+        expertiseProficiencies: ['perception']
+    });
     const result = buildCharacterDocument(character, makeCompendium());
 
-    assert.deepEqual(result.backgroundSkillProficiencies, []);
-    assert.equal(result.backgroundName, 'A Homebrew Past');
+    assert.deepEqual(result.expertiseProficiencies, ['perception']);
+    // perception: wis 13 + 1 racial = 14 -> mod +2; double prof 2 + 2 = +6.
+    assert.equal(result.skillValues.perception, 6);
+    assert.equal(result.passivePerception, 16);
 });
 
-test('derivation does not throw when the backgrounds compendium is absent', () => {
-    const compendium = makeCompendium();
-    delete compendium.backgrounds;
-
-    const result = buildCharacterDocument(baseCharacter({ background: 'soldier' }), compendium);
-
-    // Guard holds: no background data, no grants, no crash.
-    assert.deepEqual(result.backgroundSkillProficiencies, []);
-    assert.ok(Array.isArray(result.languages));
-});
-
-test('numeric background language choices do not crash language derivation', () => {
-    const compendium = makeCompendium();
-    compendium.backgrounds.set('sage', {
-        id: 'sage',
-        name: 'Sage',
-        skillProficiencies: ['arcana', 'history'],
-        languages: 2,
-        toolProficiencies: []
+test('expertise ignores skills that are not already proficient', () => {
+    const character = baseCharacter({
+        skillProficiencies: ['perception'],
+        expertiseProficiencies: ['arcana']
     });
+    const result = buildCharacterDocument(character, makeCompendium());
 
-    const result = buildCharacterDocument(baseCharacter({ background: 'sage' }), compendium);
-
-    assert.equal(result.backgroundName, 'Sage');
-    assert.deepEqual(result.languages, ['Common']);
-});
-
-test('finesse weapons use dexterity when it is better than strength', () => {
-    const compendium = makeCompendium();
-    compendium.weapons.set('dagger', {
-        id: 'dagger',
-        name: 'Dagger',
-        category: 'simple',
-        weaponType: 'melee',
-        damageDice: '1d4',
-        damageType: 'piercing',
-        finesse: true,
-        range: { normal: 20, long: 60 },
-        properties: ['finesse', 'thrown']
-    });
-
-    const result = buildCharacterDocument(baseCharacter({
-        baseAbilityScores: { str: 8, dex: 17, con: 14, int: 10, wis: 13, cha: 8 },
-        equippedWeaponIds: ['dagger']
-    }), compendium);
-
-    assert.equal(result.attacks[0].attackAbility, 'dex');
-    assert.equal(result.attacks[0].attackBonus, 6);
-    assert.equal(result.attacks[0].damageSummary, '1d4 + 4 piercing');
-});
-
-test('ranged weapons use dexterity and skip proficiency bonus when not proficient', () => {
-    const compendium = makeCompendium();
-    compendium.classes.get('fighter').weaponProficiencies = ['simple'];
-    compendium.weapons.set('hand-crossbow', {
-        id: 'hand-crossbow',
-        name: 'Hand Crossbow',
-        category: 'martial',
-        weaponType: 'ranged',
-        damageDice: '1d6',
-        damageType: 'piercing',
-        finesse: false,
-        range: { normal: 30, long: 120 },
-        properties: ['ammunition', 'light', 'loading']
-    });
-
-    const result = buildCharacterDocument(baseCharacter({
-        equippedWeaponIds: ['hand-crossbow'],
-        weaponProficiencies: []
-    }), compendium);
-
-    assert.equal(result.attacks[0].attackAbility, 'dex');
-    assert.equal(result.attacks[0].proficient, false);
-    assert.equal(result.attacks[0].attackBonus, 1);
-});
-
-test('spell slot expended counts are capped at derived slot totals', () => {
-    const compendium = makeCompendium();
-    compendium.classes.set('wizard', {
-        id: 'wizard',
-        name: 'Wizard',
-        hitDie: 6,
-        savingThrowProficiencies: ['int', 'wis'],
-        armorProficiencies: [],
-        weaponProficiencies: ['simple'],
-        skillChoiceRules: { choose: 2, options: ['arcana', 'history'] },
-        spellcasting: {
-            ability: 'int',
-            kind: 'prepared',
-            spellSlotsByLevel: {
-                3: { level_1: 4, level_2: 2 }
-            }
-        },
-        levelProgression: {}
-    });
-
-    const result = buildCharacterDocument(baseCharacter({
-        classId: 'wizard',
-        level: 3,
-        baseAbilityScores: { str: 8, dex: 14, con: 12, int: 16, wis: 10, cha: 10 },
-        spellSlots: {
-            level_1: { slotsExpended: 9 },
-            level_2: { slotsExpended: 1 }
-        }
-    }), compendium);
-
-    assert.equal(result.spellSlots.level_1.slotTotal, 4);
-    assert.equal(result.spellSlots.level_1.slotsExpended, 4);
-    assert.equal(result.spellSlots.level_2.slotsExpended, 1);
-});
-
-test('explicit maxHp/currentHp/hitDiceRemaining override derived defaults', () => {
-    const result = buildCharacterDocument(baseCharacter({
-        maxHp: 99,
-        currentHp: 12,
-        hitDiceRemaining: 0
-    }), makeCompendium());
-
-    assert.equal(result.maxHp, 99);
-    assert.equal(result.currentHp, 12);
-    assert.equal(result.hitDiceRemaining, 0);
-});
-
-test('unknown equipment ids are ignored instead of creating broken attacks', () => {
-    const result = buildCharacterDocument(baseCharacter({
-        equippedWeaponIds: ['missing-weapon', 'longsword']
-    }), makeCompendium());
-
-    assert.equal(result.attacks.length, 1);
-    assert.equal(result.attacks[0].weaponId, 'longsword');
+    assert.deepEqual(result.expertiseProficiencies, []);
+    assert.equal(result.skillValues.arcana, 0);
 });
 
 // ─── Extended compendium fixtures ────────────────────────────────────────────
@@ -665,4 +550,144 @@ test('race is resolved by name when raceId does not match any compendium key', (
     // Human +1 str: 15+1=16 (+3 mod) — confirms race was resolved
     assert.equal(result.abilityScores.str, 16);
     assert.equal(result.raceName, 'Human');
+});
+
+test('a free-text background contributes no grants and does not throw', () => {
+    const character = baseCharacter({ background: 'A Homebrew Past' });
+    const result = buildCharacterDocument(character, makeCompendium());
+
+    assert.deepEqual(result.backgroundSkillProficiencies, []);
+    assert.equal(result.backgroundName, 'A Homebrew Past');
+});
+
+test('derivation does not throw when the backgrounds compendium is absent', () => {
+    const compendium = makeCompendium();
+    delete compendium.backgrounds;
+
+    const result = buildCharacterDocument(baseCharacter({ background: 'soldier' }), compendium);
+
+    // Guard holds: no background data, no grants, no crash.
+    assert.deepEqual(result.backgroundSkillProficiencies, []);
+    assert.ok(Array.isArray(result.languages));
+});
+
+test('numeric background language choices do not crash language derivation', () => {
+    const compendium = makeCompendium();
+    compendium.backgrounds.set('sage', {
+        id: 'sage',
+        name: 'Sage',
+        skillProficiencies: ['arcana', 'history'],
+        languages: 2,
+        toolProficiencies: []
+    });
+
+    const result = buildCharacterDocument(baseCharacter({ background: 'sage' }), compendium);
+
+    assert.equal(result.backgroundName, 'Sage');
+    assert.deepEqual(result.languages, ['Common']);
+});
+
+test('finesse weapons use dexterity when it is better than strength', () => {
+    const compendium = makeCompendium();
+    compendium.weapons.set('dagger', {
+        id: 'dagger',
+        name: 'Dagger',
+        category: 'simple',
+        weaponType: 'melee',
+        damageDice: '1d4',
+        damageType: 'piercing',
+        finesse: true,
+        range: { normal: 20, long: 60 },
+        properties: ['finesse', 'thrown']
+    });
+
+    const result = buildCharacterDocument(baseCharacter({
+        baseAbilityScores: { str: 8, dex: 17, con: 14, int: 10, wis: 13, cha: 8 },
+        equippedWeaponIds: ['dagger']
+    }), compendium);
+
+    assert.equal(result.attacks[0].attackAbility, 'dex');
+    assert.equal(result.attacks[0].attackBonus, 6);
+    assert.equal(result.attacks[0].damageSummary, '1d4 + 4 piercing');
+});
+
+test('ranged weapons use dexterity and skip proficiency bonus when not proficient', () => {
+    const compendium = makeCompendium();
+    compendium.classes.get('fighter').weaponProficiencies = ['simple'];
+    compendium.weapons.set('hand-crossbow', {
+        id: 'hand-crossbow',
+        name: 'Hand Crossbow',
+        category: 'martial',
+        weaponType: 'ranged',
+        damageDice: '1d6',
+        damageType: 'piercing',
+        finesse: false,
+        range: { normal: 30, long: 120 },
+        properties: ['ammunition', 'light', 'loading']
+    });
+
+    const result = buildCharacterDocument(baseCharacter({
+        equippedWeaponIds: ['hand-crossbow'],
+        weaponProficiencies: []
+    }), compendium);
+
+    assert.equal(result.attacks[0].attackAbility, 'dex');
+    assert.equal(result.attacks[0].proficient, false);
+    assert.equal(result.attacks[0].attackBonus, 1);
+});
+
+test('spell slot expended counts are capped at derived slot totals', () => {
+    const compendium = makeCompendium();
+    compendium.classes.set('wizard', {
+        id: 'wizard',
+        name: 'Wizard',
+        hitDie: 6,
+        savingThrowProficiencies: ['int', 'wis'],
+        armorProficiencies: [],
+        weaponProficiencies: ['simple'],
+        skillChoiceRules: { choose: 2, options: ['arcana', 'history'] },
+        spellcasting: {
+            ability: 'int',
+            kind: 'prepared',
+            spellSlotsByLevel: {
+                3: { level_1: 4, level_2: 2 }
+            }
+        },
+        levelProgression: {}
+    });
+
+    const result = buildCharacterDocument(baseCharacter({
+        classId: 'wizard',
+        level: 3,
+        baseAbilityScores: { str: 8, dex: 14, con: 12, int: 16, wis: 10, cha: 10 },
+        spellSlots: {
+            level_1: { slotsExpended: 9 },
+            level_2: { slotsExpended: 1 }
+        }
+    }), compendium);
+
+    assert.equal(result.spellSlots.level_1.slotTotal, 4);
+    assert.equal(result.spellSlots.level_1.slotsExpended, 4);
+    assert.equal(result.spellSlots.level_2.slotsExpended, 1);
+});
+
+test('explicit maxHp/currentHp/hitDiceRemaining override derived defaults', () => {
+    const result = buildCharacterDocument(baseCharacter({
+        maxHp: 99,
+        currentHp: 12,
+        hitDiceRemaining: 0
+    }), makeCompendium());
+
+    assert.equal(result.maxHp, 99);
+    assert.equal(result.currentHp, 12);
+    assert.equal(result.hitDiceRemaining, 0);
+});
+
+test('unknown equipment ids are ignored instead of creating broken attacks', () => {
+    const result = buildCharacterDocument(baseCharacter({
+        equippedWeaponIds: ['missing-weapon', 'longsword']
+    }), makeCompendium());
+
+    assert.equal(result.attacks.length, 1);
+    assert.equal(result.attacks[0].weaponId, 'longsword');
 });

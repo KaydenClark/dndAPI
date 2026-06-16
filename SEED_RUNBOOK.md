@@ -1,10 +1,9 @@
 # Compendium Seed Runbook
 
-Completes Phase -1 / Milestone 0: load full rules data (including Backgrounds,
-Feats, Conditions) into MongoDB Atlas. This must be run from a machine with
-network access to Atlas and access to the 5etools data source. It cannot run
-from the Cowork sandbox (Atlas DNS is not on the network allowlist, and the
-5etools source drive is not mounted).
+Completes Phase 3: load rules data into MongoDB. Local fallback seed data now
+includes Backgrounds and Conditions. Feats remain empty in fallback seed data
+until ASI/feat selection is implemented; full 5etools import can still provide
+Feats when `FIVETOOLS_DATA_DIR` is configured.
 
 ## Prerequisites
 
@@ -25,27 +24,27 @@ from the Cowork sandbox (Atlas DNS is not on the network allowlist, and the
      is unset or unreadable.
    - The seed wipes and reloads all 10 compendium collections. It does not touch
      the `Character` collection.
+   - The command prints collection counts after seeding.
 
 ## Verification
 
-1. Seed output should report non-zero counts for `Backgrounds`, `Feats`, and
-   `Conditions`. Expected full-5etools counts: Backgrounds ~126, Feats ~226,
-   Conditions ~15.
+1. Seed output should report non-zero counts for `Backgrounds` and
+   `Conditions`. `Feats` may be `0` when using fallback seed data.
+   Expected full-5etools counts: Backgrounds ~126, Feats ~226, Conditions ~15.
 2. Start the API (`npm run dev`) and check the bootstrap endpoint:
    `curl http://localhost:5000/compendium/bootstrap`
-   The JSON response must contain non-empty `backgrounds`, `feats`, and
-   `conditions` arrays.
-3. Run the backend test suite: `npm test`. Expected: 13/13 pass.
+   The JSON response must contain non-empty `backgrounds` and `conditions`
+   arrays. `feats` is present and may be empty in fallback mode.
+3. Run the backend test suite: `npm test`. Expected: all tests pass with no
+   skipped roadmap seed tests.
    (Note: `mongodb-memory-server` downloads a MongoDB binary on first run; it
    needs network access to `fastdl.mongodb.org`.)
 
 ## If the seed falls back to static JSON
 
-`seeds/loadSeedData.js` ships empty stub arrays for Backgrounds, Feats, and
-Conditions. If the seed runs without `FIVETOOLS_DATA_DIR`, those three
-collections will be created but empty. That is expected and not an error, but it
-means the bootstrap arrays will be empty and any UI depending on them will show
-its empty state. Re-run with `FIVETOOLS_DATA_DIR` set to get real data.
+`seeds/loadSeedData.js` ships fallback arrays for Backgrounds and Conditions.
+Feats intentionally remain empty until feat/ASI UI rules are implemented. Re-run
+with `FIVETOOLS_DATA_DIR` set to get full imported data.
 
 ## Rollback
 
