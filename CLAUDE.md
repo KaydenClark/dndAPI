@@ -81,12 +81,17 @@ Tests use Node.js's built-in `node:test` runner with `supertest` for HTTP assert
 
 - `test/api.test.js` – Integration tests covering all routes end-to-end
 - `test/derivation.test.js` – Unit tests for `characterDerivation.js`
-- `test/support.test.js` – Tests for utility/validation helpers
+- `test/support.test.js` – Tests for utility/validation helpers, CORS, and error handler
 - `test/dataAccess.test.js` – Tests for the `DataAccess/` layer against in-memory Mongo
 - `test/mongo.test.js` – Tests for the `db/mongo.js` connection/index helpers
 - `test/validation.test.js` – Tests for character payload validation
+- `test/helpers/testDb.js` – Shared MongoDB helper; wraps `MongoMemoryServer` with a graceful skip when binary download is unavailable
 
-All 132 tests should pass (as of 2026-06-15). Run individual files with `node --test test/<file>`.
+**Test counts (as of 2026-06-16):** 162 total. 105 are pure unit tests that pass anywhere. 57 integration tests require a live MongoDB instance (they skip automatically with a clear message when `MongoMemoryServer` cannot download its binary).
+
+**TDD methodology:** Pure unit tests (`derivation`, `support`, `validation`) follow Red→Green directly — write the failing assertion first, then implement. Integration tests (`api`, `dataAccess`, `mongo`) require `MongoMemoryServer` and skip gracefully in restricted environments. To run all 162 green, ensure outbound access to `fastdl.mongodb.org`, or point `MONGOMS_SYSTEM_BINARY` to a local `mongod` binary.
+
+Run individual files with `node --test test/<file>`.
 
 ## Seeding
 

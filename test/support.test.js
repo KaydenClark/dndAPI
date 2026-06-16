@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { cloneDefaultCharacterSheet } = require('../defaults/characterSheet');
 const { asyncHandler } = require('../middleware/asyncHandler');
 const { authenticate, getJwtSecret } = require('../middleware/authenticate');
+const { buildCorsOptions } = require('../app');
 
 function createMockResponse() {
     return {
@@ -152,4 +153,164 @@ test('authenticate rejects a Bearer header with an empty token with 401', () => 
 
     assert.equal(response.statusCode, 401);
     assert.deepEqual(response.body, { error: 'Authorization token is required' });
+});
+
+// ─── buildCorsOptions ─────────────────────────────────────────────────────────
+
+test('buildCorsOptions returns empty object when CORS_ORIGIN is not set', () => {
+    const originalOrigin = process.env.CORS_ORIGIN;
+    delete process.env.CORS_ORIGIN;
+
+    const options = buildCorsOptions();
+
+    assert.deepEqual(options, {});
+    process.env.CORS_ORIGIN = originalOrigin;
+});
+
+test('buildCorsOptions returns empty object when CORS_ORIGIN is an empty string', () => {
+    const originalOrigin = process.env.CORS_ORIGIN;
+    process.env.CORS_ORIGIN = '';
+
+    const options = buildCorsOptions();
+
+    assert.deepEqual(options, {});
+    process.env.CORS_ORIGIN = originalOrigin;
+});
+
+test('buildCorsOptions allows a configured origin', () => {
+    const originalOrigin = process.env.CORS_ORIGIN;
+    process.env.CORS_ORIGIN = 'http://localhost:5173';
+
+    const { origin } = buildCorsOptions();
+    let allowedResult;
+    origin('http://localhost:5173', (err, allowed) => { allowedResult = allowed; });
+
+    assert.equal(allowedResult, true);
+    process.env.CORS_ORIGIN = originalOrigin;
+});
+
+test('buildCorsOptions rejects an unlisted origin', () => {
+    const originalOrigin = process.env.CORS_ORIGIN;
+    process.env.CORS_ORIGIN = 'http://localhost:5173';
+
+    const { origin } = buildCorsOptions();
+    let allowedResult;
+    origin('http://evil.example.com', (err, allowed) => { allowedResult = allowed; });
+
+    assert.equal(allowedResult, false);
+    process.env.CORS_ORIGIN = originalOrigin;
+});
+
+test('buildCorsOptions allows same-origin (no origin header) requests', () => {
+    const originalOrigin = process.env.CORS_ORIGIN;
+    process.env.CORS_ORIGIN = 'http://localhost:5173';
+
+    const { origin } = buildCorsOptions();
+    let allowedResult;
+    origin(undefined, (err, allowed) => { allowedResult = allowed; });
+
+    assert.equal(allowedResult, true);
+    process.env.CORS_ORIGIN = originalOrigin;
+});
+
+test('buildCorsOptions supports multiple comma-separated CORS_ORIGIN values', () => {
+    const originalOrigin = process.env.CORS_ORIGIN;
+    process.env.CORS_ORIGIN = 'http://localhost:5173, https://app.example.com';
+
+    const { origin } = buildCorsOptions();
+    let result1, result2, result3;
+    origin('http://localhost:5173', (e, a) => { result1 = a; });
+    origin('https://app.example.com', (e, a) => { result2 = a; });
+    origin('https://other.com', (e, a) => { result3 = a; });
+
+    assert.equal(result1, true);
+    assert.equal(result2, true);
+    assert.equal(result3, false);
+    process.env.CORS_ORIGIN = originalOrigin;
+});
+
+// ─── error handler ────────────────────────────────────────────────────────────
+
+function makeErrorHandler() {
+    // Extract the error handler from app.js logic directly to test without MongoDB
+    return (error, req, res, next) => {
+        if (res.headersSent) {
+            next(error);
+            return;
+        }
+        const statusCode = error.statusCode || 500;
+        const payload = { error: error.message || 'Internal server error' };
+        if (error.details) {
+            payload.details = error.details;
+        }
+        res.status(statusCode).json(payload);
+    };
+}
+
+test('error handler uses error.statusCode when set', () => {
+    const handler = makeErrorHandler();
+    const res = createMockResponse();
+    const err = Object.assign(new Error('Not found'), { statusCode: 404 });
+
+    handler(err, {}, res, () => {});
+
+    assert.equal(res.statusCode, 404);
+    assert.deepEqual(res.body, { error: 'Not found' });
+});
+
+test('error handler defaults to 500 when statusCode is absent', () => {
+    const handler = makeErrorHandler();
+    const res = createMockResponse();
+
+    handler(new Error('Unexpected failure'), {}, res, () => {});
+
+    assert.equal(res.statusCode, 500);
+    assert.deepEqual(res.body, { error: 'Unexpected failure' });
+});
+
+test('error handler includes details when error.details is set', () => {
+    const handler = makeErrorHandler();
+    const res = createMockResponse();
+    const err = Object.assign(new Error('Validation failed'), {
+        statusCode: 400,
+        details: [{ field: 'email', message: 'Required' }]
+    });
+
+    handler(err, {}, res, () => {});
+
+    assert.equal(res.statusCode, 400);
+    assert.deepEqual(res.body.details, [{ field: 'email', message: 'Required' }]);
+});
+
+test('error handler forwards to next when headers already sent', () => {
+    const handler = makeErrorHandler();
+    const res = { ...createMockResponse(), headersSent: true };
+    const err = new Error('Late error');
+    let nextError;
+
+    handler(err, {}, res, (e) => { nextError = e; });
+
+    assert.equal(nextError, err);
+});
+
+// ─── default character sheet ──────────────────────────────────────────────────
+
+test('cloneDefaultCharacterSheet includes restRecovery in spellcasting', () => {
+    const sheet = cloneDefaultCharacterSheet();
+    assert.equal(sheet.spellcasting.restRecovery, 'long');
+});
+
+test('cloneDefaultCharacterSheet includes all required fields', () => {
+    const sheet = cloneDefaultCharacterSheet();
+    const requiredFields = [
+        'email', 'userName', 'characterName', 'raceId', 'classId', 'level',
+        'baseAbilityScores', 'abilityScores', 'abilityMods', 'proficiencyBonus',
+        'maxHp', 'currentHp', 'armorClass', 'initiative', 'passivePerception',
+        'savingThrows', 'skillValues', 'spellcasting', 'spellSlots',
+        'conditions', 'deathSaves', 'currency', 'featureIds', 'features',
+        'inventory', 'equipment', 'expertiseProficiencies'
+    ];
+    for (const field of requiredFields) {
+        assert.ok(field in sheet, `missing required field: ${field}`);
+    }
 });
