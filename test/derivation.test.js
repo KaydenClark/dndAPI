@@ -6,7 +6,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { buildCharacterDocument } = require('../services/characterDerivation');
+const { buildCharacterDocument, getProficiencyBonus } = require('../services/characterDerivation');
 
 // Minimal compendium (Maps keyed by id): Human + Fighter + Longsword + the
 // Soldier background. Enough to derive a level 1 melee build.
@@ -690,4 +690,263 @@ test('unknown equipment ids are ignored instead of creating broken attacks', () 
 
     assert.equal(result.attacks.length, 1);
     assert.equal(result.attacks[0].weaponId, 'longsword');
+});
+
+// ─── Rest recovery ────────────────────────────────────────────────────────────
+
+test('non-caster fighter has spellcasting.restRecovery of long', () => {
+    // Fighter has no spellcasting; restRecovery should default to 'long'.
+    const result = buildCharacterDocument(baseCharacter(), makeCompendium());
+    assert.equal(result.spellcasting.restRecovery, 'long');
+});
+
+test('wizard (long-rest caster) has spellcasting.restRecovery of long', () => {
+    const result = buildCharacterDocument(wizardCharacter(), makeExtendedCompendium());
+    assert.equal(result.spellcasting.restRecovery, 'long');
+});
+
+test('warlock (short-rest caster) has spellcasting.restRecovery of short', () => {
+    const compendium = makeExtendedCompendium();
+    compendium.classes.set('warlock', {
+        id: 'warlock',
+        name: 'Warlock',
+        hitDie: 8,
+        savingThrowProficiencies: ['wis', 'cha'],
+        armorProficiencies: ['light'],
+        weaponProficiencies: ['simple'],
+        skillChoiceRules: { choose: 2, options: ['arcana', 'deception'] },
+        spellcasting: {
+            ability: 'cha',
+            kind: 'known',
+            restRecovery: 'short',
+            spellSlotsByLevel: {
+                1: { level_1: 1 },
+                2: { level_1: 2 },
+                3: { level_2: 2 },
+                5: { level_3: 2 }
+            }
+        },
+        levelProgression: {}
+    });
+
+    const result = buildCharacterDocument({
+        characterName: 'Shadow',
+        raceId: 'human',
+        classId: 'warlock',
+        level: 5,
+        baseAbilityScores: { str: 8, dex: 12, con: 12, int: 10, wis: 10, cha: 16 }
+    }, compendium);
+
+    assert.equal(result.spellcasting.restRecovery, 'short');
+    assert.equal(result.spellSlots.level_3.slotTotal, 2);
+});
+
+// ─── Half-caster spell slots ──────────────────────────────────────────────────
+
+test('paladin half-caster has no spell slots at level 1', () => {
+    const compendium = makeCompendium();
+    compendium.classes.set('paladin', {
+        id: 'paladin',
+        name: 'Paladin',
+        hitDie: 10,
+        savingThrowProficiencies: ['wis', 'cha'],
+        armorProficiencies: ['light', 'medium', 'heavy', 'shield'],
+        weaponProficiencies: ['simple', 'martial'],
+        skillChoiceRules: { choose: 2, options: ['athletics', 'persuasion'] },
+        spellcasting: {
+            ability: 'cha',
+            kind: 'prepared',
+            spellSlotsByLevel: {
+                2: { level_1: 2 },
+                3: { level_1: 3 },
+                5: { level_1: 4, level_2: 2 }
+            }
+        },
+        levelProgression: {}
+    });
+
+    const level1 = buildCharacterDocument({
+        characterName: 'Arthas',
+        raceId: 'human',
+        classId: 'paladin',
+        level: 1,
+        baseAbilityScores: { str: 16, dex: 10, con: 14, int: 8, wis: 12, cha: 14 }
+    }, compendium);
+
+    const level2 = buildCharacterDocument({
+        characterName: 'Arthas',
+        raceId: 'human',
+        classId: 'paladin',
+        level: 2,
+        baseAbilityScores: { str: 16, dex: 10, con: 14, int: 8, wis: 12, cha: 14 }
+    }, compendium);
+
+    assert.equal(level1.spellSlots.level_1.slotTotal, 0);
+    assert.equal(level2.spellSlots.level_1.slotTotal, 2);
+});
+
+// ─── Death saves ─────────────────────────────────────────────────────────────
+
+test('deathSaves defaults to zeroes when not provided', () => {
+    const result = buildCharacterDocument(baseCharacter(), makeCompendium());
+    assert.deepEqual(result.deathSaves, { successes: 0, failures: 0 });
+});
+
+test('deathSaves preserves an existing tracked state', () => {
+    const result = buildCharacterDocument(
+        baseCharacter({ deathSaves: { successes: 2, failures: 1 } }),
+        makeCompendium()
+    );
+    assert.deepEqual(result.deathSaves, { successes: 2, failures: 1 });
+});
+
+// ─── Flavor text fields ───────────────────────────────────────────────────────
+
+test('flavor text fields are preserved on the derived document', () => {
+    const result = buildCharacterDocument(baseCharacter({
+        traits: 'Brave',
+        ideals: 'Justice',
+        bonds: 'My hometown',
+        flaws: 'Reckless',
+        backstory: 'Was an orphan'
+    }), makeCompendium());
+
+    assert.equal(result.traits, 'Brave');
+    assert.equal(result.ideals, 'Justice');
+    assert.equal(result.bonds, 'My hometown');
+    assert.equal(result.flaws, 'Reckless');
+    assert.equal(result.backstory, 'Was an orphan');
+});
+
+// ─── Inventory and equipment ──────────────────────────────────────────────────
+
+test('inventory and equipment arrays are preserved on the derived document', () => {
+    const result = buildCharacterDocument(
+        baseCharacter({ inventory: ['Rope', 'Torch'], equipment: ['Backpack'] }),
+        makeCompendium()
+    );
+    assert.deepEqual(result.inventory, ['Rope', 'Torch']);
+    assert.deepEqual(result.equipment, ['Backpack']);
+});
+
+test('non-array inventory and equipment are normalised to empty arrays', () => {
+    const result = buildCharacterDocument(
+        baseCharacter({ inventory: 'Rope', equipment: null }),
+        makeCompendium()
+    );
+    assert.deepEqual(result.inventory, []);
+    assert.deepEqual(result.equipment, []);
+});
+
+// ─── Numeric defaults ─────────────────────────────────────────────────────────
+
+test('tempHp defaults to 0 and xp defaults to 0', () => {
+    const result = buildCharacterDocument(baseCharacter(), makeCompendium());
+    assert.equal(result.tempHp, 0);
+    assert.equal(result.xp, 0);
+});
+
+// ─── Alignment ───────────────────────────────────────────────────────────────
+
+test('alignment is preserved when set and defaults to empty string when absent', () => {
+    const withAlignment = buildCharacterDocument(
+        baseCharacter({ alignment: 'Chaotic Good' }),
+        makeCompendium()
+    );
+    assert.equal(withAlignment.alignment, 'Chaotic Good');
+
+    const withoutAlignment = buildCharacterDocument(baseCharacter(), makeCompendium());
+    assert.equal(withoutAlignment.alignment, '');
+});
+
+// ─── Speed from race ─────────────────────────────────────────────────────────
+
+test('speed comes from the race entry (human 30, hill-dwarf 25)', () => {
+    const humanResult = buildCharacterDocument(baseCharacter(), makeExtendedCompendium());
+    assert.equal(humanResult.speed, 30);
+
+    const dwarfResult = buildCharacterDocument({
+        characterName: 'Gimli',
+        raceId: 'hill-dwarf',
+        classId: 'fighter',
+        level: 1,
+        baseAbilityScores: { str: 16, dex: 10, con: 14, int: 8, wis: 12, cha: 8 }
+    }, makeExtendedCompendium());
+    assert.equal(dwarfResult.speed, 25);
+});
+
+// ─── hitDie format string ─────────────────────────────────────────────────────
+
+test('hitDie is formatted as a die string from the class entry', () => {
+    const fighter = buildCharacterDocument(baseCharacter(), makeCompendium());
+    assert.equal(fighter.hitDie, 'd10');
+
+    const wizard = buildCharacterDocument(wizardCharacter(), makeExtendedCompendium());
+    assert.equal(wizard.hitDie, 'd6');
+
+    const noClass = buildCharacterDocument(
+        { characterName: 'Nobody', level: 1, baseAbilityScores: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 } },
+        makeCompendium()
+    );
+    assert.equal(noClass.hitDie, '');
+});
+
+// ─── getProficiencyBonus at multiple levels ───────────────────────────────────
+
+test('getProficiencyBonus returns the correct value across all tier boundaries', () => {
+    // Tier 1: levels 1-4 → +2
+    assert.equal(getProficiencyBonus(1), 2);
+    assert.equal(getProficiencyBonus(4), 2);
+    // Tier 2: levels 5-8 → +3
+    assert.equal(getProficiencyBonus(5), 3);
+    assert.equal(getProficiencyBonus(8), 3);
+    // Tier 3: levels 9-12 → +4
+    assert.equal(getProficiencyBonus(9), 4);
+    assert.equal(getProficiencyBonus(12), 4);
+    // Tier 4: levels 13-16 → +5
+    assert.equal(getProficiencyBonus(13), 5);
+    assert.equal(getProficiencyBonus(16), 5);
+    // Tier 5: levels 17-20 → +6
+    assert.equal(getProficiencyBonus(17), 6);
+    assert.equal(getProficiencyBonus(20), 6);
+});
+
+// ─── Expertise on passive perception ─────────────────────────────────────────
+
+test('expertise in perception adds a second proficiency bonus to passivePerception', () => {
+    // wis 13 + 1 human = 14 → mod +2; prof 2 at level 1
+    // With both proficiency and expertise: passive = 10 + 2 + 2 + 2 = 16
+    const result = buildCharacterDocument(baseCharacter({
+        skillProficiencies: ['perception'],
+        expertiseProficiencies: ['perception']
+    }), makeCompendium());
+
+    // Basic proficiency alone would give 14; expertise adds another profBonus.
+    assert.equal(result.passivePerception, 16);
+    // Confirm the skill value also reflects double proficiency.
+    assert.equal(result.skillValues.perception, 6);
+});
+
+// ─── subclassId and subclassName ──────────────────────────────────────────────
+
+test('subclassId and subclassName are resolved from the compendium', () => {
+    const result = buildCharacterDocument(
+        baseCharacter({ level: 3, subclassId: 'champion' }),
+        makeExtendedCompendium()
+    );
+    assert.equal(result.subclassId, 'champion');
+    assert.equal(result.subclassName, 'Champion');
+});
+
+// ─── toolProficiencies merge ──────────────────────────────────────────────────
+
+test('toolProficiencies merges character picks and background grants', () => {
+    // Soldier background grants 'gaming-set'; character adds 'thieves-tools'.
+    const result = buildCharacterDocument(baseCharacter({
+        background: 'soldier',
+        toolProficiencies: ['thieves-tools']
+    }), makeCompendium());
+
+    assert.ok(result.toolProficiencies.includes('thieves-tools'), 'character tool should be present');
+    assert.ok(result.toolProficiencies.includes('gaming-set'), 'background tool should be present');
 });

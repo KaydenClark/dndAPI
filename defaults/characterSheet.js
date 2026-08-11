@@ -42,7 +42,8 @@ const defaultCharacterSheet = {
     spellcasting: {
         classId: '',
         ability: null,
-        kind: null
+        kind: null,
+        restRecovery: 'long'
     },
     spellSlots: {
         cantrips: [],
